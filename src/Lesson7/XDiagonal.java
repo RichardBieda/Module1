@@ -4,18 +4,25 @@ public class XDiagonal {
 
     public static void main(String[] args) {
 
+//        int[][] matrix = {
+//                {4, 8, 4, 7, 0, 7},
+//                {1, 9, 5, 1, 7, 6},
+//                {6, 3, 4, 1, 5, 3},
+//                {1, 9, 5, 1, 7, 8},
+//                {4, 8, 4, 9, 1, 2},
+//                {5, 6, 1, 7, 3, 4},
+//        };
         int[][] matrix = {
-                {4, 8, 4, 7, 0, 7},
-                {1, 9, 5, 1, 7, 6},
-                {6, 3, 4, 1, 5, 3},
-                {1, 9, 5, 1, 7, 8},
-                {4, 8, 4, 9, 0, 2},
-                {5, 6, 1, 7, 3, 4},
+                {4, 8, 4, 7, 0},
+                {1, 9, 5, 1, 7},
+                {6, 3, 4, 1, 5},
+                {1, 9, 5, 1, 7},
+                {4, 8, 4, 9, 0},
         };
 
         int belowX = 0;
         for (int i = (matrix.length/2) +1; i < matrix.length; i++) { //it is unnecessary to count the first half of arrays.
-            for (int j = matrix[i].length -i; j <= i ; j++) {
+            for (int j = matrix[i].length -i; j < i ; j++) {
                 belowX += matrix[i][j];
             }
         }
