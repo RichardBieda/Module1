@@ -53,14 +53,14 @@ public class Solution {
     //This method finds the second-largest element in an array, the return typ is an int.
     static int getSecondLargestElement(int[] arr) {
         int largest = arr[0];
-        int secondLargest = 0;
+        int secondLargest = Integer.MIN_VALUE;
 
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] > largest) {
-                int tmp = largest;
+                secondLargest = largest;
                 largest = arr[i];
-                secondLargest = tmp;
-            } else if (arr[i] > secondLargest && arr[i] < largest) {
+            }
+            if (arr[i] > secondLargest && arr[i] < largest) {
                 secondLargest = arr[i];
             }
         }
