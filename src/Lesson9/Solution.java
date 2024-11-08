@@ -13,7 +13,7 @@ public class Solution {
         String reversedString = reverseWords(test);
         System.out.println(test + "\n" + reversedString);
 
-        String[] prefix = {"apple", "application", "ape"};
+        String[] prefix = {"apple", "application", "ape", "ahh"};
         System.out.println("The longest common prefix is : " + getLongestPrefix(prefix));
     }
 
