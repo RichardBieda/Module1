@@ -14,7 +14,7 @@ public class Solution {
         boolean isAnagram = isAnagram("apple", "ppale");
         System.out.println(isAnagram);
 
-        String compress = compress("aadazbcdcc");
+        String compress = compress("aadazbcdccz");
         System.out.println(compress);
     }
 
@@ -25,12 +25,11 @@ public class Solution {
             return '0';
         }
 
-        String str1 = str.replaceAll("[\\d]", "").replaceAll("[\\p{Space}]", "").replaceAll("[\\p{Punct}]", "");
-        if (str1.isEmpty()) {
+        String tmp = replaceUnimportantSigns(str).toLowerCase();
+        if (tmp.isEmpty()) {
             return '0';
         }
 
-        String tmp = str1.toLowerCase();
         char result = '0';
         int maxCount = 0;
         for (int i = 0; i < tmp.length(); i++) {
@@ -53,8 +52,11 @@ public class Solution {
         if ((str1 == null || str1.isEmpty()) || (str2 == null || str2.isEmpty())) {
             return false;
         }
+        if (str1.length() != str2.length()) {
+            return false;
+        }
         if (str1.equalsIgnoreCase(str2)) {
-            return true;
+            return false;
         }
         char[] a = str1.toLowerCase().toCharArray();
         char[] b = str2.toLowerCase().toCharArray();
@@ -68,7 +70,7 @@ public class Solution {
         if (str == null || str.isEmpty()) {
             return "0";
         }
-        String str1 = str.replaceAll("[\\p{Digit}]", "").replaceAll("[\\p{Space}]", "").replaceAll("[\\p{Punct}]", "").toLowerCase();
+        String str1 = replaceUnimportantSigns(str).toLowerCase();
         char[] tmp = str.toCharArray();
         Arrays.sort(tmp);
         StringBuilder sb = new StringBuilder();
@@ -90,5 +92,10 @@ public class Solution {
 
 
         return sb.toString();
+    }
+
+    static String replaceUnimportantSigns(String str) {
+        String result =str.replaceAll("[\\p{Digit}]", "").replaceAll("[\\p{Space}]", "").replaceAll("[\\p{Punct}]", "");
+        return result;
     }
 }
