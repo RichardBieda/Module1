@@ -8,11 +8,14 @@ import java.util.Arrays;
 public class Solution {
 
     public static void main(String[] args) {
-        char mostCommonLetter = getMostCommonLetter("What is the most common letter here?");
+        char mostCommonLetter = getMostCommonLetter("aaattcccdad");
         System.out.println(mostCommonLetter);
 
         boolean isAnagram = isAnagram("apple", "ppale");
         System.out.println(isAnagram);
+
+        String compress = compress("aadazbcdcc");
+        System.out.println(compress);
     }
 
     //This method returns the letter that is most frequently in the given string. If several letters occur equally often,
@@ -59,5 +62,33 @@ public class Solution {
         Arrays.sort(b);
 
         return Arrays.equals(a, b);
+    }
+
+    static String compress(String str) {
+        if (str == null || str.isEmpty()) {
+            return "0";
+        }
+        String str1 = str.replaceAll("[\\p{Digit}]", "").replaceAll("[\\p{Space}]", "").replaceAll("[\\p{Punct}]", "").toLowerCase();
+        char[] tmp = str.toCharArray();
+        Arrays.sort(tmp);
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < tmp.length;) {
+            int count = 0;
+            for (int j = i; j < tmp.length; j++) {
+                if (tmp[j] == tmp[i]) {
+                    count++;
+                }
+            }
+            if (count == 1) {
+                sb.append("" + tmp[i]);
+            } else if (count > 1) {
+                sb.append("" + tmp[i] + count);
+            }
+            i = i + count;
+        }
+
+
+        return sb.toString();
     }
 }
