@@ -28,9 +28,7 @@ public class Converter {
             StringBuilder tmpResult = new StringBuilder(intToBinaryString(index));
             setZeros(tmpResult);
             result.append(tmpResult);
-
         }
-
         return result.toString();
     }
 //------------------------------------------------------
