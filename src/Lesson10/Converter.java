@@ -6,52 +6,88 @@ public class Converter {
     private final static char[] hexValues = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
     public static void main(String[] args) {
-        System.out.println(Integer.toBinaryString(155));//Test output
-        System.out.println(intToBinaryString(155));
-        System.out.println(hexToBinaryString("9b"));
-        System.out.println("---------------------------");
-        System.out.println(Integer.toHexString(155));//Test output
-        System.out.println(intToHexString(155));
-        System.out.println(binaryToHexString("10011011"));
-        System.out.println("---------------------------");
-        System.out.println(0x9b);//Test output
-        System.out.println(binaryStringToInt("10011011"));
-        System.out.println(hexStringToInt("9b"));
+        int test = -10;
+        String testHex = "fffffff6";
+        String testBinary = "11111111111111111111111111110110";
+        System.out.println(Integer.toBinaryString(test));//Test output
+        System.out.println(intToBinaryString(test));
+        System.out.println(hexToBinaryString(testHex));
+        System.out.println("--------------------------------");
+        System.out.println(Integer.toHexString(test));//Test output
+        System.out.println(intToHexString(test));
+        System.out.println(binaryToHexString(testBinary));
+        System.out.println("--------------------------------");
+        System.out.println(0xfffffff6);//Test output
+        System.out.println(binaryStringToInt(testBinary));
+        System.out.println(hexStringToInt(testHex));
     }
 
     static String intToBinaryString(int value) {
         StringBuilder result = new StringBuilder();
-        while (value > 0) {
-            result.append(value%2);
-            value /= 2;
+        if (value > -1) {
+            result.append(positiveBinaryString(value));
+        } else {
+            value = (-value) -1;
+            StringBuilder tmp = new StringBuilder(positiveBinaryString(value));
+            for (int i = 0; i < tmp.length(); i++) {
+                if (tmp.charAt(i) == '0') {
+                    tmp.setCharAt(i, '1');
+                } else {
+                    tmp.setCharAt(i, '0');
+                }
+            }
+            while (tmp.length() < 32) {
+                tmp.insert(0, '1');
+            }
+            result = tmp;
         }
-        return result.reverse().toString();
+        return result.toString();
     }
 
     static String hexToBinaryString(String value) {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < value.length(); i++) {
             int index = getIndex(value.charAt(i));
-            StringBuilder tmpResult = new StringBuilder(intToBinaryString(index));
-            setZeros(tmpResult);
+            StringBuilder tmpResult = new StringBuilder(positiveBinaryString(index));
+            if (i > 0) {
+                setZeros(tmpResult);
+            }
             result.append(tmpResult);
         }
         return result.toString();
     }
 
     static String intToHexString(int value) {
-        StringBuilder result = new StringBuilder();
-        while (value > 0) {
-            int index = value %16;
-            result.append(hexValues[index]);
-            value /= 16;
+        if (value == 0) {
+            return "0";
         }
-        return result.reverse().toString();
+        StringBuilder result = new StringBuilder();
+        if (value > 0) {
+            while (value > 0) {
+                int index = value % 16;
+                result.append(hexValues[index]);
+                value /= 16;
+            }
+            return result.reverse().toString();
+        } else {
+            StringBuilder tmp = new StringBuilder("ffffffff");
+            value = (-value) -1;
+            String minus = intToHexString(value);
+            int difference = tmp.length() - minus.length();
+            for (int i = minus.length()-1; i >= 0; i--) {
+                int minusInt = getIndex(minus.charAt(i));
+                tmp.setCharAt(difference + i, hexValues[hexValues.length-1 - minusInt]);
+            }
+            result = tmp;
+            return result.toString();
+        }
     }
 
     static String binaryToHexString(String value) {
         StringBuilder stValue = new StringBuilder(value);
-        setZeros(stValue);
+        if (stValue.length() < 32) {
+            setZeros(stValue);
+        }
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < stValue.length(); i = i+4) {
             int index = binaryStringToInt(stValue.substring(i, i+4));
@@ -78,8 +114,20 @@ public class Converter {
         }
         return result;
     }
-//------------------------------------------------------
+//--------------------------------------------------------------------------
     //helper methods
+    private static String positiveBinaryString(int value) {
+        if (value == 0) {
+           return "0";
+        }
+        StringBuilder result = new StringBuilder();
+        while (value > 0) {
+              result.append(value%2);
+              value /= 2;
+     }
+        return result.reverse().toString();
+    }
+
     private static int power(int base, int exponent) {
         int result = 1;
         for (int i = 0; i < exponent; i++) {
