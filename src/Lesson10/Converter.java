@@ -22,6 +22,7 @@ public class Converter {
         System.out.println(hexStringToInt(testHex));
     }
 
+
     static String intToBinaryString(int value) {
         StringBuilder result = new StringBuilder();
         if (value > -1) {
@@ -44,6 +45,7 @@ public class Converter {
         return result.toString();
     }
 
+
     static String hexToBinaryString(String value) {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < value.length(); i++) {
@@ -56,6 +58,7 @@ public class Converter {
         }
         return result.toString();
     }
+
 
     static String intToHexString(int value) {
         if (value == 0) {
@@ -83,6 +86,7 @@ public class Converter {
         }
     }
 
+
     static String binaryToHexString(String value) {
         StringBuilder stValue = new StringBuilder(value);
         if (stValue.length() < 32) {
@@ -96,6 +100,7 @@ public class Converter {
         return result.toString();
     }
 
+
     static int binaryStringToInt(String value) {
         int result = 0;
         for (int i = 0; i < value.length(); i++) {
@@ -104,6 +109,7 @@ public class Converter {
         }
         return result;
     }
+
     //I know the binaryToInt and the hexToString methods are almost the same.
     //They could be merged together.
     static int hexStringToInt(String value) {
@@ -128,6 +134,7 @@ public class Converter {
         return result.reverse().toString();
     }
 
+
     private static int power(int base, int exponent) {
         int result = 1;
         for (int i = 0; i < exponent; i++) {
@@ -135,6 +142,7 @@ public class Converter {
         }
         return result;
     }
+
 
     private static int getIndex(char c) {
         int result = 0;
@@ -146,6 +154,7 @@ public class Converter {
         }
         return result;
     }
+
 
     private static void setZeros(StringBuilder sb) {
         while (sb.length() %4 != 0) {

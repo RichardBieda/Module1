@@ -14,7 +14,7 @@ public class Solution {
         boolean isAnagram = isAnagram("apple", "ppale");
         System.out.println(isAnagram);
 
-        String compress = compress("aadazbcdccz");
+        String compress = compress("aaabcccaaa");
         System.out.println(compress);
     }
 
@@ -71,7 +71,7 @@ public class Solution {
             return "0";
         }
         String str1 = replaceUnimportantSigns(str).toLowerCase();
-        char[] tmp = str.toCharArray();
+        char[] tmp = str1.toCharArray();
         Arrays.sort(tmp);
         StringBuilder sb = new StringBuilder();
 
