@@ -3,7 +3,7 @@ package Lesson10;
 
 public class Converter {
 
-    private final static char[] hexValues = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+    private final static char[] HEX_VALUES = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
     public static void main(String[] args) {
         int test = -10;
@@ -68,7 +68,7 @@ public class Converter {
         if (value > 0) {
             while (value > 0) {
                 int index = value % 16;
-                result.append(hexValues[index]);
+                result.append(HEX_VALUES[index]);
                 value /= 16;
             }
             return result.reverse().toString();
@@ -79,7 +79,7 @@ public class Converter {
             int difference = tmp.length() - minus.length();
             for (int i = minus.length()-1; i >= 0; i--) {
                 int minusInt = getIndex(minus.charAt(i));
-                tmp.setCharAt(difference + i, hexValues[hexValues.length-1 - minusInt]);
+                tmp.setCharAt(difference + i, HEX_VALUES[HEX_VALUES.length-1 - minusInt]);
             }
             result = tmp;
             return result.toString();
@@ -95,7 +95,7 @@ public class Converter {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < stValue.length(); i = i+4) {
             int index = binaryStringToInt(stValue.substring(i, i+4));
-            result.append(hexValues[index]);
+            result.append(HEX_VALUES[index]);
         }
         return result.toString();
     }
@@ -146,8 +146,8 @@ public class Converter {
 
     private static int getIndex(char c) {
         int result = 0;
-        for (int i = 0; i < hexValues.length; i++) {
-            if (hexValues[i] == c) {
+        for (int i = 0; i < HEX_VALUES.length; i++) {
+            if (HEX_VALUES[i] == c) {
                 result = i;
                 break;
             }
