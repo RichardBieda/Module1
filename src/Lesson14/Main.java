@@ -20,6 +20,6 @@ public class Main {
         System.out.println(myArray.getSize() + "   " + myArray);
         myArray.trimToSize();
         System.out.println(myArray.getSize() + "   " + myArray);
-        System.out.println(myArray.get(12));
+        System.out.println(myArray.get(11));
     }
 }
