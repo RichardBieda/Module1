@@ -1,10 +1,8 @@
 package Lesson14;
 
-import java.util.Arrays;
-
 public class MyArray {
 
-    private int startLength = 10;
+    private final int startLength = 10;
     private String[] elements = new String[startLength];
     private int size;
 
