@@ -25,5 +25,6 @@ public class Main {
         System.out.println(myArray.getSize() + "   " + myArray);
         myArray.set(11, "133");
         System.out.println(myArray.getSize() + "   " + myArray);
+        System.out.println(myArray.get(11));
     }
 }
