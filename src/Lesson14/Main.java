@@ -23,7 +23,7 @@ public class Main {
         System.out.println(myArray.getSize() + "   " + myArray);
         myArray.remove(8);
         System.out.println(myArray.getSize() + "   " + myArray);
-        myArray.set(2, "33");
+        myArray.set(11, "133");
         System.out.println(myArray.getSize() + "   " + myArray);
     }
 }

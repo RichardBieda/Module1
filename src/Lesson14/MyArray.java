@@ -25,7 +25,7 @@ public class MyArray {
     }
 
     public String get(int index) {
-        if (index < size || index < 0) {
+        if (index < size || index >= 0) {
             return elements[index];
         } else {
             System.out.println("index is out of bounds");
@@ -34,7 +34,7 @@ public class MyArray {
     }
 
     public void set(int index, String newElement) {
-        if (index < 0 || index > size -1) {
+        if (index < 0 || index > size-1) {
             System.out.println("index out of bounds");
             return;
         }
