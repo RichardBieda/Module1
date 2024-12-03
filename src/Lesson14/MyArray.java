@@ -25,25 +25,33 @@ public class MyArray {
     }
 
     public String get(int index) {
-        if (index < size) {
+        if (index < size || index < 0) {
             return elements[index];
         } else {
             System.out.println("index is out of bounds");
+            return null;
         }
-        return null;
     }
 
-    public void size() {
-        int growingSize = elements.length + (elements.length / 2) + 1;
-        String[] newArray = new String[growingSize];
-        for (int i = 0; i < elements.length; i++) {
-            newArray[i] = elements[i];
+    public void set(int index, String newElement) {
+        if (index < 0 || index > size -1) {
+            System.out.println("index out of bounds");
+            return;
         }
-        elements = newArray;
+        elements[index] = newElement;
     }
 
     public int getSize() {
         return size;
+    }
+
+    public boolean contains(String string) {
+        for (int i = 0; i < size; i++) {
+            if (elements[i].equals(string)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void trimToSize() {
@@ -52,6 +60,41 @@ public class MyArray {
             newArray[i] = elements[i];
         }
         elements = newArray;
+    }
+
+    public void remove(String string) {
+        for (int i = 0; i < size; i++) {
+            if (elements[i].equals(string)) {
+                if (i < size -1) {
+                    for (int j = i; j < size -1; j++) {
+                        elements[j] = elements[j + 1];
+                    }
+                    elements[size-1] = null;
+                    size--;
+                    break;
+                } else {
+                    elements[i] = null;
+                    size--;
+                }
+            }
+        }
+    }
+
+    public void remove(int index) {
+        if (index < 0 || index > size -1) {
+            System.out.println("index out of bounds");
+            return;
+        }
+        if (index < size -1) {
+            for (int i = index; i < size -1; i++) {
+                elements[i] = elements[i + 1];
+            }
+            elements[size-1] = null;
+            size--;
+        } else {
+            elements[index] = null;
+            size--;
+        }
     }
 
     @Override
@@ -67,5 +110,14 @@ public class MyArray {
         }
         result.append("]");
         return result.toString();
+    }
+
+    private void size() {
+        int growingSize = elements.length + (elements.length / 2) + 1;
+        String[] newArray = new String[growingSize];
+        for (int i = 0; i < elements.length; i++) {
+            newArray[i] = elements[i];
+        }
+        elements = newArray;
     }
 }

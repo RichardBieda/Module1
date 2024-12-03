@@ -17,9 +17,13 @@ public class Main {
         myArray.add("10");
         myArray.add("11");
         myArray.add("12");
+        myArray.add("13");
         System.out.println(myArray.getSize() + "   " + myArray);
         myArray.trimToSize();
         System.out.println(myArray.getSize() + "   " + myArray);
-        System.out.println(myArray.get(11));
+        myArray.remove(8);
+        System.out.println(myArray.getSize() + "   " + myArray);
+        myArray.set(2, "33");
+        System.out.println(myArray.getSize() + "   " + myArray);
     }
 }
