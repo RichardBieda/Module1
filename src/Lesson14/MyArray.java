@@ -17,15 +17,13 @@ public class MyArray {
 
     public void add(String element) {
         if (size < elements.length) {
-            elements[size++] = element;
-        } else {
             size();
-            elements[size++] = element;
         }
+        elements[size++] = element;
     }
 
     public String get(int index) {
-        if (index <= size) {
+        if (index < size) {
             return elements[index];
         } else {
             System.out.println("index is out of bounds");
