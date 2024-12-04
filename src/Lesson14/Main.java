@@ -21,7 +21,7 @@ public class Main {
         System.out.println(myArray.getSize() + "   " + myArray);
         myArray.trimToSize();
         System.out.println(myArray.getSize() + "   " + myArray);
-        myArray.remove(8);
+        myArray.remove("12");
         System.out.println(myArray.getSize() + "   " + myArray);
         myArray.set(11, "133");
         System.out.println(myArray.getSize() + "   " + myArray);

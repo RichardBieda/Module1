@@ -2,7 +2,7 @@ package Lesson14;
 
 public class MyArray {
 
-    private final int startLength = 10;
+    private static final int startLength = 10;
     private String[] elements = new String[startLength];
     private int size;
 
@@ -63,19 +63,19 @@ public class MyArray {
     }
 
     public void remove(String string) {
-        for (int i = 0; i < size; i++) {
+        if (elements[size-1].equals(string)) {
+            elements[size-1] = null;
+            size--;
+            return;
+        }
+        for (int i = 0; i < size-1; i++) {
             if (elements[i].equals(string)) {
-                if (i < size -1) {
-                    for (int j = i; j < size -1; j++) {
-                        elements[j] = elements[j + 1];
-                    }
-                    elements[size-1] = null;
-                    size--;
-                    break;
-                } else {
-                    elements[i] = null;
-                    size--;
+                for (int j = i; j < size-1; j++) {
+                    elements[i] = elements[i+1];
                 }
+                elements[size-1] = null;
+                size--;
+                return;
             }
         }
     }
@@ -85,16 +85,16 @@ public class MyArray {
             System.out.println("index out of bounds");
             return;
         }
-        if (index < size -1) {
-            for (int i = index; i < size -1; i++) {
-                elements[i] = elements[i + 1];
-            }
+        if (index == size-1) {
             elements[size-1] = null;
             size--;
-        } else {
-            elements[index] = null;
-            size--;
+            return;
         }
+        for (int i = index; i < size-1; i++) {
+            elements[i] = elements[i + 1];
+        }
+        elements[size-1] = null;
+        size--;
     }
 
     @Override
