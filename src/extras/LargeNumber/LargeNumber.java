@@ -152,9 +152,10 @@ public class LargeNumber implements Comparable {
         }
         if ((isNegative && isMultiplicatorNegative) || (!isNegative && ! isMultiplicatorNegative)) {
             value = LargeNumber.multiply(value, multiplicator, radix);
-        } else {
-            value = "-" + LargeNumber.multiply(value, multiplicator, radix);
+            return;
         }
+        value = "-" + LargeNumber.multiply(value, multiplicator, radix);
+
     }
 
     public void divide(String divisor) throws LargeNumberValueException {
@@ -169,7 +170,11 @@ public class LargeNumber implements Comparable {
         if (isNegative) {
             value = value.replace("-", "");
         }
-        value = LargeNumber.divide(value, divisor, radix);
+        if ((isNegative && isDivisorNegative) || !isNegative && !isDivisorNegative) {
+            value = divide(value, divisor, radix);
+            return;
+        }
+        value = "-" + divide(value, divisor, radix);
     }
 
     @Override
@@ -214,6 +219,15 @@ public class LargeNumber implements Comparable {
 
 
     private static String multiply(String value, String multiplicator,int radix) {
+        int countZeros = 0;
+        for (int i = multiplicator.length()-1; i > 0; i--) {
+            if (multiplicator.charAt(i) == '0') {
+                countZeros++;
+            } else {
+                break;
+            }
+        }
+        multiplicator = multiplicator.substring(0, multiplicator.length() - countZeros);
         StringBuilder result = new StringBuilder();
         for (int i = multiplicator.length()-1; i >= 0; i--) {
             StringBuilder tmp = new StringBuilder();
@@ -235,7 +249,11 @@ public class LargeNumber implements Comparable {
             StringBuilder addingTerms = new StringBuilder(LargeNumber.add(result, tmp, radix));
             result = new StringBuilder(addingTerms);
         }
-        return result.toString();
+        StringBuilder zeros = new StringBuilder();
+        for (int i = 0; i < countZeros; i++) {
+            zeros.append('0');
+        }
+        return result.append(zeros).toString();
     }
 
     private static String divide(String value, String divisor, int radix) throws LargeNumberValueException {
@@ -248,36 +266,28 @@ public class LargeNumber implements Comparable {
         if (divisor.equals("1")) {
             return value;
         }
-        int countZeros = 0;
-        StringBuilder divisorSt = new StringBuilder(divisor);
-        while (value.length() > divisorSt.length()) {
-            divisorSt.append("0");
-            countZeros++;
+        String quotient = "1";
+        String newDivisor = divisor;
+        while (newDivisor.length() < value.length()-1) {
+                newDivisor = newDivisor + "0";
+                quotient = quotient + "0";
         }
-        if (isBigger(divisorSt.toString(), value)) {
-            divisorSt.deleteCharAt(divisorSt.length()-1);
-            countZeros--;
-        }
-        String[] times = fillTimesArray(divisorSt.toString(), radix);
-        StringBuilder dividend = new StringBuilder(value);
-        StringBuilder quotient = new StringBuilder();
-        boolean bigger = true;
-        while (bigger) {
-            for (int i = 1; i < times.length; i++) {
-                if (isBigger(times[i], dividend.toString())) {
-                    char c = times[i].equals(dividend.toString()) ? HEX_VALUES[i] : HEX_VALUES[i-1];
-                    quotient.append(c);
-                    String m = multiply(String.valueOf(c), divisorSt.toString(), radix);
-                    String x = subtract(dividend, new StringBuilder(m), radix);
-                    dividend = new StringBuilder(x).append("0");
-                    break;
-                }
+        String tmpQuotient = quotient.substring(0, quotient.length());
+        while (true) {
+            if (isBigger(value, add(new StringBuilder(newDivisor), new StringBuilder(multiply(divisor, tmpQuotient, radix)),radix))) {
+                newDivisor = add(new StringBuilder(newDivisor), new StringBuilder(multiply(divisor, tmpQuotient, radix)), radix);
+                quotient = add(new StringBuilder(quotient), new StringBuilder(tmpQuotient), radix);
+            } else {
+                tmpQuotient = tmpQuotient.substring(0, tmpQuotient.length()-1);
             }
-            if (quotient.length() == 1 + countZeros) {
-                bigger = false;
+            if (tmpQuotient.length() < 2|| newDivisor.equals(value)) {
+                break;
             }
         }
-
+        while (isBigger(value, add(new StringBuilder(newDivisor), new StringBuilder(divisor), radix))) {
+            newDivisor =  add(new StringBuilder(newDivisor), new StringBuilder(divisor), radix);
+            quotient =  add(new StringBuilder(quotient), new StringBuilder("1"), radix);
+        }
         return quotient.toString();
     }
 
@@ -352,15 +362,6 @@ public class LargeNumber implements Comparable {
             }
         }
         return true;
-    }
-
-    private static String[] fillTimesArray(String value, int radix) {
-        String[] result = new String[radix +1];
-        result[0] = "0";
-        for (int i = 1; i < result.length; i++) {
-            result[i] = add(new StringBuilder(result[i-1]), new StringBuilder(value), radix);
-        }
-        return result;
     }
 
     @Override
