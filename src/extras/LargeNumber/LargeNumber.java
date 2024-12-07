@@ -272,7 +272,7 @@ public class LargeNumber implements Comparable {
                 newDivisor = newDivisor + "0";
                 quotient = quotient + "0";
         }
-        String tmpQuotient = quotient.substring(0, quotient.length());
+        String tmpQuotient = quotient;
         while (true) {
             if (isBigger(value, add(new StringBuilder(newDivisor), new StringBuilder(multiply(divisor, tmpQuotient, radix)),radix))) {
                 newDivisor = add(new StringBuilder(newDivisor), new StringBuilder(multiply(divisor, tmpQuotient, radix)), radix);
