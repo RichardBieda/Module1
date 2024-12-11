@@ -1,5 +1,8 @@
 package Lesson14;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 public class MyArray {
 
     private static final int startLength = 10;
@@ -19,9 +22,27 @@ public class MyArray {
         if (size < elements.length) {
             elements[size++] = element;
         } else {
-            size();
+            enlargeArray();
             elements[size++] = element;
         }
+    }
+
+    public void add(int index , String element) {
+        if (index < 0) {
+            System.out.println("index out of bounds");
+            return;
+        } else if (index > size) {
+            add(element);
+            return;
+        }
+        if (size == elements.length) {
+            enlargeArray();
+        }
+        for (int i = size-1; i >= index; i--) {
+            elements[i+1] = elements[i];
+        }
+        elements[index] = element;
+        size++;
     }
 
     public String get(int index) {
@@ -41,7 +62,7 @@ public class MyArray {
         elements[index] = newElement;
     }
 
-    public int getSize() {
+    public int size() {
         return size;
     }
 
@@ -63,21 +84,16 @@ public class MyArray {
     }
 
     public void remove(String string) {
-        if (elements[size-1].equals(string)) {
-            elements[size-1] = null;
-            size--;
-            return;
-        }
-        for (int i = 0; i < size-1; i++) {
+        for (int i = 0; i < size; i++) {
             if (elements[i].equals(string)) {
                 for (int j = i; j < size-1; j++) {
-                    elements[i] = elements[i+1];
+                    elements[j] = elements[j+1];
                 }
-                elements[size-1] = null;
-                size--;
-                return;
+                break;
             }
         }
+        elements[size-1] = null;
+        size--;
     }
 
     public void remove(int index) {
@@ -85,16 +101,28 @@ public class MyArray {
             System.out.println("index out of bounds");
             return;
         }
-        if (index == size-1) {
-            elements[size-1] = null;
-            size--;
-            return;
-        }
         for (int i = index; i < size-1; i++) {
             elements[i] = elements[i + 1];
         }
         elements[size-1] = null;
         size--;
+    }
+
+    public void sort() {
+        Arrays.sort(elements);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof MyArray) {
+            return Arrays.equals(elements, ((MyArray) o).elements);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(elements);
     }
 
     @Override
@@ -112,7 +140,7 @@ public class MyArray {
         return result.toString();
     }
 
-    private void size() {
+    private void enlargeArray() {
         int growingSize = elements.length + (elements.length / 2) + 1;
         String[] newArray = new String[growingSize];
         for (int i = 0; i < elements.length; i++) {
