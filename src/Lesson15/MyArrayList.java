@@ -15,6 +15,7 @@ public class MyArrayList<T> {
             add(t);
         }
     }
+
     public void add(T data) {
         if (head != null) {
             Node<T> nextElement = head;
