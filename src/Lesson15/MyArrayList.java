@@ -40,7 +40,13 @@ public class MyArrayList<T> {
         }
         Node<T> oldElement = head;
         Node<T> newElement = new Node<>(data);
-        for (int i = 0; i < index; i++) {
+        if (index == 0) {
+            newElement.next = head;
+            head = newElement;
+            size++;
+            return;
+        }
+        for (int i = 1; i < index; i++) {
             oldElement = oldElement.next;
         }
         newElement.next = oldElement.next;
