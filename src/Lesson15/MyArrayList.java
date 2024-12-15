@@ -38,7 +38,6 @@ public class MyArrayList<T> {
             System.out.println("Index out of bounds");
             return;
         }
-        Node<T> oldElement = head;
         Node<T> newElement = new Node<>(data);
         if (index == 0) {
             newElement.next = head;
@@ -46,11 +45,12 @@ public class MyArrayList<T> {
             size++;
             return;
         }
+        Node<T> tmpElement = head;
         for (int i = 1; i < index; i++) {
-            oldElement = oldElement.next;
+            tmpElement = tmpElement.next;
         }
-        newElement.next = oldElement.next;
-        oldElement.next = newElement;
+        newElement.next = tmpElement.next;
+        tmpElement.next = newElement;
         size++;
     }
 
@@ -106,18 +106,11 @@ public class MyArrayList<T> {
             System.out.println("index out of bounds");
             return;
         }
-        Node<T> newElement = new Node<>(data);
-        if (index == 0) {
-            newElement.next = head.next;
-            head = newElement;
-            return;
-        }
         Node<T> tmp = head;
-        for (int i = 1; i < index; i++) {
+        for (int i = 0 ; i < index; i++) {
             tmp = tmp.next;
         }
-        newElement.next = tmp.next.next;
-        tmp.next = newElement;
+        tmp.data = data;
     }
 
     public int size() {

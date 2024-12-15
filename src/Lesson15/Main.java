@@ -23,7 +23,7 @@ public class Main {
         cl.add('D');
         cl.add('E');
         System.out.println(cl);
-        cl.set(4, 'Z');
+        cl.set(0, 'Z');
         System.out.println(cl + " " + cl.size());
     }
 }
