@@ -54,6 +54,41 @@ public class MyArrayList<T> {
         size++;
     }
 
+    public void remove(T data) {
+        if (head.data.equals(data)) {
+            head = head.next;
+            size--;
+            return;
+        }
+        Node<T> tmp = head;
+        for (int i = 1; i < size; i++) {
+            if (tmp.next.data.equals(data)) {
+                tmp.next = tmp.next.next;
+                size--;
+                return;
+            }
+            tmp = tmp.next;
+        }
+    }
+
+    public void remove(int index) {
+        if (index < 0 || index > size -1) {
+            System.out.println("index out of bounds");
+            return;
+        }
+        if (index == 0) {
+            head = head.next;
+            size--;
+            return;
+        }
+        Node<T> tmp = head;
+        for (int i = 1; i < index; i++) {
+            tmp = tmp.next;
+        }
+        tmp.next = tmp.next.next;
+        size--;
+    }
+
     public T get(int index) {
         if (index < 0 || index > size -1) {
             System.out.println("Index out of bounds");
@@ -64,6 +99,25 @@ public class MyArrayList<T> {
             result = result.next;
         }
         return result.data;
+    }
+
+    public void set(int index, T data) {
+        if (index < 0 || index > size -1) {
+            System.out.println("index out of bounds");
+            return;
+        }
+        Node<T> newElement = new Node<>(data);
+        if (index == 0) {
+            newElement.next = head.next;
+            head = newElement;
+            return;
+        }
+        Node<T> tmp = head;
+        for (int i = 1; i < index; i++) {
+            tmp = tmp.next;
+        }
+        newElement.next = tmp.next.next;
+        tmp.next = newElement;
     }
 
     public int size() {
