@@ -18,14 +18,14 @@ public class MyArrayList<T> {
 
     public void add(T data) {
         if (head != null) {
-            Node<T> nextElement = head;
+            Node<T> tmpElement = head;
             for (int i = 0; i < size; i++) {
-                if (nextElement.next == null) {
-                    nextElement.next = new Node<>(data);
+                if (tmpElement.next == null) {
+                    tmpElement.next = new Node<>(data);
                     size++;
                     return;
                 }
-                nextElement = nextElement.next;
+                tmpElement = tmpElement.next;
             }
         } else {
             head = new Node<>(data);
