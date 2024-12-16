@@ -25,5 +25,7 @@ public class Main {
         System.out.println(cl);
         cl.set(0, 'Z');
         System.out.println(cl + " " + cl.size());
+        cl.remove(cl.size()-1);
+        System.out.println(cl);
     }
 }
