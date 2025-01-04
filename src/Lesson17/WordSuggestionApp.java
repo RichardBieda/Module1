@@ -24,14 +24,13 @@ class WordSuggestionApp {
                 System.out.print(sentence);
                 continue;
             }
-            String suggest = setSuggests(sentence);
-            sentence = suggest;
+            sentence = setSuggests(sentence);
             System.out.print(sentence);
         }
         scanner.close();
         System.out.println();
-        for (int i = 0; i < sentences.size(); i++) {
-            System.out.println(sentences.get(i));
+        for (String s : sentences) {
+            System.out.println(s);
         }
     }
 
@@ -48,10 +47,10 @@ class WordSuggestionApp {
     }
 
     private static String setSuggests(String text) {
-        String asigningPart = text.replaceAll("\\w+ ", "");
+        String assigningPart = text.replaceAll("\\w+ ", "");
         String leftPart = text.replaceAll("( \\w+)$|(^\\w+)$", "");
         String preText = leftPart.isEmpty() ? "" : leftPart + " ";
-        String[] suggests = WordFinder.getSuggest(asigningPart);
+        String[] suggests = WordFinder.getSuggest(assigningPart);
         displaySuggests(suggests);
         String settings = scanner.nextLine();
         if (settings.equals("1") && suggests[0] != null) {

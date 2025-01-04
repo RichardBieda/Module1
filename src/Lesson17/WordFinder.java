@@ -78,12 +78,7 @@ class WordFinder {
     }
 
     private static Map<Integer, Set<String>> createOuterMapElements() {
-        Map<Integer, Set<String>> tmpMap = new TreeMap<>(new Comparator<Integer>() {
-            @Override
-            public int compare(Integer o1, Integer o2) {
-                return o2.compareTo(o1);
-            }
-        });
+        Map<Integer, Set<String>> tmpMap = new TreeMap<>((o1, o2) -> o2.compareTo(o1));
         return tmpMap;
     }
 
