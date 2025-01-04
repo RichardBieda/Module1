@@ -4,74 +4,76 @@ import java.util.*;
 
 class WordFinder {
 
-    final static Map<Character, Map<Integer, Set<String>>> words = new HashMap<>();
+    final static Map<Character, Map<Integer, Set<String>>> suggestsMap = new HashMap<>();
 
-    static String[] getSuggest(String input) {
+    static String[] getSuggest(String input) { //this method returns an array with 3 suggests
         input = input.toLowerCase().trim();
         Character firstLetter = input.charAt(0);
         String[] result = findSuggests(firstLetter, input);
         return result;
     }
 
-    private static String[] findSuggests(Character firstLetter, String input) {
-        Map<Integer, Set<String>> set = words.get(firstLetter);
+    private static String[] findSuggests(Character firstLetter, String input) { //this method finds the suggests in the suggestsMap
+        if (!suggestsMap.containsKey(firstLetter)) {
+            return new String[3];
+        }
         String[] result = new String[3];
         int count = 0;
         first:
-        for (Map.Entry<Integer, Set<String>> pair : set.entrySet()) {
+        for (Map.Entry<Integer, Set<String>> pair : suggestsMap.get(firstLetter).entrySet()) {
                 for (String x : pair.getValue()) {
-                    if (x.contains(input)) {
+                    if (x.startsWith(input)) {
                         result[count++] = x;
-                        if (count > 2) break first;
+                        if (count > 2) break first; break;
                     }
                 }
         }
         return result;
     }
 
-    static void add(String text) {
+    static void add(String text, Map<Character, Map<Integer, Set<String>>> mainMap) {//prepares text to work with them in addToWords
         String[] preparedText = prepareText(text);
         for (String word : preparedText) {
-            addToWords(word);
+            addToWords(word, mainMap);
         }
     }
 
-    private static void addToWords(String input) {
+    private static void addToWords(String input, Map<Character, Map<Integer, Set<String>>> mainMap) {//adds words the suggestsMap by its first letter and frequency
             input = input.toLowerCase().trim();
             Character firstLetter = input.charAt(0);
-            if (words.containsKey(firstLetter)) {
-                for (Map.Entry<Integer, Set<String>> innerMap : words.get(firstLetter).entrySet()) {
+            if (mainMap.containsKey(firstLetter)) {
+                for (Map.Entry<Integer, Set<String>> innerMap : mainMap.get(firstLetter).entrySet()) {
                     if (innerMap.getValue().contains(input)) {
-                        words.get(firstLetter).get(innerMap.getKey()).remove(input);
-                        addWordToSet(firstLetter, input, innerMap.getKey());
+                        mainMap.get(firstLetter).get(innerMap.getKey()).remove(input);
+                        addWordToSet(firstLetter, input, innerMap.getKey(), mainMap);
                         if (innerMap.getValue().isEmpty()) {
-                            words.get(firstLetter).remove(innerMap.getKey());
+                            mainMap.get(firstLetter).remove(innerMap.getKey());
                         }
                         return;
                     }
                 }
-                if (words.get(firstLetter).containsKey(1)) {
-                    words.get(firstLetter).get(1).add(input);
+                if (mainMap.get(firstLetter).containsKey(1)) {
+                    mainMap.get(firstLetter).get(1).add(input);
                 } else {
                     Set<String> tmpSet = new HashSet<>();
                     tmpSet.add(input);
-                    words.get(firstLetter).put(1, tmpSet);
+                    mainMap.get(firstLetter).put(1, tmpSet);
                 }
             } else {
-                words.put(firstLetter, createOuterMapElements());
-                addToWords(input);
+                mainMap.put(firstLetter, createOuterMapElements());
+                addToWords(input, mainMap);
             }
     }
 
-    private static void addWordToSet(Character letter, String word, Integer index) {
-        if (words.get(letter).containsKey(index +1)) {
-            Set<String> tmpSet = words.get(letter).get(index +1);
+    private static void addWordToSet(Character letter, String word, Integer index, Map<Character, Map<Integer, Set<String>>> mainMap) {//prevents double counting and inserts words to the right sets
+        if (mainMap.get(letter).containsKey(index +1)) {
+            Set<String> tmpSet = mainMap.get(letter).get(index +1);
             tmpSet.add(word);
-            words.get(letter).put(index +1, tmpSet);
+            mainMap.get(letter).put(index +1, tmpSet);
         } else {
             Set<String> tmpSet = new HashSet<>();
             tmpSet.add(word);
-            words.get(letter).put(index +1, tmpSet);
+            mainMap.get(letter).put(index +1, tmpSet);
         }
     }
 
@@ -85,8 +87,8 @@ class WordFinder {
         return tmpMap;
     }
 
-    public static void displayWordsAlphabetical() {
-        for (Map.Entry<Character, Map<Integer, Set<String>>> words : words.entrySet()) {
+    static void displayWordsAlphabetical(Map<Character, Map<Integer, Set<String>>> mainMap) {
+        for (Map.Entry<Character, Map<Integer, Set<String>>> words : mainMap.entrySet()) {
             System.out.println(words.getKey() + "--------------------");
             for (Map.Entry<Integer, Set<String>> pair : words.getValue().entrySet()) {
                 System.out.print(pair.getKey() + " ");
@@ -98,9 +100,9 @@ class WordFinder {
         }
     }
 
-    public static void displayWords() {
+    static void displayWords(Map<Character, Map<Integer, Set<String>>> mainMap) {
         Map<Integer, Set<String>> map = createOuterMapElements();
-        for (Map.Entry<Character, Map<Integer, Set<String>>> words : words.entrySet()) {
+        for (Map.Entry<Character, Map<Integer, Set<String>>> words : mainMap.entrySet()) {
             for (Map.Entry<Integer, Set<String>> pair : words.getValue().entrySet()) {
                 if (map.containsKey(pair.getKey())) {
                     Set<String> tmp = map.get(pair.getKey());
@@ -122,7 +124,8 @@ class WordFinder {
 
     private static String[] prepareText(String input) {
         String text = input.replaceAll("\\n", " ").replaceAll("( + )", " ");
-        String text2 = text.replaceAll("′", "").replaceAll("[\\p{Punct}&&[^']]", "").replaceAll("(\\W')|('\\W)", " ");
+        String text2 = text.replaceAll("[\\W&&[^' ]]", "").replaceAll("(\\W')|('\\W)", " ");
+        //String text2 = text.replaceAll("[”“’‘′]", "").replaceAll("[\\p{Punct}&&[^']]", "").replaceAll("(\\W')|('\\W)", " ");
         return text2.split(" ");
     }
 }
