@@ -1,5 +1,8 @@
 package Lesson17;
 
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
+import java.nio.charset.CharsetEncoder;
 import java.util.*;
 
 class WordSuggestionApp {
@@ -10,6 +13,8 @@ class WordSuggestionApp {
     */
 
     static final Scanner scanner = new Scanner(System.in);
+
+    static final ArrayList<String> sentences = new ArrayList<>();
     static boolean isAppOpen = true;
     static boolean isDictionaryAdded = false;
 
@@ -27,6 +32,11 @@ class WordSuggestionApp {
             sentence = suggest;
             System.out.print(sentence);
         }
+        scanner.close();
+        System.out.println();
+        for (int i = 0; i < sentences.size(); i++) {
+            System.out.println(sentences.get(i));
+        }
     }
 
     private static void displaySuggests(String[] suggests) {
@@ -37,11 +47,8 @@ class WordSuggestionApp {
                 System.out.printf("[ %d ] no suggests found ",i+1);
             }
         }
-        if (isDictionaryAdded) {
-            System.out.println("\n[ 4 ] display word count of lorem ipsum [ 5 ] close Application");
-        } else {
-            System.out.println("\n[ 4 ] add dictionary [ 5 ] display word count of lorem ipsum [ 6 ] close Application");
-        }
+        String addDictionary = isDictionaryAdded ? "" : " [ 7 ] add dictionary";
+        System.out.printf("\n[ 4 ] finished sentence [ 5 ] display word count of lorem ipsum [ 6 ] close%s\n", addDictionary);
     }
 
     private static String setSuggests(String text) {
@@ -52,35 +59,27 @@ class WordSuggestionApp {
         displaySuggests(suggests);
         String settings = scanner.nextLine();
         if (settings.equals("1") && suggests[0] != null) {
-            WordFinder.add(suggests[0], WordFinder.suggestsMap);
             return preText + suggests[0];
         } else if (settings.equals("2") && suggests[1] != null) {
-            WordFinder.add(suggests[1], WordFinder.suggestsMap);
             return preText + suggests[1];
         } else if (settings.equals("3") && suggests[2] != null) {
-            WordFinder.add(suggests[2], WordFinder.suggestsMap);
             return preText + suggests[2];
-        }
-        if (isDictionaryAdded) {
-            if (settings.equals("4")) {
-                getLoremIpsum();
-                return text;
-            } else if (settings.equals("5")) {
-                isAppOpen = false;
-                return text;
-            }
         } else if (settings.equals("4")) {
-            WordFinder.add(WordExample.DICTIONARY, WordFinder.suggestsMap);
-            isDictionaryAdded = true;
-            return text;
+            sentences.add(text);
+            return "";
         } else if (settings.equals("5")) {
             getLoremIpsum();
             return text;
         } else if (settings.equals("6")) {
             isAppOpen = false;
             return text;
+        } else if (settings.equals("7") && !isDictionaryAdded) {
+            WordFinder.add(WordExample.DICTIONARY, WordFinder.suggestsMap);
+            isDictionaryAdded = true;
+            return text;
+        } else {
+            return text;
         }
-        return text;
     }
 
     private static void startText() {
