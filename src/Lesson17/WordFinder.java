@@ -32,7 +32,7 @@ class WordFinder {
     }
 
     static void add(String text, Map<Character, Map<Integer, Set<String>>> mainMap) {//prepares text to work with them in addToWords
-        String[] preparedText = prepareText(text);
+        String[] preparedText = prepareWords(text);
         for (String word : preparedText) {
             addToWords(word, mainMap);
         }
@@ -122,7 +122,7 @@ class WordFinder {
         }
     }
 
-    private static String[] prepareText(String input) {
+    private static String[] prepareWords(String input) {
         String text = input.replaceAll("\\n", " ").replaceAll("( + )", " ");
         String text2 = text.replaceAll("[\\W&&[^' ]]", "").replaceAll("(\\W')|('\\W)", " ");
         //String text2 = text.replaceAll("[”“’‘′]", "").replaceAll("[\\p{Punct}&&[^']]", "").replaceAll("(\\W')|('\\W)", " ");

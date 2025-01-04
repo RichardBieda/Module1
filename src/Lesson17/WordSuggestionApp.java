@@ -1,8 +1,5 @@
 package Lesson17;
 
-import java.nio.charset.Charset;
-import java.nio.charset.CharsetDecoder;
-import java.nio.charset.CharsetEncoder;
 import java.util.*;
 
 class WordSuggestionApp {
@@ -13,7 +10,6 @@ class WordSuggestionApp {
     */
 
     static final Scanner scanner = new Scanner(System.in);
-
     static final ArrayList<String> sentences = new ArrayList<>();
     static boolean isAppOpen = true;
     static boolean isDictionaryAdded = false;
