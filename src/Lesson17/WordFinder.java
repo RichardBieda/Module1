@@ -9,8 +9,7 @@ class WordFinder {
     static String[] getSuggest(String input) { //this method returns an array with 3 suggests
         input = input.toLowerCase().trim();
         Character firstLetter = input.charAt(0);
-        String[] result = findSuggests(firstLetter, input);
-        return result;
+        return findSuggests(firstLetter, input);
     }
 
     private static String[] findSuggests(Character firstLetter, String input) { //this method finds the suggests in the suggestsMap
@@ -78,7 +77,7 @@ class WordFinder {
     }
 
     private static Map<Integer, Set<String>> createOuterMapElements() {
-        Map<Integer, Set<String>> tmpMap = new TreeMap<>((o1, o2) -> o2.compareTo(o1));
+        Map<Integer, Set<String>> tmpMap = new TreeMap<>(Comparator.reverseOrder());
         return tmpMap;
     }
 
