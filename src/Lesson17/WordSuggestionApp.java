@@ -35,7 +35,7 @@ final class WordSuggestionApp {
             System.out.print(sentence);
         }
         scanner.close();
-        System.out.println();
+        System.out.println("\nyour char course\n----------------");
         for (String s : sentences) {
             System.out.println(s);
         }
@@ -50,7 +50,7 @@ final class WordSuggestionApp {
             }
         }
         String addDictionary = isDictionaryAdded ? "" : " [ 7 ] add dictionary";
-        System.out.printf("\n[ 4 ] finished sentence [ 5 ] display word count of lorem ipsum [ 6 ] close%s\n", addDictionary);
+        System.out.printf("\n[ 4 ] send message [ 5 ] display word count of lorem ipsum [ 6 ] close%s\n", addDictionary);
     }
 
     private static String setSuggests(String text) {
