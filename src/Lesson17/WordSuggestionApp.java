@@ -2,21 +2,28 @@ package Lesson17;
 
 import java.util.*;
 
-class WordSuggestionApp {
+final class WordSuggestionApp {
     /*
     * At first, you will be asked to add a dictionary to the app. if you want that then press 1, if not press any other key.
     * start typing and press enter, so you get to the suggests and settings menu. If you want to use suggests or settings press the number keys, if not press enter or any other key.
     * and so on.
+    *
+    * In the suggests and settings menu:
+    * numbers 1, 2, 3 are for the suggests, if available.
+    * 4 adds your sentence to an arraylist (this is your course), simultaneously the words are added and counted in the dictionary.
+    * 5 loads and displays the word count of lorem ipsum.
+    * 6 closes this application.
+    * 7 inserts your dictionary, if it would not inserted at the beginning.
     */
 
-    static final Scanner scanner = new Scanner(System.in);
-    static final ArrayList<String> sentences = new ArrayList<>();
-    static boolean isAppOpen = true;
-    static boolean isDictionaryAdded = false;
+    private static final Scanner scanner = new Scanner(System.in);
+    private static final ArrayList<String> sentences = new ArrayList<>();
+    private static String sentence = "";
+    private static boolean isAppOpen = true;
+    private static boolean isDictionaryAdded = false;
 
     public static void main(String[] args) {
 
-        String sentence = "";
         startText();
         while (isAppOpen) {
             sentence += scanner.nextLine();
@@ -47,7 +54,7 @@ class WordSuggestionApp {
     }
 
     private static String setSuggests(String text) {
-        String assigningPart = text.replaceAll("\\w+ ", "");
+        String assigningPart = text.replaceAll(".+ ", "");
         String leftPart = text.replaceAll("( \\w+)$|(^\\w+)$", "");
         String preText = leftPart.isEmpty() ? "" : leftPart + " ";
         String[] suggests = WordFinder.getSuggest(assigningPart);
@@ -60,7 +67,9 @@ class WordSuggestionApp {
         } else if (settings.equals("3") && suggests[2] != null) {
             return preText + suggests[2];
         } else if (settings.equals("4")) {
+            WordFinder.add(text, WordFinder.suggestsMap);
             sentences.add(text);
+            sentence = "";
             return "";
         } else if (settings.equals("5")) {
             getLoremIpsum();

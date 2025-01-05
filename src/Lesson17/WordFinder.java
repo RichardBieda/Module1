@@ -2,7 +2,7 @@ package Lesson17;
 
 import java.util.*;
 
-class WordFinder {
+final class WordFinder {
 
     final static Map<Character, Map<Integer, Set<String>>> suggestsMap = new HashMap<>();
 
@@ -23,7 +23,9 @@ class WordFinder {
                 for (String x : pair.getValue()) {
                     if (x.startsWith(input)) {
                         result[count++] = x;
-                        if (count > 2) break first; break;
+                        if (count > 2) {
+                            return result;
+                        }
                     }
                 }
         }

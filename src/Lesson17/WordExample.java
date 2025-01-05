@@ -1,6 +1,6 @@
 package Lesson17;
 
-class WordExample {
+final class WordExample {
 
     static final String DICTIONARY = "As the snow flies\n" +
             "On cold and gray Chicago mornin'\n" +
