@@ -8,12 +8,19 @@ final class WordSuggestionApp {
     * start typing and press enter, so you get to the suggests and settings menu. If you want to use suggests or settings press the number keys, if not press enter or any other key.
     * and so on.
     *
-    * In the suggests and settings menu:
+    * In the suggests menu:
     * numbers 1, 2, 3 are for the suggests, if available.
     * 4 adds your sentence to an arraylist (this is your course), simultaneously the words are added and counted in the dictionary.
-    * 5 loads and displays the word count of lorem ipsum.
-    * 6 closes this application.
-    * 7 inserts your dictionary, if it would not inserted at the beginning.
+    * 5 removes your last char.
+    * 6 clears your present line.
+    * 7 shows your course.
+    * 8 opens the settings menu.
+    *
+    * inside the settings menu:
+    * 1 deletes or inserts the dictionary.
+    * 2 shows the word count of Lorem Ipsum.
+    * 3 shows your present dictionary in alphabetical order.
+    * 4 closes the application.
     */
 
     private static final Scanner scanner = new Scanner(System.in);
@@ -27,18 +34,12 @@ final class WordSuggestionApp {
         startText();
         while (isAppOpen) {
             sentence += scanner.nextLine();
-            if (sentence.isEmpty() || sentence.endsWith(" ")) {
-                System.out.print(sentence);
-                continue;
-            }
             sentence = setSuggests(sentence);
-            System.out.print(sentence);
+            System.out.print("write : " + sentence);
         }
         scanner.close();
-        System.out.println("\nyour char course\n----------------");
-        for (String s : sentences) {
-            System.out.println(s);
-        }
+        System.out.println("\nyour chat course\n----------------");
+        getCourse();
     }
 
     private static void displaySuggests(String[] suggests) {
@@ -49,8 +50,7 @@ final class WordSuggestionApp {
                 System.out.printf("[ %d ] no suggests found ",i+1);
             }
         }
-        String addDictionary = isDictionaryAdded ? "" : " [ 7 ] add dictionary";
-        System.out.printf("\n[ 4 ] send message [ 5 ] display word count of lorem ipsum [ 6 ] close%s\n", addDictionary);
+        System.out.println("\n[ 4 ] send message [ 5 ] remove [ 6 ] clear [ 7 ] course [ 8 ] settings");
     }
 
     private static String setSuggests(String text) {
@@ -59,6 +59,7 @@ final class WordSuggestionApp {
         String preText = leftPart.isEmpty() ? "" : leftPart + " ";
         String[] suggests = WordFinder.getSuggest(assigningPart);
         displaySuggests(suggests);
+        System.out.print("choose: ");
         String settings = scanner.nextLine();
         if (settings.equals("1") && suggests[0] != null) {
             return preText + suggests[0];
@@ -67,22 +68,44 @@ final class WordSuggestionApp {
         } else if (settings.equals("3") && suggests[2] != null) {
             return preText + suggests[2];
         } else if (settings.equals("4")) {
-            WordFinder.add(text, WordFinder.suggestsMap);
+            if (!text.isEmpty()) {
+                WordFinder.add(text, WordFinder.suggestsMap);
+            }
             sentences.add(text);
-            sentence = "";
             return "";
         } else if (settings.equals("5")) {
-            getLoremIpsum();
-            return text;
+            return text.substring(0, text.length() -1);
         } else if (settings.equals("6")) {
-            isAppOpen = false;
+            return "";
+        } else if (settings.equals("7")) {
+            getCourse();
             return text;
-        } else if (settings.equals("7") && !isDictionaryAdded) {
-            WordFinder.add(WordExample.DICTIONARY, WordFinder.suggestsMap);
-            isDictionaryAdded = true;
+        } else if (settings.equals("8")) {
+            getSettings();
             return text;
         } else {
             return text;
+        }
+    }
+
+    private static void getSettings() {
+        String dict = isDictionaryAdded ? "delete dictionary" : "insert dictionary";
+        System.out.printf("Settings menu:\n[ 1 ] %s [ 2 ] display Lorem Ipsum [ 3 ] show dictionary [ 4 ] close App\n",dict);
+        String settings = scanner.nextLine();
+        if (settings.equals("1")) {
+            if (isDictionaryAdded) {
+                WordFinder.suggestsMap.clear();
+                isDictionaryAdded = false;
+            } else {
+                WordFinder.add(WordExample.DICTIONARY, WordFinder.suggestsMap);
+                isDictionaryAdded = true;
+            }
+        } else if (settings.equals("2")) {
+            getLoremIpsum();
+        } else if (settings.equals("3")) {
+            WordFinder.displayWordsAlphabetical(WordFinder.suggestsMap);
+        } else if (settings.equals("4")) {
+            isAppOpen = false;
         }
     }
 
@@ -94,7 +117,13 @@ final class WordSuggestionApp {
             WordFinder.add(WordExample.DICTIONARY, WordFinder.suggestsMap);
             isDictionaryAdded = true;
         }
-        System.out.println("Start typing");
+        System.out.print("write: ");
+    }
+
+    private static void getCourse() {
+        for (String s : sentences) {
+            System.out.println(s);
+        }
     }
 
     private static void getLoremIpsum() {

@@ -4,9 +4,12 @@ import java.util.*;
 
 final class WordFinder {
 
-    final static Map<Character, Map<Integer, Set<String>>> suggestsMap = new HashMap<>();
+    final static Map<Character, Map<Integer, Set<String>>> suggestsMap = new TreeMap<>();
 
     static String[] getSuggest(String input) { //this method returns an array with 3 suggests
+        if (input.isEmpty()) {
+            return new String[3];
+        }
         input = input.toLowerCase().trim();
         Character firstLetter = input.charAt(0);
         return findSuggests(firstLetter, input);
@@ -35,11 +38,11 @@ final class WordFinder {
     static void add(String text, Map<Character, Map<Integer, Set<String>>> mainMap) {//prepares text to work with them in addToWords
         String[] preparedText = prepareWords(text);
         for (String word : preparedText) {
-            addToWords(word, mainMap);
+            addToSuggestsMap(word, mainMap);
         }
     }
 
-    private static void addToWords(String input, Map<Character, Map<Integer, Set<String>>> mainMap) {//adds words the suggestsMap by its first letter and frequency
+    private static void addToSuggestsMap(String input, Map<Character, Map<Integer, Set<String>>> mainMap) {//adds words the suggestsMap by its first letter and frequency
             input = input.toLowerCase().trim();
             Character firstLetter = input.charAt(0);
             if (mainMap.containsKey(firstLetter)) {
@@ -61,8 +64,8 @@ final class WordFinder {
                     mainMap.get(firstLetter).put(1, tmpSet);
                 }
             } else {
-                mainMap.put(firstLetter, createOuterMapElements());
-                addToWords(input, mainMap);
+                mainMap.put(firstLetter, new TreeMap<Integer, Set<String>>(Comparator.reverseOrder()));
+                addToSuggestsMap(input, mainMap);
             }
     }
 
@@ -76,11 +79,6 @@ final class WordFinder {
             tmpSet.add(word);
             mainMap.get(letter).put(index +1, tmpSet);
         }
-    }
-
-    private static Map<Integer, Set<String>> createOuterMapElements() {
-        Map<Integer, Set<String>> tmpMap = new TreeMap<>(Comparator.reverseOrder());
-        return tmpMap;
     }
 
     static void displayWordsAlphabetical(Map<Character, Map<Integer, Set<String>>> mainMap) {
@@ -97,7 +95,7 @@ final class WordFinder {
     }
 
     static void displayWords(Map<Character, Map<Integer, Set<String>>> mainMap) {
-        Map<Integer, Set<String>> map = createOuterMapElements();
+        Map<Integer, Set<String>> map = new TreeMap<Integer, Set<String>>(Comparator.reverseOrder());
         for (Map.Entry<Character, Map<Integer, Set<String>>> words : mainMap.entrySet()) {
             for (Map.Entry<Integer, Set<String>> pair : words.getValue().entrySet()) {
                 if (map.containsKey(pair.getKey())) {
