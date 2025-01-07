@@ -119,7 +119,6 @@ final class WordFinder {
     private static String[] prepareWords(String input) {
         String text = input.replaceAll("\\n", " ").replaceAll("( + )", " ");
         String text2 = text.replaceAll("[\\W&&[^' ]]", "").replaceAll("(\\W')|('\\W)", " ");
-        //String text2 = text.replaceAll("[”“’‘′]", "").replaceAll("[\\p{Punct}&&[^']]", "").replaceAll("(\\W')|('\\W)", " ");
         return text2.split(" ");
     }
 }
