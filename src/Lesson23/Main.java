@@ -5,65 +5,89 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        int[] a = {1, 2, 3, 4, 5, 6, 7};
-        int[] b = {2, 3, 4, 5, 6, 7, 1};
+        int[] a = {1, 2, 3, 4};
+        int[] b = {2, 4, 3};
         int[] c = {0, -1, 2, -3, 1};
         int[] d = {3, 2, 1, 2, 1, 4, 5, 8, 6, 7, 4, 2};
+        System.out.println(isSubsetOfOtherArrayInGivenOrder(a, b));
         System.out.println(isSubsetOfOtherArray(a, b));
         System.out.println(checkSumOfElements(c, -2));
-        System.out.println(maximumDistanceOfTwoOccurrences(d, 2));
-        System.out.println(findTheNthLargestElement(d, 6));
+        System.out.println(maximumDistanceOfTwoOccurrences(d));
+        System.out.println(findTheNthLargestElement(d, 4));
     }
 
-    public static boolean isSubsetOfOtherArray(int[] array, int[] subset) {
+    //This method returns ONLY true if the all elements are in the right order.
+    // array[1, 2, 3, 4, 5], subSet[1, 2, 3] = true , subSet[3, 2, 1] = false
+    public static boolean isSubsetOfOtherArrayInGivenOrder(int[] array, int[] subset) {
+        if (array.length == 0 || subset.length == 0) return false;
+
         for (int i = 0; i < array.length; i++) {
-            if (i <= array.length - subset.length) {
-                if (array[i] == subset[0]) {
-                    for (int j = 1; j < subset.length; j++) {
-                        if (subset[j] != array[i + j]) {
-                            break;
-                        } else if (subset[j] == array[i + j] && j == subset.length -1) {
+            if (i > array.length - subset.length) return false;
+            if (array[i] == subset[0]) {
+                for (int j = 0; j < subset.length; j++) {
+                    if (subset[j] != array[i + j]) {
+                        break;
+                    } else {
+                        if (subset[j] == array[i + j] && j == subset.length -1) {// checks whether the order of elements in the subset is right.
                             return true;
                         }
                     }
                 }
-            } else {
-                return false;
             }
         }
         return false;
     }
 
-    public static String checkSumOfElements(int[] arr, int sum) {
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = i + 1; j < arr.length; j++) {
-                if (arr[i] + arr[j] == sum) {
-                    return "yes";
-                }
+    public static boolean isSubsetOfOtherArray(int[] array, int[] subset) {
+        if (subset.length > array.length || (array.length == 0 || subset.length == 0)) return false;
+
+        Set<Integer> mainSet = new HashSet<>();
+        for (int i : array) {
+            mainSet.add(i);
+        }
+        for (int i : subset) {
+            if (!mainSet.contains(i)) {
+                return false;
             }
+        }
+        return true;
+    }
+
+    //This method is actually the same as skylars, that's probably the best approach
+    public static String checkSumOfElements(int[] arr, int sum) {
+        Set<Integer> numberSet = new HashSet<>();
+        for (int element : arr) {
+            if (numberSet.contains(sum - element)) {
+                return "Yes";
+            }
+            numberSet.add(element);
         }
         return "No";
     }
 
-    public static int maximumDistanceOfTwoOccurrences(int[] arr, int number) {
-        for (int i = arr.length -1; i >= 0 ; i--) {
-            if (arr[i] == number) {
-                for (int j = 0; j < i; j++) {
-                    if (arr[j] == number) {
-                        return i - j;
-                    }
-                }
+    public static Map<Integer, Integer> maximumDistanceOfTwoOccurrences(int[] arr) {
+        Map<Integer, Integer> resultMap = new TreeMap<>();
+        Map<Integer, Integer> calculatingMap = new HashMap<>();
+        for (int i = 0; i < arr.length; i++) {
+            if (!calculatingMap.containsKey(arr[i])) {
+                calculatingMap.put(arr[i], i);// stores the index of first approach.
+                resultMap.put(arr[i], 0);
+            } else {
+                resultMap.put(arr[i], i - calculatingMap.get(arr[i]));
             }
         }
-        return 0;
+        return resultMap;
     }
 
     public static int findTheNthLargestElement(int[] arr, int nthElement) {
-        Set<Integer> numbersSet = new TreeSet<>(Comparator.reverseOrder());
+        Set<Integer> set = new HashSet<>();
         for (int x : arr) {
-            numbersSet.add(x);
+            set.add(x);
         }
-        int x = (int) numbersSet.toArray()[nthElement -1];
-        return x;
+        Integer[] result = new Integer[set.size()];
+        set.toArray(result);
+        int elementCount = result.length - nthElement;
+
+        return result[elementCount];
      }
 }
