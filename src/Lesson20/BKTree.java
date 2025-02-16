@@ -20,7 +20,7 @@ class BKTree {
 
     private Node root;
 
-    private int tolerance;
+    private final int tolerance;
 
     private int queries = 0;
 
