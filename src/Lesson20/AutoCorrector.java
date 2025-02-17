@@ -19,7 +19,6 @@ public class AutoCorrector {
     }
 
     private void startSpellings() {
-        System.out.println("Milan be merciful!");
         String word = "";
         while (true) {
             word = scanner.nextLine();

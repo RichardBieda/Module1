@@ -77,10 +77,10 @@ class BKTree {
         if (root == null) return results;
         Stack<Node> nodeStack = new Stack<>();
         nodeStack.push(root);
-        Date startDate = new Date();
+        long startTime = new Date().getTime();
         searchWordsThroughLevels(results, nodeStack, word);
-        Date endDate = new Date();
-        time = endDate.getTime() - startDate.getTime();
+        long endTime = new Date().getTime();
+        time = endTime - startTime;
         return results;
     }
 
