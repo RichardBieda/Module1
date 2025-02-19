@@ -12,7 +12,7 @@ public class AutoCorrector {
         startSpellings();
     }
     public AutoCorrector(String dictionary, int tolerance) {
-        tree = new BKTree(dictionary, tolerance);
+        tree = new BKTree(dictionary, checkTolerance(tolerance));
         startSpellings();
     }
 
@@ -37,5 +37,13 @@ public class AutoCorrector {
             System.out.println(tree.getWordSuggests(word));
             tree.getTreeInfos();
         }
+    }
+
+    private int checkTolerance(int tolerance) {
+        if (tolerance < 1) {
+            System.out.println("your chosen spelling error tolerance is to low, it will be changed to 2");
+            return 1;
+        }
+        return tolerance;
     }
 }
