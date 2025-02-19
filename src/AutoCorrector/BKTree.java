@@ -43,6 +43,7 @@ class BKTree {
         this.newWords = new HashSet<>();
         this.tolerance = tolerance;
         loadDictionary();
+        System.out.println(wordCount + " Strings added to dictionary");
     }
 
     boolean add(String input) {
