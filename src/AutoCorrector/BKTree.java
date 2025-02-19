@@ -16,19 +16,14 @@ import java.util.*;
 class BKTree {
 
     private final static int STANDARD_TOLERANCE = 2;
+
     private final String dictionary;
-
     private final Set<String> newWords;
-
     private Node root;
-
     private final int tolerance;
-
     private int queries = 0;
-
     private int suggests = 0;
     private int wordCount = 0;
-
     private Duration time;
 
     BKTree(String dictionary) {
@@ -38,6 +33,7 @@ class BKTree {
         loadDictionary();
         System.out.println(wordCount + " Strings added to dictionary");
     }
+
     BKTree(String dictionary, int tolerance) {
         this.dictionary = dictionary;
         this.newWords = new HashSet<>();
@@ -152,8 +148,8 @@ class BKTree {
     void getTreeInfos() {
         try {
             System.out.println(suggests + " suggests by " + queries + " queries in " + time.getSeconds() + "." + time.getNano() + " milliseconds");
-        } catch (Exception e) {
-            return;
+        } catch (NullPointerException e) {
+            System.out.println(suggests + " suggests by " + queries + " queries");
         }
         queries = 0;
         suggests = 0;
