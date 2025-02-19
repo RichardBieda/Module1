@@ -13,6 +13,6 @@ public class Main {
         new AutoCorrector(Path path, int tolerance);
         the tolerance is the allowed number of wrongs, standard is 2
          */
-        AutoCorrector autoCorrector = new AutoCorrector("C:\\Users\\Richard\\Module1\\src\\");
+        AutoCorrector autoCorrector = new AutoCorrector("C:\\Users\\Richard\\Module1\\src\\ENGLISH_DICT");
     }
 }
