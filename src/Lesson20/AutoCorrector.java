@@ -24,16 +24,12 @@ public class AutoCorrector {
             word = scanner.nextLine();
             if (word.equalsIgnoreCase("end;")) {
                 tree.saveDictionary();
-                System.out.println("new words will be saved on file");
                 break;
             } else if (word.charAt(word.length()-1) == ';') {
                 String newWord = word.substring(0, word.length()-1);
                 boolean isAdded = tree.add(newWord);
                 if (isAdded) {
                     tree.addToNewWords(newWord);
-                    System.out.println(newWord + " is added");
-                } else {
-                    System.out.println(newWord + " was already there");
                 }
                 continue;
             }
