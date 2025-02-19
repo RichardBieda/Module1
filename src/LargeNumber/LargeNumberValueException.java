@@ -1,4 +1,4 @@
-package extras.LargeNumber;
+package LargeNumber;
 
 public class LargeNumberValueException extends Exception {
 

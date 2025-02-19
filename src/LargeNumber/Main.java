@@ -1,4 +1,4 @@
-package extras.LargeNumber;
+package LargeNumber;
 
 import java.math.BigInteger;
 

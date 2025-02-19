@@ -1,6 +1,6 @@
 package Lesson15;
-import extras.LargeNumber.LargeNumber;
-import extras.LargeNumber.LargeNumberValueException;
+import LargeNumber.LargeNumber;
+import LargeNumber.LargeNumberValueException;
 
 public class Main {
 

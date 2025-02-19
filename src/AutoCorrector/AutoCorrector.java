@@ -1,9 +1,7 @@
-package Lesson20;
+package AutoCorrector;
 
 import java.util.Scanner;
-//If you type a semicolon (;) on the end of your word e.g hallo; this word will be added to the dictionary
-//If you type (end;) then the application will close and all inserted words will load to a dictionary file
-//this tree structure works better with longer words or sentences
+
 public class AutoCorrector {
 
     private final Scanner scanner = new Scanner(System.in);
@@ -30,6 +28,9 @@ public class AutoCorrector {
                 boolean isAdded = tree.add(newWord);
                 if (isAdded) {
                     tree.addToNewWords(newWord);
+                    System.out.println(newWord + " is added to dictionary");
+                } else {
+                    System.out.println(newWord + " was already in dictionary");
                 }
                 continue;
             }

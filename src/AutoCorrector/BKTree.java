@@ -1,16 +1,18 @@
-package Lesson20;
+package AutoCorrector;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.*;
 
 //This is an implementation of a Burkhard Keller Tree, the first Node to be added is the root
 //Nodes have a String word field
 //Nodes have a Map of children, this map stores the edit-distance between root and child as key and the childNode itself as value
 //Every childMap stores only one Node per key, if (edit-distance thus key) of a second Node is equal, then it become a child of the child.
-//to change the search options go to line 102
+//to change the search options go to line 114. Decreasing the search range means to get suggests quicker, but some suggests will be missing
 class BKTree {
 
     private final static int STANDARD_TOLERANCE = 2;
@@ -25,14 +27,16 @@ class BKTree {
     private int queries = 0;
 
     private int suggests = 0;
+    private int wordCount = 0;
 
-    private long time = 0;
+    private Duration time;
 
     BKTree(String dictionary) {
         this.dictionary = dictionary;
         this.newWords = new HashSet<>();
         this.tolerance = STANDARD_TOLERANCE;
         loadDictionary();
+        System.out.println(wordCount + " Strings added to dictionary");
     }
     BKTree(String dictionary, int tolerance) {
         this.dictionary = dictionary;
@@ -48,6 +52,7 @@ class BKTree {
         String word = input.toLowerCase();
         if (root == null) {
             root = new Node(word);
+            wordCount++;
             return true;
         }
         Node tmpNode = root;
@@ -59,12 +64,14 @@ class BKTree {
             if (tmpNode.children == null) {
                 tmpNode.children = new HashMap<>();
                 tmpNode.children.put(distance, new Node(word));
+                wordCount++;
                 return true;
             } else {
                 if (tmpNode.children.containsKey(distance)) {
                     tmpNode = tmpNode.children.get(distance);
                 } else {
                     tmpNode.children.put(distance, new Node(word));
+                    wordCount++;
                     return true;
                 }
             }
@@ -77,10 +84,10 @@ class BKTree {
         if (root == null) return results;
         Stack<Node> nodeStack = new Stack<>();
         nodeStack.push(root);
-        long startTime = new Date().getTime();
+        Instant start = Instant.now();
         searchWordsThroughLevels(results, nodeStack, word);
-        long endTime = new Date().getTime();
-        time = endTime - startTime;
+        Instant end = Instant.now();
+        time = Duration.between(start, end);
         return results;
     }
 
@@ -120,7 +127,10 @@ class BKTree {
             for (String x : list) {
                 add(x.trim());
             }
-        } catch (IOException e) {}
+            System.out.println(list.size() + " Strings loaded from file");
+        } catch (IOException e) {
+            System.out.println("there is a problem with your file or path");
+        }
     }
 
     void addToNewWords(String word) {
@@ -139,10 +149,13 @@ class BKTree {
     }
 
     void getTreeInfos() {
-        System.out.println(suggests + " suggests by " + queries + " queries in " + time + " milliseconds");
+        try {
+            System.out.println(suggests + " suggests by " + queries + " queries in " + time.getSeconds() + "." + time.getNano() + " milliseconds");
+        } catch (Exception e) {
+            return;
+        }
         queries = 0;
         suggests = 0;
-        time = 0;
     }
 
     private class Node {

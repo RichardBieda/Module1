@@ -1,4 +1,4 @@
-package extras.LargeNumber;
+package LargeNumber;
 
 import java.util.Objects;
 
@@ -17,7 +17,7 @@ public class LargeNumber implements Comparable {
         if (!isValidRadix(radix)) {
             throw new LargeNumberValueException("Radix is out of bounds");
         } else if (!isValidValue(value, radix)) {
-            throw new LargeNumberValueException ("Value parameter has illegal signs or null");
+            throw new LargeNumberValueException("Value parameter has illegal signs or null");
         }
         this.value = value;
         this.radix = radix;
