@@ -1,14 +1,16 @@
 package Module1_Final_Project;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Main {
 
-    static char[] alphabet = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',' ', '!', '?', ',', '.','0','1','2','3','4','5','6','7','8','9'};
-    static int length = alphabet.length;
+    static ArrayList<Character> alphabet = new ArrayList<>(Arrays.asList('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',' ', '!', '?', ',', '.','0','1','2','3','4','5','6','7','8','9'));
+    static int length = alphabet.size();
 
     public static void main(String[] args) {
 
-        System.out.println(alphabet.length);
-        System.out.println(encrypt("az", 261));
+        System.out.println(encrypt("bb", 1));
     }
 
     static String encrypt(String input, int code) {
@@ -16,20 +18,31 @@ public class Main {
             return input;
         }
         if (code < 0) {
-            code = ~code;
+            code = ~code+1;
         }
-        while (code > 26) {
-            code %= 26;
+        while (code > length) {
+            code %= length;
         }
 
-        byte[] wordChar = input.getBytes();
+        char[] wordChar = input.toCharArray();
 
         for (int i = 0; i < wordChar.length; i++) {
-            int newValue = code + wordChar[i] < 123 ? code + wordChar[i] : code + wordChar[i] - 26;
-            wordChar[i] = (byte) newValue;
+            int oldValue = alphabet.indexOf(wordChar[i]);
+            int index = (oldValue + code + i) % length;
+            wordChar[i] = alphabet.get(index);
         }
         String result = new String(wordChar);
         return result;
+    }
+
+    static void decrypt(String input) {
+        char[] suggest = input.toCharArray();
+        int[] counter = new int[input.length()];
+
+        while (counter[counter.length-1] < length && counter[0] < length) {
+
+            System.out.println(suggest);
+        }
     }
 
 }
