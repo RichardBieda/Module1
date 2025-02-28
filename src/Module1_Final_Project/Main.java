@@ -1,5 +1,7 @@
 package Module1_Final_Project;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -12,7 +14,7 @@ public class Main {
     public static void main(String[] args) {
 
         System.out.println(encrypt("john", 8));
-        decrypt("fds");
+        bruteForce("abcde");
     }
 
     static String encrypt(String input, int code) {
@@ -37,38 +39,41 @@ public class Main {
         return result;
     }
 
-    static void decrypt(String input) {
+    static void bruteForce(String input) {
         char[] suggest = input.toCharArray();
-        int[] codeIndex = new int[input.length()];
-        for (int i = 0; i < codeIndex.length; i++) {
-            codeIndex[i] = getIndex(suggest[i]);
-        }
-
+        int[] indexInAlphabet = new int[input.length()];
+            for (int i = 0; i < indexInAlphabet.length; i++) {
+                indexInAlphabet[i] = getIndex(suggest[i]);
+            }
+        Instant start = Instant.now();
         do  {
 
             for (int i = 0; i < length; i++) {
-                suggest[0] = alpha[(++codeIndex[0]) % length];
+                suggest[0] = alpha[(++indexInAlphabet[0]) % length];
             }
-            codeIndex[0] -= length;
+            indexInAlphabet[0] -= length;
             for (int i = 1; i < suggest.length; i++) {
-                suggest[i] = alpha[++codeIndex[i] % length];
+                suggest[i] = alpha[++indexInAlphabet[i] % length];
                 if (suggest[i] != input.charAt(i)) {
                     break;
                 }
-                codeIndex[i] -= length;
+                indexInAlphabet[i] -= length;
             }
 
         } while (!Arrays.equals(suggest, input.toCharArray()));
+        Duration time = Duration.between(start, Instant.now());
+        System.out.println(time.getSeconds() + "." + time.getNano());
     }
 
     static int getIndex(char c) {
-        int result = 0;
+        int result = -1;
         for (int i = 0; i < alpha.length; i++) {
             if (c == alpha[i]) {
                 result = i;
                 break;
             }
         }
+        //Exception char not found
         return result;
     }
 
