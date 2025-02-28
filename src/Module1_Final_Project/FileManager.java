@@ -5,18 +5,14 @@ import java.nio.file.Files;
 
 public class FileManager {
 
-    private final String inputFile;
-    private final String outputFile;
+    private final String fileName;
 
-    FileManager(String input, String output) {
 
-        Path inputPath = Path.of(this.inputFile = input);
-        Path outputPath = Path.of(this.outputFile = output);
+    FileManager(String fileName) {
+       this.fileName = fileName;
     }
 
     private void loadFile(Path path) {
-        try {
 
-        }
     }
 }
