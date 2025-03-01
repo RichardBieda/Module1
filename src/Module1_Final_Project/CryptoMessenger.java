@@ -4,7 +4,7 @@ public class CryptoMessenger {
 
     private final CaesarCipher caesarCipher;
 
-    public CryptoMessenger(String fileName, int key) {
-        this.caesarCipher = new CaesarCipher(fileName, key);
+    public CryptoMessenger(String fileNameIn, String fileNameOut, int key) {
+        this.caesarCipher = new CaesarCipher(fileNameIn, fileNameOut, key);
     }
 }

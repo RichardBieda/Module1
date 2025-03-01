@@ -1,9 +1,15 @@
 package Module1_Final_Project;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
+import java.util.Set;
 
 public class Main {
 
@@ -13,8 +19,27 @@ public class Main {
 
     public static void main(String[] args) {
 
-        System.out.println(encrypt("john", 8));
-        bruteForce("abcde");
+//        System.out.println(encrypt("john", 8));
+//        bruteForce("abcde");
+//        String x = String.valueOf(Objects.hash("richard"));
+//        Path p2 = Path.of(x);
+//        System.out.println(x);
+//        Path path = Path.of("src");
+//        Path p1 = path.toAbsolutePath();
+//        Path abs = Paths.get(p1.toString(), p2.toString());
+//        System.out.println(abs);
+//
+//        try {
+//            Files.createFile(abs);
+//        } catch (IOException e) {
+//            System.out.println(e);
+//        }
+        Path end = Path.of("ZZFile_Folder\\AutoCorrector").toAbsolutePath();
+        try {
+            Files.createDirectory(end);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     static String encrypt(String input, int code) {

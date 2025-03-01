@@ -5,11 +5,14 @@ import java.nio.file.Files;
 
 public class FileManager {
 
-    private final String fileName;
+    private final String incomingFile;
+    private final String outgoingFile;
 
 
-    FileManager(String fileName) {
-       this.fileName = fileName;
+    FileManager(String fileNameIn, String fileNameOut) {
+       this.incomingFile = fileNameIn;
+       this.outgoingFile = fileNameOut;
+
     }
 
     private void loadFile(Path path) {

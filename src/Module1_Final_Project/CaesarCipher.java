@@ -5,8 +5,8 @@ public class CaesarCipher {
     private final FileManager fileManager;
     private final int key;
 
-    CaesarCipher(String fileName, int key) {
-        this.fileManager = new FileManager(fileName);
+    CaesarCipher(String fileNameIn, String fileNameOut, int key) {
+        this.fileManager = new FileManager(fileNameIn, fileNameOut);
         this.key = key;
     }
 
