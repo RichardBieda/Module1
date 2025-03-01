@@ -37,7 +37,19 @@ public class Main {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-        CryptoMessenger cm = new CryptoMessenger("richard", 10);
+//        Path path = Path.of("File_Folder\\AutoCorrector\\ENGLISH_DICT");
+//        Path path1 = Path.of("File_Folder\\Crypto_Messenger\\Encrypted_List");
+//        List<String> list = null;
+//        List<String> enl = new ArrayList<>();
+//        try {
+//            list = Files.readAllLines(path);
+//            for (String x : list) {
+//                enl.add(encrypt(x, 1));
+//            }
+//            Files.write(path1, enl);
+//        } catch (IOException e) {
+//
+//        }
     }
 
     static String encrypt(String input, int code) {
@@ -55,7 +67,7 @@ public class Main {
 
         for (int i = 0; i < wordChar.length; i++) {
             int oldValue = alphabet.indexOf(wordChar[i]);
-            int index = (oldValue + code + i) % length;
+            int index = (oldValue + code) % length;
             wordChar[i] = alphabet.get(index);
         }
         String result = new String(wordChar);

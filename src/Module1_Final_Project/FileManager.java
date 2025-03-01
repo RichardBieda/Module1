@@ -27,28 +27,8 @@ final class FileManager {
             }
         }
     }
-    private final String name;
 
-    FileManager(String name) {
-       this.name = name;
-       insertChatToFolder();
-    }
-
-    private void insertChatToFolder() {
-        Path path = Path.of(MESSENGER_FOLDER + "\\" + name);
-        try {
-            Files.createDirectory(path);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    static boolean isNameTaken(String name) {
-        Path chatPartner = Path.of(MESSENGER_FOLDER + "\\" + name);
-        if (Files.exists(chatPartner)) {
-            return true;
-        }
-        return false;
+    FileManager() {
     }
 
     private void loadFile(Path path) {
