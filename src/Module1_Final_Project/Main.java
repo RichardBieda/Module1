@@ -34,7 +34,7 @@ public class Main {
 //        } catch (IOException e) {
 //            System.out.println(e);
 //        }
-        Path end = Path.of("ZZFile_Folder\\AutoCorrector").toAbsolutePath();
+        Path end = Path.of("ZZFile_Folder\\Crypto_Messenger\\Outgoing_Files").toAbsolutePath();
         try {
             Files.createDirectory(end);
         } catch (IOException e) {
