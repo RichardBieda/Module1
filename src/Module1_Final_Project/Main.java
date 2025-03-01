@@ -6,10 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public class Main {
 
@@ -34,12 +31,13 @@ public class Main {
 //        } catch (IOException e) {
 //            System.out.println(e);
 //        }
-        Path end = Path.of("ZZFile_Folder\\Crypto_Messenger\\Outgoing_Files").toAbsolutePath();
-        try {
-            Files.createDirectory(end);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        Path end = Path.of("ZZFile_Folder\\Crypto_Messenger\\Outgoing_Files").toAbsolutePath();
+//        try {
+//            Files.createDirectory(end);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        CryptoMessenger cm = new CryptoMessenger("richard", 10);
     }
 
     static String encrypt(String input, int code) {
