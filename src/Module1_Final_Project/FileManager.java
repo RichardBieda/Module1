@@ -1,16 +1,18 @@
 package Module1_Final_Project;
 
 import java.io.IOException;
-import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.DirectoryStream;
 import java.nio.file.Path;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
 
 final class FileManager {
 
     private static final Path ROOT_FOLDER = Path.of("File_Folder");
     private static final Path MESSENGER_FOLDER = Path.of(ROOT_FOLDER + "\\Crypto_Messenger");
-    private static final String ENCRYPTED_FILE = "\\_ENCRYPTED";
-    private static final String DECRYPTED_FILE = "\\_DECRYPTED";
+    private static final String ENCRYPTED_FILE = "_ENCRYPTED";
+    private static final String DECRYPTED_FILE = "_DECRYPTED";
 
     static {
         if (Files.notExists(ROOT_FOLDER)) {
@@ -29,19 +31,40 @@ final class FileManager {
         }
     }
 
-    private final String USER_NAME;
+    private final Path USER_PATH;
+    private final List<Path> ENCRYTED_LIST = new ArrayList<>();
+    private final List<Path> DECRYTED_LIST = new ArrayList<>();
     FileManager(String userName) {
-        this.USER_NAME = userName;
-        try {
-            Files.createDirectory(Path.of(MESSENGER_FOLDER + "\\" + USER_NAME));
-        } catch (FileAlreadyExistsException e) {
-            throw new NotAbleToCreateFolderException("Unable to create the App folder, user name: " + USER_NAME + " already exists");
+        this.USER_PATH = Path.of(MESSENGER_FOLDER + "\\" + userName);
+        if (Files.notExists(USER_PATH)) {
+            try {
+                Files.createDirectory(USER_PATH);
+            } catch (IOException e) {
+                throw new NotAbleToCreateFolderException("Unable to create user folder for user: " + userName);
+            }
+        }
+        loadPathsToLists();
+    }
+
+    private void loadPathsToLists() {
+        try (DirectoryStream<Path> paths = Files.newDirectoryStream(USER_PATH)) {
+            for (Path p : paths) {
+                if (p.getFileName().toString().endsWith(ENCRYPTED_FILE)) {
+                    ENCRYTED_LIST.add(p.getFileName());
+                } else if (p.getFileName().toString().endsWith(DECRYPTED_FILE)) {
+                    DECRYTED_LIST.add(p.getFileName());
+                }
+            }
         } catch (IOException e) {
-            throw new NotAbleToCreateFolderException("Unable to create user folder for user: " + USER_NAME);
+            System.err.println(e);
         }
     }
 
-    private void loadFile(Path path) {
+    List<Path> getEncryptedList() {
+        return ENCRYTED_LIST;
+    }
 
+    List<Path> getDecryptedList() {
+        return DECRYTED_LIST;
     }
 }

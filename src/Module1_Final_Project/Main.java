@@ -59,7 +59,7 @@ public class Main {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-        CryptoMessenger cm = new CryptoMessenger("richard",10);
+       CryptoMessenger cm = new CryptoMessenger("richard",10);
     }
 
     static String encrypt(String input, int code) {
