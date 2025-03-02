@@ -1,6 +1,7 @@
 package Module1_Final_Project;
 
 import java.io.IOException;
+import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -38,7 +39,7 @@ public class Main {
 //            e.printStackTrace();
 //        }
 //        Path path = Path.of("File_Folder\\AutoCorrector\\ENGLISH_DICT");
-//        Path path1 = Path.of("File_Folder\\Crypto_Messenger\\Encrypted_List");
+//        Path path1 = Path.of("File_Folder\\Crypto_Messenger\\9900EnglishWords_ENCRYPTED");
 //        List<String> list = null;
 //        List<String> enl = new ArrayList<>();
 //        try {
@@ -50,6 +51,15 @@ public class Main {
 //        } catch (IOException e) {
 //
 //        }
+//        Path path = Path.of("File_folder\\Crypto_Messenger").toAbsolutePath();
+//        try (DirectoryStream<Path> stream = Files.newDirectoryStream(path)){
+//            for (Path p : stream) {
+//                System.out.println(p);
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        CryptoMessenger cm = new CryptoMessenger("richard",10);
     }
 
     static String encrypt(String input, int code) {
