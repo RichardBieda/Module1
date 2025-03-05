@@ -36,7 +36,7 @@ public class Main {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-//        Path path = Path.of("File_Folder\\AutoCorrector\\ENGLISH_DICT");
+//                Path path = Path.of("File_Folder\\AutoCorrector\\ENGLISH_DICT");
 //        Path path1 = Path.of("src\\9900EnglishWords_ENCRYPTED");
 //        List<String> list = new ArrayList<>();
 //        List<String> enl = new ArrayList<>();

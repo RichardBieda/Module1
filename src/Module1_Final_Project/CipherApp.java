@@ -35,6 +35,7 @@ public class CipherApp {
         String opt = scan.nextLine();
         switch (opt) {
             case "1" :
+                System.out.println("your possible signs: " + CaesarCipher.ALPHABET);
                 doEncryption();
                 break;
             case "2" :
