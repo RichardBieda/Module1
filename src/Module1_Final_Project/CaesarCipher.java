@@ -1,11 +1,20 @@
 package Module1_Final_Project;
 
+import java.util.ArrayList;
+import java.util.List;
+
 final class CaesarCipher {
 
-    private final int key;
+    static List<String> doDecryption(List<String> list, int key) {
+        List<String> result = new ArrayList<>();
+        for (String s : list) {
+            result.add(decrypt(s, key));
+        }
+        return result;
+    }
 
-    CaesarCipher(int key) {
-        this.key = key;
+    static String decrypt(String text, int key) {
+        return null;
     }
 
 }

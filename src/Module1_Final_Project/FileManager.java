@@ -1,18 +1,17 @@
 package Module1_Final_Project;
 
 import java.io.IOException;
-import java.nio.file.DirectoryStream;
 import java.nio.file.Path;
 import java.nio.file.Files;
-import java.util.ArrayList;
+import java.nio.file.Paths;
 import java.util.List;
 
 final class FileManager {
 
     private static final Path ROOT_FOLDER = Path.of("File_Folder");
     private static final Path MESSENGER_FOLDER = Path.of(ROOT_FOLDER + "\\Crypto_Messenger");
-    private static final String ENCRYPTED_FILE = "_ENCRYPTED";
-    private static final String DECRYPTED_FILE = "_DECRYPTED";
+    private static final Path ENCRYPTED_FILE = Path.of(MESSENGER_FOLDER + "\\ENCRYPTED");
+    private static final Path DECRYPTED_FILE = Path.of(MESSENGER_FOLDER + "\\DECRYPTED");
 
     static {
         if (Files.notExists(ROOT_FOLDER)) {
@@ -29,42 +28,63 @@ final class FileManager {
                 throw new NotAbleToCreateFolderException("Unable to create the App folder");
             }
         }
-    }
-
-    private final Path USER_PATH;
-    private final List<Path> ENCRYTED_LIST = new ArrayList<>();
-    private final List<Path> DECRYTED_LIST = new ArrayList<>();
-    FileManager(String userName) {
-        this.USER_PATH = Path.of(MESSENGER_FOLDER + "\\" + userName);
-        if (Files.notExists(USER_PATH)) {
+        if (Files.notExists(ENCRYPTED_FILE)) {
             try {
-                Files.createDirectory(USER_PATH);
+                Files.createDirectory(ENCRYPTED_FILE);
             } catch (IOException e) {
-                throw new NotAbleToCreateFolderException("Unable to create user folder for user: " + userName);
+                throw new NotAbleToCreateFolderException("Unable to create folder");
             }
         }
-        loadPathsToLists();
+        if (Files.notExists(DECRYPTED_FILE)) {
+            try {
+                Files.createDirectory(DECRYPTED_FILE);
+            } catch (IOException e) {
+                throw new NotAbleToCreateFolderException("Unable to create folder");
+            }
+        }
     }
 
-    private void loadPathsToLists() {
-        try (DirectoryStream<Path> paths = Files.newDirectoryStream(USER_PATH)) {
-            for (Path p : paths) {
-                if (p.getFileName().toString().endsWith(ENCRYPTED_FILE)) {
-                    ENCRYTED_LIST.add(p.getFileName());
-                } else if (p.getFileName().toString().endsWith(DECRYPTED_FILE)) {
-                    DECRYTED_LIST.add(p.getFileName());
-                }
-            }
+    private Path path;
+    private boolean isDecrypted;
+
+    FileManager() {}
+    FileManager(String pathString, boolean isDecrypted) {
+        this.path = Path.of(pathString);
+        if (!Files.isRegularFile(path)) {
+            throw new IsNotRegularFileException("this file is not a file, or a wrong path is given");
+        }
+        this.isDecrypted = isDecrypted;
+    }
+
+    void createNewFile(String pathString, boolean isDecrypted) {
+        this.path = Path.of(pathString);
+        if (!Files.isRegularFile(path)) {
+            throw new IsNotRegularFileException("this file is not a file, or a wrong path is given");
+        }
+        this.isDecrypted = isDecrypted;
+    }
+
+    boolean hasPathField() {
+        return path != null;
+    }
+
+    List<String> getFileContent() {
+        List<String> result = null;
+        try {
+            result = Files.readAllLines(path);
         } catch (IOException e) {
             System.err.println(e);
         }
+        return result;
     }
 
-    List<Path> getEncryptedList() {
-        return ENCRYTED_LIST;
-    }
-
-    List<Path> getDecryptedList() {
-        return DECRYTED_LIST;
+    void writeFileContent(List<String> list, boolean isDecrypted) {
+        Path firstPath = isDecrypted ? DECRYPTED_FILE : ENCRYPTED_FILE;
+        Path secondPath = Paths.get(firstPath.toString(), path.getFileName().toString());
+        try {
+            Files.write(secondPath, list);
+        } catch (IOException e) {
+            System.err.println(e);
+        }
     }
 }
