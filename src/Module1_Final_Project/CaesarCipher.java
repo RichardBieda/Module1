@@ -18,19 +18,33 @@ final class CaesarCipher {
         for (String s : list) {
             if (!isValidString(s)) {
                 System.out.printf("String %d, has not valid signs\n", i);
+                i++;
                 continue;
             }
             result.add(decrypt(s, key));
+            i++;
         }
         return result;
     }
 
-    static String decrypt(String text, int key) {
+    private static String decrypt(String text, int key) {
         char[] textArr = text.toCharArray();
         for (int i = 0; i < textArr.length; i++) {
+            int index = getIndex(textArr[i]) + (LENGTH - key) % LENGTH;
 
         }
         return null;
+    }
+
+    private static int getIndex(char c) {
+        int result = 0;
+        for (int i = 0; i < LENGTH; i++) {
+            if (c == CRYPTO_ALPHABET[i]) {
+                result = i;
+                break;
+            }
+        }
+        return result;
     }
 
     static boolean isValidString(String text) {

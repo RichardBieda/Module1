@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 final class FileManager {
@@ -69,7 +70,7 @@ final class FileManager {
     }
 
     List<String> getFileContent() {
-        List<String> result = null;
+        List<String> result = new ArrayList<>();
         try {
             result = Files.readAllLines(path);
         } catch (IOException e) {
