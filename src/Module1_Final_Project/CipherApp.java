@@ -21,14 +21,33 @@ public class CipherApp {
     }
 
     private void start() {
-        showMenu();
+        boolean isNotFinished = true;
+        while (isNotFinished) {
+            isNotFinished = showMenu();
+        }
     }
 
-    private void showMenu() {
+    private boolean showMenu() {
         if (fileManager.hasPathField()) {
             doDecryption();
         }
-        System.out.println("[ 1 ] write a new file   [ 2 ] insert file path to decrypt");
+        System.out.println("[ 1 ] write a new file   [ 2 ] insert file path to decrypt   [ 3 ] BruteForce");
+        String opt = scan.nextLine();
+        switch (opt) {
+            case "1" :
+                doEncryption();
+                break;
+            case "2" :
+                //insert path
+                //doDecryption();
+                break;
+            case "3" :
+                //doBruteForce
+                break;
+            default :
+                return false;
+        }
+        return true;
     }
 
 

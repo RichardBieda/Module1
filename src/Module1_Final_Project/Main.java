@@ -36,19 +36,19 @@ public class Main {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-        Path path = Path.of("File_Folder\\AutoCorrector\\ENGLISH_DICT");
-        Path path1 = Path.of("src\\9900EnglishWords_ENCRYPTED");
-        List<String> list = new ArrayList<>();
-        List<String> enl = new ArrayList<>();
-        try {
-            list = Files.readAllLines(path);
-            for (String x : list) {
-                enl.add(encrypt(x, 1));
-            }
-            Files.write(path1, enl);
-        } catch (IOException e) {
-
-        }
+//        Path path = Path.of("File_Folder\\AutoCorrector\\ENGLISH_DICT");
+//        Path path1 = Path.of("src\\9900EnglishWords_ENCRYPTED");
+//        List<String> list = new ArrayList<>();
+//        List<String> enl = new ArrayList<>();
+//        try {
+//            list = Files.readAllLines(path);
+//            for (String x : list) {
+//                enl.add(encrypt(x, 1));
+//            }
+//            Files.write(path1, enl);
+//        } catch (IOException e) {
+//
+//        }
 //        Path path = Path.of("File_folder\\Crypto_Messenger").toAbsolutePath();
 //        try (DirectoryStream<Path> stream = Files.newDirectoryStream(path)){
 //            for (Path p : stream) {
@@ -57,7 +57,7 @@ public class Main {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-//       CipherApp ca = new CipherApp("src\\9900EnglishWords_ENCRYPTED", false, 1);
+       CipherApp ca = new CipherApp("src\\9900EnglishWords_ENCRYPTED", false, 1);
     }
 
     static String encrypt(String input, int code) {

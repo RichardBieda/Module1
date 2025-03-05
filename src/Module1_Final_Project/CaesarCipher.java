@@ -21,19 +21,19 @@ final class CaesarCipher {
                 i++;
                 continue;
             }
-            result.add(decrypt(s, key));
+            result.add(decryptFile(s, key));
             i++;
         }
         return result;
     }
 
-    private static String decrypt(String text, int key) {
+    private static String decryptFile(String text, int key) {
         char[] textArr = text.toCharArray();
         for (int i = 0; i < textArr.length; i++) {
-            int index = getIndex(textArr[i]) + (LENGTH - key) % LENGTH;
-
+            int index = (getIndex(textArr[i]) + (LENGTH - key)) % LENGTH;
+            textArr[i] = CRYPTO_ALPHABET[index];
         }
-        return null;
+        return String.valueOf(textArr);
     }
 
     private static int getIndex(char c) {

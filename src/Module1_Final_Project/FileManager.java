@@ -81,9 +81,9 @@ final class FileManager {
 
     void writeFileContent(List<String> list, boolean isDecrypted) {
         Path firstPath = isDecrypted ? DECRYPTED_FILE : ENCRYPTED_FILE;
-        Path secondPath = Paths.get(firstPath.toString(), path.getFileName().toString());
+        Path finalPath = Paths.get(firstPath.toString(), path.getFileName().toString());
         try {
-            Files.write(secondPath, list);
+            Files.write(finalPath, list);
         } catch (IOException e) {
             System.err.println(e);
         }
