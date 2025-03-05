@@ -43,7 +43,7 @@ public class Main {
 //        try {
 //            list = Files.readAllLines(path);
 //            for (String x : list) {
-//                enl.add(encrypt(x, 1));
+//                enl.add(encrypt(x, 22));
 //            }
 //            Files.write(path1, enl);
 //        } catch (IOException e) {
@@ -57,7 +57,7 @@ public class Main {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-       CipherApp ca = new CipherApp("src\\9900EnglishWords_ENCRYPTED", false, 1);
+      // CipherApp ca = new CipherApp("src\\9900EnglishWords_ENCRYPTED", false, 1);
     }
 
     static String encrypt(String input, int code) {

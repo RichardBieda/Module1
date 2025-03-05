@@ -13,6 +13,7 @@ final class CaesarCipher {
     }
 
     static List<String> doDecryption(List<String> list, int key) {
+        key = key % LENGTH;
         List<String> result = new ArrayList<>();
         int i = 1;
         for (String s : list) {
