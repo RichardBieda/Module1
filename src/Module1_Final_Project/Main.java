@@ -9,8 +9,8 @@ import java.util.*;
 
 public class Main {
 
-    static ArrayList<Character> alphabet = new ArrayList<>(Arrays.asList('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',' ', '!', '?', ',', '.','0','1','2','3','4','5','6','7','8','9'));
-    static char[] alpha = new char[] {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',' ', '!', '?', ',', '.','0','1','2','3','4','5','6','7','8','9'};
+    static ArrayList<Character> alphabet = new ArrayList<>(Arrays.asList(',','j','p','8','h',':','!','c','y','t','4',' ','m','2','v','e','.','a','g','6','0','k','r','z','d','o','\'','w','b','f','q','7','?','n','u','3','s','i','1','x','9','l','5'));
+    static char[] alpha = new char[] {',','j','p','8','h',':','!','c','y','t','4',' ','m','2','v','e','.','a','g','6','0','k','r','z','d','o','\'','w','b','f','q','7','?','n','u','3','s','i','1','x','9','l','5'};
     static int length = alphabet.size();
 
     public static void main(String[] args) {
@@ -43,7 +43,7 @@ public class Main {
 //        try {
 //            list = Files.readAllLines(path);
 //            for (String x : list) {
-//                enl.add(encrypt(x, 22));
+//                enl.add(encrypt(x, 10));
 //            }
 //            Files.write(path1, enl);
 //        } catch (IOException e) {
@@ -57,7 +57,7 @@ public class Main {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-      // CipherApp ca = new CipherApp("src\\9900EnglishWords_ENCRYPTED", false, 1);
+       CipherApp ca = new CipherApp("src\\9900EnglishWords_ENCRYPTED", false, 10);
     }
 
     static String encrypt(String input, int code) {

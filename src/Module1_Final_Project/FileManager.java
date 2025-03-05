@@ -46,7 +46,6 @@ final class FileManager {
     }
 
     private Path path;
-    private boolean isDecrypted;
 
     FileManager() {}
     FileManager(String pathString, boolean isDecrypted) {
@@ -54,7 +53,6 @@ final class FileManager {
         if (!Files.isRegularFile(path)) {
             throw new IsNotRegularFileException("this file is not a file, or a wrong path is given");
         }
-        this.isDecrypted = isDecrypted;
     }
 
     void createNewFile(String pathString, boolean isDecrypted) {
@@ -62,7 +60,6 @@ final class FileManager {
         if (!Files.isRegularFile(path)) {
             throw new IsNotRegularFileException("this file is not a file, or a wrong path is given");
         }
-        this.isDecrypted = isDecrypted;
     }
 
     boolean hasPathField() {
