@@ -5,18 +5,17 @@ import java.util.Scanner;
 
 public class CipherApp {
 
-    private final FileManager fileManager;
+    private FileManager fileManager;
     private final Scanner scan = new Scanner(System.in);
-    private final int key;
+    private final int KEY;
 
     public CipherApp(int key) {
-        this.fileManager = new FileManager();
-        this.key = validateKey(key);
+        this.KEY = validateKey(key);
         start();
     }
-    public CipherApp(String pathString, boolean isDecrypted, int key) {
-        this.fileManager = new FileManager(pathString, isDecrypted);
-        this.key = validateKey(key);
+    public CipherApp(String pathString, int key) {
+        this.fileManager = new FileManager(pathString);
+        this.KEY = validateKey(key);
         start();
     }
 
@@ -28,10 +27,10 @@ public class CipherApp {
     }
 
     private boolean showMenu() {
-        if (fileManager.hasPathField()) {
+        if (fileManager != null) {
             doDecryption();
         }
-        System.out.println("[ 1 ] write a new file   [ 2 ] insert file path to decrypt   [ 3 ] BruteForce");
+        System.out.println("[ 1 ] write a new file   [ 2 ] insert file path to decrypt   [ 3 ] BruteForce\nor press any key to end");
         String opt = scan.nextLine();
         switch (opt) {
             case "1" :
@@ -57,7 +56,7 @@ public class CipherApp {
     }
     private void doDecryption() {
         List<String> decryptList = fileManager.getFileContent();
-        List<String> readyList = CaesarCipher.doDecryption(decryptList, key);
+        List<String> readyList = new CaesarCipher(KEY, decryptList).doDecryption();
         fileManager.writeFileContent(readyList, true);
     }
 
@@ -71,6 +70,6 @@ public class CipherApp {
                 validateKey(key);
             }
         }
-        return key;
+        return key % CaesarCipher.LENGTH;
     }
 }

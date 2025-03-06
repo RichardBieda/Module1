@@ -48,7 +48,7 @@ final class FileManager {
     private Path path;
 
     FileManager() {}
-    FileManager(String pathString, boolean isDecrypted) {
+    FileManager(String pathString) {
         this.path = Path.of(pathString);
         if (!Files.isRegularFile(path)) {
             throw new IsNotRegularFileException("this file is not a file, or a wrong path is given");
@@ -60,10 +60,6 @@ final class FileManager {
         if (!Files.isRegularFile(path)) {
             throw new IsNotRegularFileException("this file is not a file, or a wrong path is given");
         }
-    }
-
-    boolean hasPathField() {
-        return path != null;
     }
 
     List<String> getFileContent() {

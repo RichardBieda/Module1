@@ -57,7 +57,7 @@ public class Main {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-       CipherApp ca = new CipherApp("src\\9900EnglishWords_ENCRYPTED", false, 10);
+       CipherApp ca = new CipherApp("src\\9900EnglishWords_ENCRYPTED", 10);
     }
 
     static String encrypt(String input, int code) {
