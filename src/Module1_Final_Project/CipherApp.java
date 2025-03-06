@@ -95,6 +95,9 @@ public class CipherApp {
                 validateKey(key);
             }
         }
-        return key % CaesarCipher.LENGTH;
+        while (key > CaesarCipher.LENGTH) {
+            key %= CaesarCipher.LENGTH;
+        }
+        return key;
     }
 }
