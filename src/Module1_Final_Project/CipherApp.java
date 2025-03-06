@@ -21,6 +21,9 @@ public class CipherApp {
     }
 
     private void start() {
+        if (fileManager != null) {
+            doDecryption();
+        }
         boolean isNotFinished = true;
         while (isNotFinished) {
             isNotFinished = showMenu();
@@ -28,22 +31,17 @@ public class CipherApp {
     }
 
     private boolean showMenu() {
-        if (fileManager != null) {
-            doDecryption();
-        }
         System.out.println("[ 1 ] write a new file   [ 2 ] insert file path to decrypt   [ 3 ] BruteForce\nor press any key to end");
         String opt = scan.nextLine();
         switch (opt) {
             case "1" :
-                System.out.println("your possible signs: " + CaesarCipher.ALPHABET);
-                doEncryption();
+                writeANewFile();
                 break;
             case "2" :
-                //insert path
-                //doDecryption();
+                insertFilePathToDecrypt();
                 break;
             case "3" :
-                //doBruteForce
+                bruteForce();
                 break;
             default :
                 return false;
@@ -51,24 +49,38 @@ public class CipherApp {
         return true;
     }
 
+    private void bruteForce() {
+        System.out.println("brute force is coming soon");
+    }
 
-    private void doEncryption() {
+    private void insertFilePathToDecrypt() {
+        System.out.println("typ your file path");
+        String filePath = scan.nextLine();
+        fileManager = new FileManager(filePath, true);
+        doDecryption();
+    }
+    private void writeANewFile() {
+        System.out.println("your possible signs: " + CaesarCipher.ALPHABET);
         System.out.println("insert a file name!");
         String fileName = scan.nextLine();
         List<String> decryptList = new ArrayList<>();
         System.out.println("write your text!");
         String text = "";
-        while (!scan.nextLine().isEmpty()) {
-            decryptList.add(text);
+        while (!(text = scan.nextLine()).isEmpty()) {
+            decryptList.add(text.toLowerCase());
         }
         String firstPathPart = FileManager.createPathString(true);
         fileManager = new FileManager(firstPathPart + "\\" + fileName, false);
         fileManager.writeFileContent(decryptList, true);
-        List<String> encryptList = new CaesarCipher(KEY, decryptList).doEncryption();
+        doEncryption(decryptList);
+    }
+
+    private void doEncryption(List<String> list) {
+        List<String> encryptList = new CaesarCipher(KEY, list).doEncryption();
         fileManager.writeFileContent(encryptList, false);
     }
     private void doDecryption() {
-        List<String> decryptList = fileManager.getFileContent();
+        List<String> decryptList = fileManager.readFileContent();
         List<String> readyList = new CaesarCipher(KEY, decryptList).doDecryption();
         fileManager.writeFileContent(readyList, true);
     }

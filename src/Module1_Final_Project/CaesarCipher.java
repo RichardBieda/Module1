@@ -31,13 +31,13 @@ final class CaesarCipher {
                 i++;
                 continue;
             }
-            OUTPUT_LIST.add(decryptFile(s));
+            OUTPUT_LIST.add(decrypt(s));
             i++;
         }
         return OUTPUT_LIST;
     }
 
-    private String decryptFile(String text) {
+    private String decrypt(String text) {
         char[] textArr = text.toCharArray();
         for (int i = 0; i < textArr.length; i++) {
             int index = (getIndex(textArr[i]) + (LENGTH - KEY)) % LENGTH;
@@ -54,13 +54,13 @@ final class CaesarCipher {
                 i++;
                 continue;
             }
-            OUTPUT_LIST.add(encryptFile(s));
+            OUTPUT_LIST.add(encrypt(s));
             i++;
         }
         return OUTPUT_LIST;
     }
 
-    private String encryptFile(String text) {
+    private String encrypt(String text) {
         char[] textArr = text.toCharArray();
         for (int i = 0; i < textArr.length; i++) {
             int index = (getIndex(textArr[i]) + KEY) % LENGTH;

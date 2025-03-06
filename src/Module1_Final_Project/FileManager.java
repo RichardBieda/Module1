@@ -58,7 +58,7 @@ final class FileManager {
         return isDecrypted ? DECRYPTED_FILE.toString() : ENCRYPTED_FILE.toString();
     }
 
-    List<String> getFileContent() {
+    List<String> readFileContent() {
         List<String> result = new ArrayList<>();
         try {
             result = Files.readAllLines(path);
