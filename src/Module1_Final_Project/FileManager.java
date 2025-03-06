@@ -45,21 +45,17 @@ final class FileManager {
         }
     }
 
-    private Path path;
+    private final Path path;
 
-    FileManager() {}
-    FileManager(String pathString) {
+    FileManager(String pathString, boolean isExistingFile) {
         this.path = Path.of(pathString);
-        if (!Files.isRegularFile(path)) {
+        if (isExistingFile && !Files.isRegularFile(path)) {
             throw new IsNotRegularFileException("this file is not a file, or a wrong path is given");
         }
     }
 
-    void createNewFile(String pathString, boolean isDecrypted) {
-        this.path = Path.of(pathString);
-        if (!Files.isRegularFile(path)) {
-            throw new IsNotRegularFileException("this file is not a file, or a wrong path is given");
-        }
+    static String createPathString(boolean isDecrypted) {
+        return isDecrypted ? DECRYPTED_FILE.toString() : ENCRYPTED_FILE.toString();
     }
 
     List<String> getFileContent() {

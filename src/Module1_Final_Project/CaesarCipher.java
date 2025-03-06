@@ -16,13 +16,12 @@ final class CaesarCipher {
     private final int KEY;
     private final List<String> INPUT_LIST;
     private final List<String> OUTPUT_LIST;
+
     CaesarCipher(int key, List<String> input) {
         this.KEY = key;
         this.INPUT_LIST = new ArrayList<>(input);
         this.OUTPUT_LIST = new ArrayList<>();
     }
-
-
 
     List<String> doDecryption() {
         int i = 1;
@@ -42,6 +41,29 @@ final class CaesarCipher {
         char[] textArr = text.toCharArray();
         for (int i = 0; i < textArr.length; i++) {
             int index = (getIndex(textArr[i]) + (LENGTH - KEY)) % LENGTH;
+            textArr[i] = CRYPTO_ALPHABET[index];
+        }
+        return String.valueOf(textArr);
+    }
+
+    List<String> doEncryption() {
+        int i = 1;
+        for (String s : INPUT_LIST) {
+            if (!isValidString(s)) {
+                System.out.printf("String %d, has not valid signs\n", i);
+                i++;
+                continue;
+            }
+            OUTPUT_LIST.add(encryptFile(s));
+            i++;
+        }
+        return OUTPUT_LIST;
+    }
+
+    private String encryptFile(String text) {
+        char[] textArr = text.toCharArray();
+        for (int i = 0; i < textArr.length; i++) {
+            int index = (getIndex(textArr[i]) + KEY) % LENGTH;
             textArr[i] = CRYPTO_ALPHABET[index];
         }
         return String.valueOf(textArr);

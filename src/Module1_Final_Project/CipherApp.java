@@ -1,5 +1,6 @@
 package Module1_Final_Project;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,7 +15,7 @@ public class CipherApp {
         start();
     }
     public CipherApp(String pathString, int key) {
-        this.fileManager = new FileManager(pathString);
+        this.fileManager = new FileManager(pathString, true);
         this.KEY = validateKey(key);
         start();
     }
@@ -52,7 +53,19 @@ public class CipherApp {
 
 
     private void doEncryption() {
-
+        System.out.println("insert a file name!");
+        String fileName = scan.nextLine();
+        List<String> decryptList = new ArrayList<>();
+        System.out.println("write your text!");
+        String text = "";
+        while (!scan.nextLine().isEmpty()) {
+            decryptList.add(text);
+        }
+        String firstPathPart = FileManager.createPathString(true);
+        fileManager = new FileManager(firstPathPart + "\\" + fileName, false);
+        fileManager.writeFileContent(decryptList, true);
+        List<String> encryptList = new CaesarCipher(KEY, decryptList).doEncryption();
+        fileManager.writeFileContent(encryptList, false);
     }
     private void doDecryption() {
         List<String> decryptList = fileManager.getFileContent();
