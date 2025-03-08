@@ -7,6 +7,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
 
+//This class is the Main class it contains methods and variables for testings.
 public class Main {
 
     static ArrayList<Character> alphabet = new ArrayList<>(Arrays.asList(',','j','p','8','h',':','!','c','y','t','4',' ','m','2','v','e','.','a','g','6','0','k','r','z','d','o','\'','w','b','f','q','7','?','n','u','3','s','i','1','x','9','l','5'));
@@ -30,7 +31,7 @@ public class Main {
 //        } catch (IOException e) {
 //            System.out.println(e);
 //        }
-//        Path end = Path.of("ZZFile_Folder\\Crypto_Messenger\\Outgoing_Files").toAbsolutePath();
+//        Path end = Path.of("File_Folder\\Cipher_App\\Outgoing_Files").toAbsolutePath();
 //        try {
 //            Files.createDirectory(end);
 //        } catch (IOException e) {
@@ -57,7 +58,7 @@ public class Main {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-       CipherApp ca = new CipherApp("jsajaj",10);
+       CipherApp ca = new CipherApp(10);
     }
 
     static String encrypt(String input, int code) {

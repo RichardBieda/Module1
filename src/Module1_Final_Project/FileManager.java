@@ -10,7 +10,7 @@ import java.util.List;
 final class FileManager {
 
     private static final Path ROOT_FOLDER = Path.of("File_Folder");
-    private static final Path MESSENGER_FOLDER = Path.of(ROOT_FOLDER + "\\Crypto_Messenger");
+    private static final Path MESSENGER_FOLDER = Path.of(ROOT_FOLDER + "\\Cipher_App");
     private static final Path ENCRYPTED_FILE = Path.of(MESSENGER_FOLDER + "\\ENCRYPTED");
     private static final Path DECRYPTED_FILE = Path.of(MESSENGER_FOLDER + "\\DECRYPTED");
 

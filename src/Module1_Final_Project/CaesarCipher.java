@@ -6,8 +6,8 @@ final class CaesarCipher {
 
     final static String ALPHABET = "abcdefghijklmnopqrstuvmxyz !?,.':0123456789";
     private final static Character[] CRYPTO_ALPHABET = new Character[] {',','j','p','8','h',':','!','c','y','t','4',' ','m','2','v','e','.','a','g','6','0','k','r','z','d','o','\'','w','b','f','q','7','?','n','u','3','s','i','1','x','9','l','5'};
-    private static final Set<Character> CRYPTO_SET = new HashSet<>();
-    final static int LENGTH = CRYPTO_ALPHABET.length;
+    private final static Set<Character> CRYPTO_SET = new HashSet<>();
+    private final static int LENGTH = CRYPTO_ALPHABET.length;
 
     static {
         Collections.addAll(CRYPTO_SET, CRYPTO_ALPHABET);
