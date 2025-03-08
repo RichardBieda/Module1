@@ -56,7 +56,12 @@ public class CipherApp {
     private void insertFilePathToDecrypt() {
         System.out.println("typ your file path");
         String filePath = scan.nextLine();
-        fileManager = new FileManager(filePath, true);
+        try {
+            fileManager = new FileManager(filePath, true);
+        } catch (IsNotRegularFileException e) {
+            System.out.println("there is something wrong with your file");
+            return;
+        }
         doDecryption();
     }
     private void writeANewFile() {

@@ -80,7 +80,8 @@ final class CaesarCipher {
         return result;
     }
 
-    private boolean isValidString(String text) {
+    private boolean isValidString(String input) {
+        String text = input.toLowerCase();
         char[] textArray = text.toCharArray();
         for (int i = 0; i < textArray.length; i++) {
             if (!CRYPTO_SET.contains(textArray[i])) {
