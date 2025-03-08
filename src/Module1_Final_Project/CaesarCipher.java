@@ -5,7 +5,7 @@ import java.util.*;
 final class CaesarCipher {
 
     final static String ALPHABET = "abcdefghijklmnopqrstuvmxyz !?,.':0123456789";
-    private final static Character[] CRYPTO_ALPHABET = new Character[] {',','j','p','8','h',':','!','c','y','t','4',' ','m','2','v','e','.','a','g','6','0','k','r','z','d','o','\'','w','b','f','q','7','?','n','u','3','s','i','1','x','9','l','5'};
+    private final static Character[] CRYPTO_ALPHABET = new Character[] {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','m','x','y','z',' ','!','?',',','.','\'',':','0','1','2','3','4','5','6','7','8','9'};
     private final static Set<Character> CRYPTO_SET = new HashSet<>();
     private final static int LENGTH = CRYPTO_ALPHABET.length;
 
@@ -18,6 +18,7 @@ final class CaesarCipher {
     private final List<String> OUTPUT_LIST;
 
     CaesarCipher(int key, List<String> input) {
+        key %= LENGTH;
         this.KEY = key;
         this.INPUT_LIST = new ArrayList<>(input);
         this.OUTPUT_LIST = new ArrayList<>();

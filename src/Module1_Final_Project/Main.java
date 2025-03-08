@@ -10,8 +10,8 @@ import java.util.*;
 //This class is the Main class it contains methods and variables for testings.
 public class Main {
 
-    static ArrayList<Character> alphabet = new ArrayList<>(Arrays.asList(',','j','p','8','h',':','!','c','y','t','4',' ','m','2','v','e','.','a','g','6','0','k','r','z','d','o','\'','w','b','f','q','7','?','n','u','3','s','i','1','x','9','l','5'));
-    static char[] alpha = new char[] {',','j','p','8','h',':','!','c','y','t','4',' ','m','2','v','e','.','a','g','6','0','k','r','z','d','o','\'','w','b','f','q','7','?','n','u','3','s','i','1','x','9','l','5'};
+    static ArrayList<Character> alphabet = new ArrayList<>(Arrays.asList('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','m','x','y','z',' ','!','?',',','.','\'',':','0','1','2','3','4','5','6','7','8','9'));
+    static char[] alpha = new char[] {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','m','x','y','z',' ','!','?',',','.','\'',':','0','1','2','3','4','5','6','7','8','9'};
     static int length = alphabet.size();
 
     public static void main(String[] args) {
@@ -58,7 +58,11 @@ public class Main {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-       CipherApp ca = new CipherApp(10);
+       //CipherApp ca = new CipherApp(1110110115);
+        String x  = "abcdefghijklmnopqrstuvmxyz !?,.':0123456789";
+        for (int i = 0; i < x.length(); i++) {
+            System.out.print("\'" + x.charAt(i) + "\',");
+        }
     }
 
     static String encrypt(String input, int code) {

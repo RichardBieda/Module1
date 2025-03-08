@@ -44,7 +44,7 @@ public final class CipherApp {
     }
 
     private boolean showMenu() {
-        System.out.println("[ 1 ] write a new file   [ 2 ] insert file path to decrypt   [ 3 ] BruteForce\nor press any key to end");
+        System.out.println("[ 1 ] write a new file   [ 2 ] insert file path to decrypt   [ 3 ] BruteForce\n[ or press any key to end ]");
         String opt = scan.nextLine();
         switch (opt) {
             case "1" :
