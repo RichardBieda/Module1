@@ -58,11 +58,11 @@ public class Main {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-       //CipherApp ca = new CipherApp(1110110115);
-        String x  = "abcdefghijklmnopqrstuvmxyz !?,.':0123456789";
-        for (int i = 0; i < x.length(); i++) {
-            System.out.print("\'" + x.charAt(i) + "\',");
-        }
+//        String x  = "abcdefghijklmnopqrstuvmxyz !?,.':0123456789";
+//        for (int i = 0; i < x.length(); i++) {
+//            System.out.print("\'" + x.charAt(i) + "\',");
+//        }
+        CipherApp ca = new CipherApp(5);
     }
 
     static String encrypt(String input, int code) {
