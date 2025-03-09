@@ -16,6 +16,10 @@ final class Dictionary {
         }
     }
 
+    BFNode getRoot() {
+        return root;
+    }
+
     private void loadDictionaryToNodes(List<String> list) {
         for (String s : list) {
             if (!CaesarCipher.isValidString(s)) {
