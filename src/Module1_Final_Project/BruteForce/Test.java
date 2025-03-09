@@ -4,7 +4,7 @@ public class Test {
 
     public static void main(String[] args) {
 
-        Dictionary dic = new Dictionary<>("File_Folder\\AutoCorrector\\ENGLISH_DICT");
-        System.out.println("hhh");
+        BruteForce b = new BruteForce("File_Folder\\AutoCorrector\\ENGLISH_DICT", 3);
+        System.out.println("dic");
     }
 }

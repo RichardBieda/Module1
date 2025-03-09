@@ -5,7 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
-class Dictionary<T> {
+class Dictionary {
 
     private final static Set<Character> CRYPTO_ALPHABET = new HashSet();
     static {
