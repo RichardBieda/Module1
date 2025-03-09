@@ -1,28 +1,23 @@
-package Module1_Final_Project.BruteForce;
+package Module1_Final_Project;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
-class Dictionary {
+final class Dictionary {
 
-    private final static Set<Character> CRYPTO_ALPHABET = new HashSet();
-    static {
-        Collections.addAll(CRYPTO_ALPHABET, 'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','m','x','y','z',' ','!','?',',','.','\'',':','0','1','2','3','4','5','6','7','8','9');
-    }
+    private final static String WORD_FILE = "File_Folder\\AutoCorrector\\ENGLISH_DICT";
     private final BFNode root;
-    private final String DICTIONARY_PATH;
-    Dictionary(String dictionaryPath) {
+    Dictionary() {
         root = new BFNode(' ');
-        DICTIONARY_PATH = dictionaryPath;
         loadDictionaryToNodes(readDictionaryFile());
     }
 
     private List<String> readDictionaryFile() {
         List<String> resultList = new ArrayList<>();
         try {
-            resultList = Files.readAllLines(Path.of(DICTIONARY_PATH));
+            resultList = Files.readAllLines(Path.of(WORD_FILE));
         } catch (IOException e) {
             //implement exception handling
         }
@@ -31,7 +26,7 @@ class Dictionary {
 
     private void loadDictionaryToNodes(List<String> list) {
         for (String s : list) {
-            if (!isValidString(s)) {
+            if (!CaesarCipher.isValidString(s)) {
                 System.out.println("invalid string");
                 continue;
             }
@@ -54,14 +49,7 @@ class Dictionary {
         tmpNode.setIsWord(true);
     }
 
-    private boolean isValidString(String input) {
-        String text = input.toLowerCase();
-        char[] textArray = text.toCharArray();
-        for (int i = 0; i < textArray.length; i++) {
-            if (!CRYPTO_ALPHABET.contains(textArray[i])) {
-                return false;
-            }
-        }
-        return true;
+    void checkMatch(int range) {
+
     }
 }

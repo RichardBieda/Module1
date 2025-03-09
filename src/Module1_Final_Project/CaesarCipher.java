@@ -70,7 +70,7 @@ final class CaesarCipher {
         return String.valueOf(textArr);
     }
 
-    private int getIndex(char c) {
+    static int getIndex(char c) {
         int result = 0;
         for (int i = 0; i < LENGTH; i++) {
             if (c == CRYPTO_ALPHABET[i]) {
@@ -81,7 +81,7 @@ final class CaesarCipher {
         return result;
     }
 
-    private boolean isValidString(String input) {
+    static boolean isValidString(String input) {
         String text = input.toLowerCase();
         char[] textArray = text.toCharArray();
         for (int i = 0; i < textArray.length; i++) {

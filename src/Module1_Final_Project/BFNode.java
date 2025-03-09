@@ -1,10 +1,10 @@
-package Module1_Final_Project.BruteForce;
+package Module1_Final_Project;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class BFNode {
+final class BFNode {
 
     private final char sign;
     private boolean isWord;
