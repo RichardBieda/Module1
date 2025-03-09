@@ -1,5 +1,6 @@
 package Module1_Final_Project;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -34,7 +35,11 @@ public final class CipherApp {
 
     private void start() {
         if (fileManager != null) {
-            getDecryption();
+            try {
+                getDecryption();
+            } catch (IOException e) {
+                System.out.println("file manager was unable to read the file content: " + e);
+            }
         }
         boolean isNotFinished = true;
         while (isNotFinished) {
@@ -75,7 +80,11 @@ public final class CipherApp {
             System.out.println("there is something wrong with your file");
             return;
         }
-        getDecryption();
+        try {
+            getDecryption();
+        } catch (IOException e) {
+            System.out.println("file manager was unable to read the file content: " + e);
+        }
     }
     private void writeANewFile() {
         System.out.println("your possible signs: " + CaesarCipher.ALPHABET);
@@ -97,7 +106,7 @@ public final class CipherApp {
         List<String> encryptList = new CaesarCipher(KEY, list).doEncryption();
         fileManager.writeFileContent(encryptList, false);
     }
-    private void getDecryption() {
+    private void getDecryption() throws IOException {
         List<String> decryptList = fileManager.readFileContent();
         List<String> readyList = new CaesarCipher(KEY, decryptList).doDecryption();
         fileManager.writeFileContent(readyList, true);

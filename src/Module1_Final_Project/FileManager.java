@@ -58,13 +58,9 @@ final class FileManager {
         return isDecrypted ? DECRYPTED_FILE.toString() : ENCRYPTED_FILE.toString();
     }
 
-    List<String> readFileContent() {
+    List<String> readFileContent() throws IOException {
         List<String> result = new ArrayList<>();
-        try {
-            result = Files.readAllLines(path);
-        } catch (IOException e) {
-            System.err.println(e);
-        }
+        result = Files.readAllLines(path);
         return result;
     }
 

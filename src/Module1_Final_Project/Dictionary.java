@@ -1,8 +1,6 @@
 package Module1_Final_Project;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.*;
 
 final class Dictionary {
@@ -11,17 +9,11 @@ final class Dictionary {
     private final BFNode root;
     Dictionary() {
         root = new BFNode(' ');
-        loadDictionaryToNodes(readDictionaryFile());
-    }
-
-    private List<String> readDictionaryFile() {
-        List<String> resultList = new ArrayList<>();
         try {
-            resultList = Files.readAllLines(Path.of(WORD_FILE));
+            loadDictionaryToNodes(new FileManager(WORD_FILE, true).readFileContent());
         } catch (IOException e) {
-            //implement exception handling
+            throw new IsNotRegularFileException("could not load file path : " + WORD_FILE);
         }
-        return resultList;
     }
 
     private void loadDictionaryToNodes(List<String> list) {
