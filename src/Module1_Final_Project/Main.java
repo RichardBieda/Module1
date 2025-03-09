@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
 
 //        CipherApp ca = new CipherApp(5);
-        BruteForce b = new BruteForce( 3);
+        BruteForce b = new BruteForce( 4);
         System.out.println("dic");
     }
 }
