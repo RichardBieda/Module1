@@ -8,6 +8,7 @@ final class BFNode {
 
     private final char sign;
     private boolean isWord;
+    private int count;
     private Map<Character,BFNode> children;
 
     BFNode(char newSign) {
@@ -16,6 +17,10 @@ final class BFNode {
 
     char getSign() {
         return sign;
+    }
+
+    void setCount(int count) {
+        this.count = count;
     }
 
     Map<Character, BFNode> getChildren() {

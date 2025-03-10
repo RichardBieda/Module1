@@ -59,7 +59,7 @@ final class FileManager {
     }
 
     List<String> readFileContent() throws IOException {
-        List<String> result = new ArrayList<>();
+        List<String> result;
         result = Files.readAllLines(path);
         return result;
     }

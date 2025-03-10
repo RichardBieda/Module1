@@ -5,7 +5,7 @@ import java.util.*;
 
 final class Dictionary {
 
-    private final static String WORD_FILE = "File_Folder\\AutoCorrector\\ENGLISH_DICT";
+    private final static String WORD_FILE = "File_Folder\\AutoCorrector\\dictWithCount";
     private final BFNode root;
     Dictionary() {
         root = new BFNode(' ');
@@ -26,12 +26,15 @@ final class Dictionary {
                 System.out.println("invalid string");
                 continue;
             }
-            char[] tmpArray = s.toCharArray();
-            setNodes(tmpArray);
+            setNodes(s);
         }
     }
 
-    private void setNodes(char[] input) {
+    private void setNodes(String text) {
+        String[] strings = text.split(" {3}");
+        char[] input = strings[0].toCharArray();
+        int count = Integer.parseInt(strings[1]);
+
         BFNode tmpNode = root;
         for (int i = 0; i < input.length; i++) {
             tmpNode.setChildrenIfAbsent();
@@ -43,6 +46,7 @@ final class Dictionary {
             }
         }
         tmpNode.setIsWord(true);
+        tmpNode.setCount(count);
     }
 
     void checkMatch(int range) {
