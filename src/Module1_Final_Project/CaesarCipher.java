@@ -49,7 +49,8 @@ final class CaesarCipher {
 
     List<String> doEncryption() {
         int i = 1;
-        for (String s : INPUT_LIST) {
+        for (String x : INPUT_LIST) {
+            String s = x.toLowerCase();
             if (!isValidString(s)) {
                 System.out.printf("String %d, has not valid signs\n", i);
                 i++;
@@ -82,8 +83,7 @@ final class CaesarCipher {
     }
 
     static boolean isValidString(String input) {
-        String text = input.toLowerCase();
-        char[] textArray = text.toCharArray();
+        char[] textArray = input.toCharArray();
         for (int i = 0; i < textArray.length; i++) {
             if (!CRYPTO_SET.contains(textArray[i])) {
                 return false;

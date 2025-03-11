@@ -21,7 +21,8 @@ final class Dictionary {
     }
 
     private void loadDictionaryToNodes(List<String> list) {
-        for (String s : list) {
+        for (String x : list) {
+            String s = x.toLowerCase();
             if (!CaesarCipher.isValidString(s)) {
                 System.out.println("invalid string");
                 continue;
@@ -33,7 +34,12 @@ final class Dictionary {
     private void setNodes(String text) {
         String[] strings = text.split(" {3}");
         char[] input = strings[0].toCharArray();
-        int count = Integer.parseInt(strings[1]);
+        int count;
+        try {
+            count = Integer.parseInt(strings[1]);
+        } catch (NumberFormatException e) {
+            count = 1000;
+        }
 
         BFNode tmpNode = root;
         for (int i = 0; i < input.length; i++) {

@@ -12,8 +12,9 @@ public class Main {
 
     public static void main(String[] args) {
 
-        CipherApp ca = new CipherApp(5);
-        BruteForce b = new BruteForce( 4);
+        //CipherApp ca = new CipherApp(5);
+        BruteForce b = new BruteForce(4);
+        b.doBruteForce("ab", 3);
         System.out.println("dic");
     }
 }
