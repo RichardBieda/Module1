@@ -7,7 +7,7 @@ final class Dictionary {
 
     private final static String WORD_FILE = "File_Folder\\AutoCorrector\\dictWithCount";
 
-    private Set<Character> alphabetSet;
+    private final Set<Character> alphabetSet;
     private final BFNode root;
     private final Statistic statistic;
 
@@ -30,10 +30,6 @@ final class Dictionary {
     private void loadDictionaryToNodes(List<String> list) {
         for (String x : list) {
             String s = x.toLowerCase();
-            if (!CaesarCipher.isValidString(s)) {
-                System.out.println("invalid string");
-                continue;
-            }
             setNodes(s);
         }
     }

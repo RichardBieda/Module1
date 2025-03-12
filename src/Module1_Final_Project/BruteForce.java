@@ -1,11 +1,9 @@
 package Module1_Final_Project;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 final class BruteForce {
 
-    //private static final char[] ALPHA = new char[] {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','m','x','y','z',' ','!','?',',','.','\'',':','0','1','2','3','4','5','6','7','8','9'};
     private final Dictionary DICTIONARY;
     private final char[] ALPHA;
     private final int LENGTH;
@@ -14,7 +12,7 @@ final class BruteForce {
 
    BruteForce(String encryptedString, int range) {
         this.DICTIONARY = new Dictionary();
-        ALPHA = getALPHAArray();
+        ALPHA = getAlphaArray();
         LENGTH = ALPHA.length;
         this.range = range;
         ENCRYPTED_STRING = encryptedString;
@@ -63,7 +61,7 @@ final class BruteForce {
         return result;
    }
 
-    private char[] getALPHAArray() {
+    private char[] getAlphaArray() {
         char[] result = new char[DICTIONARY.getAlphabetSet().size()];
         int i = 0;
         for (char c : DICTIONARY.getAlphabetSet()) {
