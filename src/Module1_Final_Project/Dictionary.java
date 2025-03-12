@@ -6,9 +6,13 @@ import java.util.*;
 final class Dictionary {
 
     private final static String WORD_FILE = "File_Folder\\AutoCorrector\\dictWithCount";
+
+    private Set<Character> alphabetSet;
     private final BFNode root;
     private final Statistic statistic;
+
     Dictionary() {
+        alphabetSet = new HashSet<>();
         root = new BFNode(' ');
         try {
             loadDictionaryToNodes(new FileManager(WORD_FILE, true).readFileContent());
@@ -53,6 +57,7 @@ final class Dictionary {
                 tmpNode.getChildren().put(input[i], new BFNode(input[i]));
                 tmpNode = tmpNode.getChildren().get(input[i]);
             }
+            alphabetSet.add(input[i]);
         }
         tmpNode.setIsWord(true);
         tmpNode.setCount(count);
@@ -89,5 +94,9 @@ final class Dictionary {
             nodes.push(tmpNode.getChildren().get(c));
             searchThroughLevels(tmpChar, nodes, encryptedWordLength);
         }
+    }
+
+    Set<Character> getAlphabetSet() {
+        return alphabetSet;
     }
 }
