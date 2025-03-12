@@ -9,27 +9,31 @@ final class BruteForce {
     private final Dictionary DICTIONARY;
 
     private int range;
+    private final String ENCRYPTED_STRING;
 
-    BruteForce(int range) {
+    BruteForce(String encryptedString, int range) {
         this.DICTIONARY = new Dictionary();
         this.range = range;
+        ENCRYPTED_STRING = encryptedString;
+        doBruteForce();
+        show();
     }
 
-    void doBruteForce(String encryptedString) {
-        char[] finish = encryptedString.toCharArray();
-        char[] input = encryptedString.toCharArray();
+    private void doBruteForce() {
+        char[] finish = ENCRYPTED_STRING.toCharArray();
+        char[] input = ENCRYPTED_STRING.toCharArray();
         range = Math.min(range, input.length);
         int[] combination = getIndexInAlpha(input);
 
             do {
                 for (int i = 0; i < LENGTH; i++) {
-                    DICTIONARY.checkMatch(input, range);
+                    DICTIONARY.checkMatch(input, range, ENCRYPTED_STRING.length());
                     input[0] = ALPHA[(++combination[0]) % LENGTH];
                 }
                 combination[0] -= LENGTH;
                 for (int i = 1; i < range; i++) {
                     input[i] = ALPHA[++combination[i] % LENGTH];
-                    if (input[i] != encryptedString.charAt(i)) {
+                    if (input[i] != ENCRYPTED_STRING.charAt(i)) {
                         break;
                     }
                     combination[i] -= LENGTH;
@@ -45,8 +49,8 @@ final class BruteForce {
         return result;
     }
 
-    void show() {
-        System.out.println(DICTIONARY.getStats());
+    private void show() {
+        DICTIONARY.getStats();
     }
 
 }

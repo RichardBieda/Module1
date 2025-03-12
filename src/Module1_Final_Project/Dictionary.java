@@ -5,8 +5,7 @@ import java.util.*;
 
 final class Dictionary {
 
-    //private final static String WORD_FILE = "File_Folder\\AutoCorrector\\dictWithCount";
-    private final static String WORD_FILE = "src\\test";
+    private final static String WORD_FILE = "File_Folder\\AutoCorrector\\dictWithCount";
     private final BFNode root;
     private final Statistic statistic;
     Dictionary() {
@@ -19,12 +18,9 @@ final class Dictionary {
         this.statistic = new Statistic();
     }
 
-    BFNode getRoot() {
-        return root;
-    }
-
-    Map<Integer, String> getStats() {
-        return statistic.getResults();
+    void getStats() {
+        System.out.println(statistic.getResults());
+        System.out.println("suggests: " + statistic.getSuggests());
     }
 
     private void loadDictionaryToNodes(List<String> list) {
@@ -62,7 +58,7 @@ final class Dictionary {
         tmpNode.setCount(count);
     }
 
-    void checkMatch(char[] input, int range) {
+    void checkMatch(char[] input, int range, int encryptedStringLength) {
         char[] result = new char[range];
         BFNode tmpNode = root;
         for (int i = 0; i < range; i++) {
@@ -75,24 +71,23 @@ final class Dictionary {
         }
         Stack<BFNode> nodeStack = new Stack<>();
         nodeStack.push(tmpNode);
-        searchThroughLevels(result, nodeStack);
+        searchThroughLevels(result, nodeStack, encryptedStringLength);
     }
 
-    void searchThroughLevels(char[] result, Stack<BFNode> nodes) {
-        BFNode tmpNode = nodes.peek();
-        if (tmpNode.isWord()) {
+    void searchThroughLevels(char[] result, Stack<BFNode> nodes, int encryptedWordLength) {
+        BFNode tmpNode = nodes.pop();
+        if (tmpNode.isWord() && result.length == encryptedWordLength) {
             statistic.insertResult(result, tmpNode.getCount());
+            tmpNode.setIsWord(false);
         }
-        if (tmpNode.getChildren() == null) {
-            nodes.pop();
+        if (result.length > encryptedWordLength || tmpNode.getChildren() == null) {
             return;
         }
         for (Character c : tmpNode.getChildren().keySet()) {
             char[] tmpChar = Arrays.copyOf(result, result.length +1);
             tmpChar[tmpChar.length-1] = c;
             nodes.push(tmpNode.getChildren().get(c));
-            searchThroughLevels(tmpChar, nodes);
+            searchThroughLevels(tmpChar, nodes, encryptedWordLength);
         }
-        nodes.pop();
     }
 }

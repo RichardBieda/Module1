@@ -68,7 +68,25 @@ public final class CipherApp {
     }
 
     private void bruteForce() {
-        System.out.println("brute force is coming soon");
+        System.out.println("typ the encrypted String");
+        String encrypt = scan.nextLine();
+        System.out.println("choose how many rows shall be brute forced ");
+        String row = scan.nextLine();
+        int range = 0;
+        boolean isInvalidRow = false;
+        do {
+            try {
+                range = Integer.parseInt(row);
+                if (range < 1) {
+                    throw new NumberFormatException();
+                }
+                isInvalidRow = false;
+            } catch (NumberFormatException e) {
+                System.out.println("choose a number greater 0");
+                isInvalidRow = true;
+            }
+        } while (isInvalidRow);
+        new BruteForce(encrypt, range);
     }
 
     private void insertFilePathToDecrypt() {

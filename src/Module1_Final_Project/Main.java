@@ -12,11 +12,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        //CipherApp ca = new CipherApp(5);
-        BruteForce b = new BruteForce(4);
-        b.doBruteForce("abrtic");
-        b.show();
+        CipherApp ca = new CipherApp(5);
         System.out.println("dic");
-
     }
 }
