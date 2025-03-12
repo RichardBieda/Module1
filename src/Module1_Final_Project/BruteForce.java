@@ -8,15 +8,14 @@ final class BruteForce {
     private static final int LENGTH = ALPHA.length;
     private final Dictionary DICTIONARY;
 
-
-    private final int range;
+    private int range;
 
     BruteForce(int range) {
         this.DICTIONARY = new Dictionary();
         this.range = range;
     }
 
-    void doBruteForce(String encryptedString, int range) {
+    void doBruteForce(String encryptedString) {
         char[] finish = encryptedString.toCharArray();
         char[] input = encryptedString.toCharArray();
         range = Math.min(range, input.length);
@@ -24,12 +23,11 @@ final class BruteForce {
 
             do {
                 for (int i = 0; i < LENGTH; i++) {
-                    System.out.println(input);
-                    DICTIONARY.checkMatch(range);
+                    DICTIONARY.checkMatch(input, range);
                     input[0] = ALPHA[(++combination[0]) % LENGTH];
                 }
                 combination[0] -= LENGTH;
-                for (int i = 1; i < input.length; i++) {
+                for (int i = 1; i < range; i++) {
                     input[i] = ALPHA[++combination[i] % LENGTH];
                     if (input[i] != encryptedString.charAt(i)) {
                         break;
@@ -45,6 +43,10 @@ final class BruteForce {
             result[i] = CaesarCipher.getIndex(input[i]);
         }
         return result;
+    }
+
+    void show() {
+        System.out.println(DICTIONARY.getStats());
     }
 
 }

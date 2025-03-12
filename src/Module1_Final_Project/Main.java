@@ -14,7 +14,9 @@ public class Main {
 
         //CipherApp ca = new CipherApp(5);
         BruteForce b = new BruteForce(4);
-        b.doBruteForce("ab", 3);
+        b.doBruteForce("abrtic");
+        b.show();
         System.out.println("dic");
+
     }
 }

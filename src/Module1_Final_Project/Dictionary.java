@@ -5,8 +5,10 @@ import java.util.*;
 
 final class Dictionary {
 
-    private final static String WORD_FILE = "File_Folder\\AutoCorrector\\dictWithCount";
+    //private final static String WORD_FILE = "File_Folder\\AutoCorrector\\dictWithCount";
+    private final static String WORD_FILE = "src\\test";
     private final BFNode root;
+    private final Statistic statistic;
     Dictionary() {
         root = new BFNode(' ');
         try {
@@ -14,10 +16,15 @@ final class Dictionary {
         } catch (IOException e) {
             throw new IsNotRegularFileException("could not load file path : " + WORD_FILE);
         }
+        this.statistic = new Statistic();
     }
 
     BFNode getRoot() {
         return root;
+    }
+
+    Map<Integer, String> getStats() {
+        return statistic.getResults();
     }
 
     private void loadDictionaryToNodes(List<String> list) {
@@ -55,7 +62,37 @@ final class Dictionary {
         tmpNode.setCount(count);
     }
 
-    void checkMatch(int range) {
+    void checkMatch(char[] input, int range) {
+        char[] result = new char[range];
+        BFNode tmpNode = root;
+        for (int i = 0; i < range; i++) {
+            if (tmpNode.getChildren() != null && tmpNode.getChildren().containsKey(input[i])) {
+                tmpNode = tmpNode.getChildren().get(input[i]);
+                result[i] = tmpNode.getSign();
+            } else {
+                return;
+            }
+        }
+        Stack<BFNode> nodeStack = new Stack<>();
+        nodeStack.push(tmpNode);
+        searchThroughLevels(result, nodeStack);
+    }
 
+    void searchThroughLevels(char[] result, Stack<BFNode> nodes) {
+        BFNode tmpNode = nodes.peek();
+        if (tmpNode.isWord()) {
+            statistic.insertResult(result, tmpNode.getCount());
+        }
+        if (tmpNode.getChildren() == null) {
+            nodes.pop();
+            return;
+        }
+        for (Character c : tmpNode.getChildren().keySet()) {
+            char[] tmpChar = Arrays.copyOf(result, result.length +1);
+            tmpChar[tmpChar.length-1] = c;
+            nodes.push(tmpNode.getChildren().get(c));
+            searchThroughLevels(tmpChar, nodes);
+        }
+        nodes.pop();
     }
 }

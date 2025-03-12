@@ -15,6 +15,14 @@ final class BFNode {
         sign = newSign;
     }
 
+    int getCount() {
+        return count;
+    }
+
+    boolean isWord() {
+        return isWord;
+    }
+
     char getSign() {
         return sign;
     }
