@@ -6,6 +6,6 @@ public class Main {
 
 
 
-        CipherApp ca = new CipherApp("src\\9900WordsEncrypted",5);
+        CipherApp ca = new CipherApp(30);
     }
 }
