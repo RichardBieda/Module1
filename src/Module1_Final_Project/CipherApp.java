@@ -118,7 +118,7 @@ public final class CipherApp {
         String fileName = scan.nextLine();
         List<String> decryptList = new ArrayList<>();
         System.out.println("write your text!");
-        String text = "";
+        String text;
         while (!(text = scan.nextLine()).isEmpty()) {
             decryptList.add(text.toLowerCase());
         }
