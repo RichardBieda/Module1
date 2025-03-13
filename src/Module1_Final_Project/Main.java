@@ -5,6 +5,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-        CipherApp ca = new CipherApp(5);
+        CipherApp ca = new CipherApp("src\\9900WordsEncrypted",5);
     }
 }

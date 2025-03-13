@@ -8,38 +8,47 @@ final class BruteForce {
     private final char[] ALPHA;
     private final int LENGTH;
     private int range;
-    private final String ENCRYPTED_STRING;
+    private String encryptedString;
 
-   BruteForce(String encryptedString, int range) {
+   BruteForce() {
         this.DICTIONARY = new Dictionary();
         ALPHA = getAlphaArray();
         LENGTH = ALPHA.length;
-        this.range = range;
-        ENCRYPTED_STRING = encryptedString;
-        doBruteForce();
-        show();
     }
 
-    private void doBruteForce() {
-        char[] finish = ENCRYPTED_STRING.toCharArray();
-        char[] input = ENCRYPTED_STRING.toCharArray();
+    void setRange(int range) {
+       this.range = range;
+    }
+
+    void setEncryptedString(String encryptedString) {
+       this.encryptedString = encryptedString;
+    }
+
+    String getAlpha() {
+       return String.valueOf(ALPHA);
+    }
+
+    void doBruteForce() {
+        char[] input = encryptedString.toCharArray();
         range = Math.min(range, input.length);
         int[] combination = getIndexInAlpha(input);
+        char[] finish = Arrays.copyOf(input, input.length);
 
             do {
                 for (int i = 0; i < LENGTH; i++) {
-                    DICTIONARY.checkMatch(input, range, ENCRYPTED_STRING.length());
+                    DICTIONARY.checkMatch(input, range, encryptedString.length());
                     input[0] = ALPHA[(++combination[0]) % LENGTH];
                 }
                 combination[0] -= LENGTH;
                 for (int i = 1; i < range; i++) {
                     input[i] = ALPHA[++combination[i] % LENGTH];
-                    if (input[i] != ENCRYPTED_STRING.charAt(i)) {
+                    if (input[i] != encryptedString.charAt(i)) {
                         break;
                     }
                     combination[i] -= LENGTH;
                 }
             } while (!Arrays.equals(input, finish));
+            show();
     }
 
     private int[] getIndexInAlpha(char[] input) {
@@ -67,7 +76,6 @@ final class BruteForce {
         for (char c : DICTIONARY.getAlphabetSet()) {
             result[i++] = c;
         }
-        System.out.println(result);
         return result;
     }
 
@@ -75,4 +83,13 @@ final class BruteForce {
         DICTIONARY.getStats();
     }
 
+    boolean isValidString(String input) {
+        char[] textArray = input.toCharArray();
+        for (int i = 0; i < textArray.length; i++) {
+            if (!DICTIONARY.getAlphabetSet().contains(textArray[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

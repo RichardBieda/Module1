@@ -69,12 +69,13 @@ public final class CipherApp {
     }
 
     private void bruteForce() {
-        System.out.println("typ the encrypted String");
+        BruteForce bruteForce = new BruteForce();
+        System.out.println("typ the encrypted String. That are your possible signs: " + bruteForce.getAlpha());
         String encrypt = scan.nextLine();
         System.out.println("choose how many rows shall be brute forced ");
         String row = scan.nextLine();
         int range = 0;
-        boolean isInvalidRow = false;
+        boolean isInvalidRow;
         do {
             try {
                 range = Integer.parseInt(row);
@@ -87,7 +88,13 @@ public final class CipherApp {
                 isInvalidRow = true;
             }
         } while (isInvalidRow);
-        new BruteForce(encrypt, range);
+        bruteForce.setRange(range);
+        if (!bruteForce.isValidString(encrypt)) {
+            System.out.println("your String is invalide");
+            return;
+        }
+        bruteForce.setEncryptedString(encrypt);
+        bruteForce.doBruteForce();
     }
 
     private void insertFilePathToDecrypt() {
