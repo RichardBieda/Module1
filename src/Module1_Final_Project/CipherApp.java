@@ -27,9 +27,9 @@ public final class CipherApp {
         this.KEY = key;
         start();
     }
-    public CipherApp(String pathString, int key) {
+    public CipherApp(String encryptedFilePath, int key) {
         validateKey(key);
-        this.fileManager = new FileManager(pathString, true);
+        this.fileManager = new FileManager(encryptedFilePath, true);
         this.KEY = key;
         start();
     }
