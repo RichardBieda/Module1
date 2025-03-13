@@ -2,6 +2,22 @@ package Module1_Final_Project;
 
 import java.util.Arrays;
 
+//The BruteForce class is the main class (not the base class) of BruteForce.
+//It includes the Dictionary, BFNode, and Statistic classes.
+//This was used to be a separate package, but because I didn't want to make the classes public, everything was put into one package.
+
+//Bruteforce is initiated in the CipherApp application's user interface by entering an encrypted string and a range.
+//Range specifies how many places in the string should be brute forced.
+
+//The Dictionary class creates the dictionary using BFNodes and also performs word queries.
+//The Dictionary class also provides the brute-force alphabet.
+//The alphabet contains all characters from the dictionary, which is loaded from a file.
+
+//Statistic creates a map with the results
+
+//BFNode is a trie structure. Essentially, a node is a character with children and two fields: isWord and count
+// All letters of a word are nodes. However, the isWord field in the last NOde of a word is set to true, and count is initialized.
+//so the same nodes can represent multiple words
 final class BruteForce {
 
     private final Dictionary DICTIONARY;
