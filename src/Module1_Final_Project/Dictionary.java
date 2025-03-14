@@ -77,7 +77,7 @@ final class Dictionary {
 
     void searchThroughLevels(char[] result, Stack<BFNode> nodes, int encryptedWordLength) {
         BFNode tmpNode = nodes.pop();
-        if (tmpNode.isWord() && result.length == encryptedWordLength) {
+        if (tmpNode.isWord() && result.length >= encryptedWordLength) {
             statistic.insertResult(result, tmpNode.getCount());
             tmpNode.setIsWord(false);
         }

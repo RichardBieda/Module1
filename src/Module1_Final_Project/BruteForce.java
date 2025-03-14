@@ -6,8 +6,9 @@ import java.util.Arrays;
 //It includes the Dictionary, BFNode, and Statistic classes.
 //This was used to be a separate package, but because I didn't want to make the classes public, everything was put into one package.
 
-//Bruteforce is initiated in the CipherApp application's user interface by entering an encrypted string and a range.
-//Range specifies how many places in the string should be brute forced.
+//Bruteforce is initiated in the CipherApp application's user interface by entering an encrypted string.
+//Only the first 3 letters will be brute forced, except the String is shorter.
+//But to be honest, sometime I'm noticed this trie structure don't need the bruteforce.
 
 //The Dictionary class creates the dictionary using BFNodes and also performs word queries.
 //The Dictionary class also provides the brute-force alphabet.
@@ -20,6 +21,7 @@ import java.util.Arrays;
 //so the same nodes can represent multiple words
 final class BruteForce {
 
+    private final static int DEFAULT_RANGE = 3;
     private final Dictionary DICTIONARY;
     private final char[] ALPHA;
     private final int LENGTH;
@@ -32,10 +34,6 @@ final class BruteForce {
         LENGTH = ALPHA.length;
     }
 
-    void setRange(int range) {
-       this.range = range;
-    }
-
     void setEncryptedString(String encryptedString) {
        this.encryptedString = encryptedString;
     }
@@ -46,7 +44,7 @@ final class BruteForce {
 
     void doBruteForce() {
         char[] input = encryptedString.toCharArray();
-        range = Math.min(range, input.length);
+        range = Math.min(DEFAULT_RANGE, input.length);
         int[] combination = getIndexInAlpha(input);
         char[] finish = Arrays.copyOf(input, input.length);
 

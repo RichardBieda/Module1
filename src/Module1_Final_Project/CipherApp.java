@@ -72,24 +72,7 @@ public final class CipherApp {
         BruteForce bruteForce = new BruteForce();
         System.out.println("typ the encrypted String. That are your possible signs: " + bruteForce.getAlpha());
         String encrypt = scan.nextLine();
-        System.out.println("choose how many rows shall be brute forced ");
-        String row = scan.nextLine();
-        int range = 0;
-        boolean isInvalidRow;
-        do {
-            try {
-                range = Integer.parseInt(row);
-                if (range < 1) {
-                    throw new NumberFormatException();
-                }
-                isInvalidRow = false;
-            } catch (NumberFormatException e) {
-                System.out.println("choose a number greater 0");
-                isInvalidRow = true;
-            }
-        } while (isInvalidRow);
-        bruteForce.setRange(range);
-        if (!bruteForce.isValidString(encrypt)) {
+        if (!bruteForce.isValidString(encrypt) || encrypt.isEmpty()) {
             System.out.println("your String is invalide");
             return;
         }
