@@ -7,22 +7,17 @@ public class Labyrinth {
     final Field[][] fieldArray;
 
     public Labyrinth(int sizeX, int sizeY) {
-        this.sizeX = sizeX;
-        this.sizeY = sizeY;
-        this.fieldArray = new Field[sizeX][sizeY];
+        this.sizeX = sizeX + 2;
+        this.sizeY = sizeY + 2;
+        this.fieldArray = new Field[this.sizeX][this.sizeY];
         insertFields();
     }
 
     void showLabyrinth() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i <= sizeX; i++) {
-            sb.append("|");
+        for (int i = 0; i < sizeX; i++) {
             for (int j = 0; j < sizeY; j++) {
-                if (i < sizeX) {
-                    sb.append(fieldArray[i][j].getSign());
-                } else {
-                    sb.append("---");
-                }
+                sb.append(fieldArray[i][j].getSign());
             }
             sb.append("\n");
         }
@@ -30,9 +25,13 @@ public class Labyrinth {
     }
 
     void insertFields() {
-        for (int i = 0; i < sizeY; i++) {
-            for (int j = 0; j < sizeX; j++) {
-                fieldArray[j][i] = new Field(i, j);
+        for (int i = 0; i < sizeX; i++) {
+            for (int j = 0; j < sizeY; j++) {
+                if (j != 0 && j != sizeY-1 && i != 0 && i != sizeX-1) {
+                    fieldArray[j][i] = new Field(i, j);
+                } else {
+                    fieldArray[j][i] = new Barrier(i, j);
+                }
             }
         }
     }

@@ -1,6 +1,6 @@
 package Labyrinth;
 
-class Destination extends Field {
+class Destination extends Barrier {
 
     static final String SIGN = " D ";
     Destination(int x, int y) {
