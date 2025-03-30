@@ -40,21 +40,4 @@ class Field {
     void setCaller(Field field) {
         this.caller = field;
     }
-
-    boolean below(int maxY) {
-        return y + 1 < maxY;
-    }
-
-    boolean right(int maxX) {
-        return x + 1 < maxX;
-    }
-
-    boolean left() {
-        return x - 1 > -1;
-    }
-
-    boolean above() {
-        return y - 1 > -1;
-    }
-
 }

@@ -9,6 +9,9 @@ public final class Maze {
     private final int sizeX;
     final Field[][] fieldArray;
     private Field start;
+    private Field destination;
+
+    private List<Field> childList;
 
     public Maze(int sizeY, int sizeX) {
         checkSizes(sizeY, sizeX);
@@ -28,6 +31,12 @@ public final class Maze {
         checkSizes(y, x);
         start = new Start(y, x);
         fieldArray[y][x] = start;
+    }
+
+    void setDestination(int y, int x) {
+        checkSizes(y, x);
+        destination = new Destination(y, x);
+        fieldArray[y][x] = destination;
     }
 
     void showLabyrinth() {
@@ -58,30 +67,80 @@ public final class Maze {
 
     void findPath() {
         Field tmp = start;
-        List<Field> fieldList = new ArrayList<>();
-        fieldList.add(tmp);
-        bfs(fieldList);
+        childList = new ArrayList<>();
+        childList.add(tmp);
+        bfs();
+        setPaths();
     }
 
-    private void bfs(List<Field> list) {
+    private void bfs() {
         List<Field> tmpList = new ArrayList<>();
-        for (Field x : list) {
-            if (x.below(sizeY) && !(x instanceof Barrier) && !x.getIsChecked()) {
-                fieldArray[x.getY() -1][x.getX()].setIsChecked(true);
-                fieldArray[x.getY() -1][x.getX()].setCaller(x);
+        for (Field x : childList) {
+            if (x.getY() +1 < sizeY) {
+                Field child = fieldArray[x.getY() +1][x.getX()];
+                if (child == destination) {
+                    destination.setCaller(x);
+                    childList.clear();
+                    return;
+                }
+                if (!(child instanceof Barrier) && !child.getIsChecked()) {
+                    child.setIsChecked(true);
+                    child.setCaller(x);
+                    tmpList.add(child);
+                }
             }
-            if (x.left() && !(x instanceof Barrier) && !x.getIsChecked()) {
-                fieldArray[x.getY()][x.getX() -1].setIsChecked(true);
-                fieldArray[x.getY()][x.getX() -1].setCaller(x);
+            if (x.getX() -1 > -1) {
+                Field child = fieldArray[x.getY()][x.getX() -1];
+                if (child == destination) {
+                    destination.setCaller(x);
+                    childList.clear();
+                    return;
+                }
+                if (!(child instanceof Barrier) && !child.getIsChecked()) {
+                    child.setIsChecked(true);
+                    child.setCaller(x);
+                    tmpList.add(child);
+                }
             }
-            if (x.right(sizeX) && !(x instanceof Barrier) && !x.getIsChecked()) {
-                fieldArray[x.getY()][x.getX() +1].setIsChecked(true);
-                fieldArray[x.getY()][x.getX() +1].setCaller(x);
+            if (x.getX() +1 < sizeX) {
+                Field child = fieldArray[x.getY()][x.getX() +1];
+                if (child == destination) {
+                    destination.setCaller(x);
+                    childList.clear();
+                    return;
+                }
+                if (!(child instanceof Barrier) && !child.getIsChecked()) {
+                    child.setIsChecked(true);
+                    child.setCaller(x);
+                    tmpList.add(child);
+                }
             }
-            if (x.above() && !(x instanceof Barrier) && !x.getIsChecked()) {
-                fieldArray[x.getY() +1][x.getX()].setIsChecked(true);
-                fieldArray[x.getY() +1][x.getX()].setCaller(x);
+            if (x.getY() -1 > -1) {
+                Field child = fieldArray[x.getY() -1][x.getX()];
+                if (child == destination) {
+                    destination.setCaller(x);
+                    childList.clear();
+                    return;
+                }
+                if (!(child instanceof Barrier) && !child.getIsChecked()) {
+                    child.setIsChecked(true);
+                    child.setCaller(x);
+                    tmpList.add(child);
+                }
             }
+        }
+        childList = tmpList;
+        if (!childList.isEmpty()) {
+            bfs();
+        }
+    }
+
+    private void setPaths() {
+        Field tmp = destination.getCaller();
+        while (tmp != start) {
+            Field path = new Path(tmp.getY(), tmp.getX());
+            tmp = tmp.getCaller();
+            fieldArray[tmp.getY()][tmp.getX()] = path;
         }
     }
 }
