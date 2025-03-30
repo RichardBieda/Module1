@@ -1,10 +1,10 @@
-package Labyrinth;
+package Maze;
 
 class Path extends Field {
 
     static final String SIGN = " + ";
-    Path(int x, int y) {
-        super(x, y);
+    Path(int y, int x) {
+        super(y, x);
     }
 
     @Override

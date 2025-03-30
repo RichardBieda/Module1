@@ -1,10 +1,10 @@
-package Labyrinth;
+package Maze;
 
 class Barrier extends Field {
 
     static final String SIGN = " X ";
-    Barrier(int x, int y) {
-        super(x, y);
+    Barrier(int y, int x) {
+        super(y, x);
     }
 
     @Override

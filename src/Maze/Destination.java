@@ -1,10 +1,10 @@
-package Labyrinth;
+package Maze;
 
 class Destination extends Field {
 
     static final String SIGN = " D ";
-    Destination(int x, int y) {
-        super(x, y);
+    Destination(int y, int x) {
+        super(y, x);
     }
 
     @Override
