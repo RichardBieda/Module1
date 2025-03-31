@@ -60,7 +60,7 @@ public final class Maze {
     private void insertFields() {
         for (int i = 0; i < fieldArray.length; i++) {
             for (int j = 0; j < fieldArray[i].length; j++) {
-                fieldArray[i][j] = new Field(j, i);
+                fieldArray[i][j] = new Field(i, j);
             }
         }
     }
@@ -136,11 +136,16 @@ public final class Maze {
     }
 
     private void setPaths() {
+        List<Field> list = new ArrayList<>();
         Field tmp = destination.getCaller();
         while (tmp != start) {
-            Field path = new Path(tmp.getY(), tmp.getX());
+            list.add(tmp);
             tmp = tmp.getCaller();
-            fieldArray[tmp.getY()][tmp.getX()] = path;
+        }
+        for (Field x : list) {
+            Field path = new Path(x.getY(), x.getX());
+            path.setCaller(x.getCaller());
+            fieldArray[x.getY()][x.getX()] = path;
         }
     }
 }

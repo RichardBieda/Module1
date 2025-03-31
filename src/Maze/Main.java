@@ -4,16 +4,16 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Maze l = new Maze(5, 5);
-        l.fieldArray[3][2] = new Barrier(4, 4);
-        l.fieldArray[3][3] = new Barrier(5, 4);
-        l.fieldArray[3][1] = new Barrier(5, 4);
-        l.fieldArray[2][2] = new Barrier(5, 4);
-        l.fieldArray[4][2] = new Barrier(5, 4);
+        Maze l = new Maze(10, 10);
+        l.fieldArray[4][5] = new Barrier(4, 5);
+        l.fieldArray[4][6] = new Barrier(4, 6);
+        l.fieldArray[4][4] = new Barrier(4, 4);
+        l.fieldArray[5][5] = new Barrier(5, 5);
+        l.fieldArray[6][5] = new Barrier(6, 5);
         l.showLabyrinth();
         System.out.println("\n");
-        l.setStart(1, 1);
-        l.setDestination(4, 3);
+        l.setStart(0, 5);
+        l.setDestination(7, 4);
         l.findPath();
         l.showLabyrinth();
     }
