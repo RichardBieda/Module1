@@ -11,8 +11,6 @@ public final class Maze {
     private Field start;
     private Field destination;
 
-    private List<Field> childList;
-
     public Maze(int sizeY, int sizeX) {
         checkSizes(sizeY, sizeX);
         this.sizeY = sizeY;
@@ -67,20 +65,20 @@ public final class Maze {
 
     void findPath() {
         Field tmp = start;
-        childList = new ArrayList<>();
+        List<Field> childList = new ArrayList<>();
         childList.add(tmp);
-        bfs();
+        bfs(childList);
         setPaths();
     }
 
-    private void bfs() {
+    private void bfs(List<Field> list) {
         List<Field> tmpList = new ArrayList<>();
-        for (Field x : childList) {
+        for (Field x : list) {
             if (x.getY() +1 < sizeY) {
                 Field child = fieldArray[x.getY() +1][x.getX()];
                 if (child == destination) {
                     destination.setCaller(x);
-                    childList.clear();
+                    list.clear();
                     return;
                 }
                 if (!(child instanceof Barrier) && !child.getIsChecked()) {
@@ -93,7 +91,7 @@ public final class Maze {
                 Field child = fieldArray[x.getY()][x.getX() -1];
                 if (child == destination) {
                     destination.setCaller(x);
-                    childList.clear();
+                    list.clear();
                     return;
                 }
                 if (!(child instanceof Barrier) && !child.getIsChecked()) {
@@ -106,7 +104,7 @@ public final class Maze {
                 Field child = fieldArray[x.getY()][x.getX() +1];
                 if (child == destination) {
                     destination.setCaller(x);
-                    childList.clear();
+                    list.clear();
                     return;
                 }
                 if (!(child instanceof Barrier) && !child.getIsChecked()) {
@@ -119,7 +117,7 @@ public final class Maze {
                 Field child = fieldArray[x.getY() -1][x.getX()];
                 if (child == destination) {
                     destination.setCaller(x);
-                    childList.clear();
+                    list.clear();
                     return;
                 }
                 if (!(child instanceof Barrier) && !child.getIsChecked()) {
@@ -129,9 +127,9 @@ public final class Maze {
                 }
             }
         }
-        childList = tmpList;
-        if (!childList.isEmpty()) {
-            bfs();
+        list = tmpList;
+        if (!list.isEmpty()) {
+            bfs(list);
         }
     }
 
