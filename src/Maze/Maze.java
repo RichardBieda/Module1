@@ -12,27 +12,33 @@ public final class Maze {
     private Field destination;
 
     public Maze(int sizeY, int sizeX) {
-        checkSizes(sizeY, sizeX);
+        checkMazeSize(sizeY, sizeX);
         this.sizeY = sizeY;
         this.sizeX = sizeX;
         this.fieldArray = new Field[this.sizeY][this.sizeX];
         insertFields();
     }
 
-    private void checkSizes(int sizeY, int sizeX) {
-        if (sizeY < 1 && sizeX < 1) {
-            throw new InvalidSizeException("Your maze size in invalid");
+    private void checkMazeSize(int sizeY, int sizeX) {
+        if (sizeY < 1 || sizeX < 1) {
+            throw new InvalidSizeException("Your maze size is invalid");
+        }
+    }
+
+    private void checkFieldCoordinates(int y, int x) {
+        if (y < 0 || x < 0 || y > sizeY -1 || x > sizeX -1) {
+            throw new InvalidSizeException("Your field coordinates are invalid");
         }
     }
 
     void setStart(int y, int x) {
-        checkSizes(y, x);
+        checkFieldCoordinates(y, x);
         start = new Start(y, x);
         fieldArray[y][x] = start;
     }
 
     void setDestination(int y, int x) {
-        checkSizes(y, x);
+        checkFieldCoordinates(y, x);
         destination = new Destination(y, x);
         fieldArray[y][x] = destination;
     }
