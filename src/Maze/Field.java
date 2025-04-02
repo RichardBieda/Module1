@@ -2,7 +2,6 @@ package Maze;
 
 class Field {
 
-    static final String SIGN = " . ";
     private Field caller;
     private boolean isChecked;
     private final int y;
@@ -22,7 +21,7 @@ class Field {
     }
 
     String getSign() {
-        return SIGN;
+        return MazeSign.getSign(this);
     }
 
     void setIsChecked(boolean checked) {

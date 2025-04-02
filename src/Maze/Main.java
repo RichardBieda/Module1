@@ -12,8 +12,8 @@ public class Main {
         l.fieldArray[6][5] = new Barrier(6, 5);
         l.showLabyrinth();
         System.out.println("\n");
-        l.setStart(0, 5);
-        l.setDestination(7, 4);
+        l.setStart(5, 4);
+        l.setDestination(3, 6);
         l.findPath();
         l.showLabyrinth();
     }
