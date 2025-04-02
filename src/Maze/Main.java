@@ -10,11 +10,11 @@ public class Main {
         l.fieldArray[4][4] = new Barrier(4, 4);
         l.fieldArray[5][5] = new Barrier(5, 5);
         l.fieldArray[6][5] = new Barrier(6, 5);
-        l.showLabyrinth();
+        l.showMaze();
         System.out.println("\n");
         l.setStart(3, 3);
-        l.setDestination(5, 6);
+        l.setDestination(7, 6);
         l.findPath();
-        l.showLabyrinth();
+        l.showMaze();
     }
 }

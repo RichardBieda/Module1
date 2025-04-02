@@ -43,7 +43,7 @@ public final class Maze {
         fieldArray[y][x] = destination;
     }
 
-    void showLabyrinth() {
+    void showMaze() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < sizeY; i++) {
             for (int j = 0; j < sizeX; j++) {
