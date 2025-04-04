@@ -4,20 +4,11 @@ class Field {
 
     private Field caller;
     private boolean isChecked;
-    private final int y;
-    private final int x;
+    private Field below, left, right, above;
+    static int count = 0;
 
-    Field(int y, int x) {
-        this.y = y;
-        this.x = x;
-    }
-
-    int getY() {
-        return y;
-    }
-
-    int getX() {
-        return x;
+    Field() {
+        ++count;
     }
 
     String getSign() {
@@ -33,10 +24,61 @@ class Field {
     }
 
     Field getCaller() {
-        return this.caller;
+        return caller;
     }
 
     void setCaller(Field field) {
-        this.caller = field;
+        caller = field;
+    }
+
+    void setLeft(Field left) {
+        this.left = left;
+    }
+
+    void setRight(Field right) {
+        this.right = right;
+    }
+
+    void setAbove(Field above) {
+        this.above = above;
+    }
+
+    void setBelow(Field below) {
+        this.below = below;
+    }
+
+    void setNeighbors(Field above, Field right, Field below, Field left) {
+        this.above = above;
+        this.right = right;
+        this.below = below;
+        this.left = left;
+    }
+
+    void replaceFieldBy(Field newField) {
+        newField.setCaller(getCaller());
+        newField.setIsChecked(getIsChecked());
+
+        if (getAbove() != null) {getAbove().setBelow(newField);}
+        if (getRight() != null) {getRight().setLeft(newField);}
+        if (getBelow() != null) {getBelow().setAbove(newField);}
+        if (getLeft() != null) {getLeft().setRight(newField);}
+
+        newField.setNeighbors(getAbove(), getRight(), getBelow(), getLeft());
+    }
+
+    Field getRight() {
+        return right;
+    }
+
+    Field getBelow() {
+        return below;
+    }
+
+    Field getLeft() {
+        return left;
+    }
+
+    Field getAbove() {
+        return above;
     }
 }
