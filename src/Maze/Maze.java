@@ -1,8 +1,5 @@
 package Maze;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public final class Maze {
 
     private final int Y;
@@ -20,34 +17,50 @@ public final class Maze {
 
     private void checkMazeSize(int sizeY, int sizeX) {
         if (sizeY < 1 || sizeX < 1) {
-            throw new InvalidSizeException("Your maze size is invalid");
+            throw new InvalidSizeException(InvalidSizeException.INVALID_MAZE_SIZE);
         }
     }
 
     private void checkCoordinates(int sizeY, int sizeX) {
         if (sizeY < 0 || sizeX < 0 || sizeY > Y || sizeX > X) {
-            throw new InvalidSizeException("Your coordinates are invalid");
+            throw new InvalidSizeException(InvalidSizeException.INVALID_COORDINATES);
         }
     }
 
     void setStart(int y, int x) {
         checkCoordinates(y, x);
-        start = new Start();
         Field tmp = getDesiredField(y, x);
-        if (tmp == initialField) {
-            initialField = start;
+        if (start == null) {
+            start = new Start();
+            tmp.replaceFieldBy(start);
+        } else {
+            start.replaceFieldBy(tmp);
+            start = tmp;
         }
-        tmp.replaceFieldBy(start);
+        if (tmp == initialField) {initialField = start;}
+        if (tmp == destination) {destination = null;}
     }
 
     void setDestination(int y, int x) {
         checkCoordinates(y, x);
-        destination = new Destination();
         Field tmp = getDesiredField(y, x);
-        if (tmp == initialField) {
-            initialField = destination;
+        if (destination == null) {
+            destination = new Destination();
+            tmp.replaceFieldBy(destination);
+        } else {
+            destination.replaceFieldBy(tmp);
+            destination = tmp;
         }
-        tmp.replaceFieldBy(destination);
+        if (tmp == initialField) {initialField = destination;}
+        if (tmp == start) {start = null;}
+    }
+
+    Field getStart() {
+        return start;
+    }
+
+    Field getDestination() {
+        return destination;
     }
 
     private Field getDesiredField(int y, int x) {
@@ -131,71 +144,6 @@ public final class Maze {
         while (length-- > 0 && tmp != null) {
             tmp.replaceFieldBy(new Barrier());
             tmp = tmp.getBelow();
-        }
-    }
-
-    void findPath() {
-        List<Field> childList = new ArrayList<>();
-        childList.add(start);
-        doBfs(childList);
-        insertPathToMaze();
-    }
-
-    private void doBfs(List<Field> childList) {
-        List<Field> tmpList = new ArrayList<>();
-        for (Field x : childList) {
-            if (checkDestination(x)) {
-                childList.clear();
-                return;
-            }
-            Field below = x.getBelow();
-            if (below != null && !(below instanceof Barrier) && !below.getIsChecked()) {
-                below.setIsChecked(true);
-                below.setCaller(x);
-                tmpList.add(below);
-            }
-            Field left = x.getLeft();
-            if (left != null && !(left instanceof Barrier) && !left.getIsChecked()) {
-                left.setIsChecked(true);
-                left.setCaller(x);
-                tmpList.add(left);
-            }
-            Field right = x.getRight();
-            if (right != null && !(right instanceof Barrier) && !right.getIsChecked()) {
-                right.setIsChecked(true);
-                right.setCaller(x);
-                tmpList.add(right);
-            }
-            Field above = x.getAbove();
-            if (above != null && !(above instanceof Barrier) && !above.getIsChecked()) {
-                above.setIsChecked(true);
-                above.setCaller(x);
-                tmpList.add(above);
-            }
-        }
-        childList = tmpList;
-        if (!childList.isEmpty()) {
-            doBfs(childList);
-        }
-    }
-
-    private boolean checkDestination(Field field) {
-        if (field.getAbove() == destination || field.getRight() == destination || field.getBelow() == destination || field.getLeft() == destination) {
-            destination.setCaller(field);
-            return true;
-        }
-        return false;
-    }
-
-    private void insertPathToMaze() {
-        Field tmp = destination.getCaller();
-        if (tmp == null) {
-            System.out.println("destination not reached!");
-            return;
-        }
-        while (tmp != start) {
-            tmp.replaceFieldBy(new Path());
-            tmp = tmp.getCaller();
         }
     }
 }

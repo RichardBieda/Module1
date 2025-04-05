@@ -1,6 +1,6 @@
 package Maze;
 
-enum MazeSign {
+enum MazeSignConsole {
 
     FIELD(" . "),
     BARRIER(" X "),
@@ -10,23 +10,21 @@ enum MazeSign {
 
     private String SIGN;
 
-    MazeSign(String sign) {
+    MazeSignConsole(String sign) {
         this.SIGN = sign;
     }
 
     static String getSign(Field field) {
-        String result = "";
         if (field instanceof Start) {
-            result = START.SIGN;
+            return START.SIGN;
         } else if (field instanceof Barrier) {
-            result = BARRIER.SIGN;
+            return BARRIER.SIGN;
         } else if (field instanceof Path) {
-            result = PATH.SIGN;
+            return PATH.SIGN;
         } else if (field instanceof Destination) {
-            result = DESTINATION.SIGN;
-        } else if (field instanceof Field) {
-            result = FIELD.SIGN;
+            return DESTINATION.SIGN;
+        } else {
+            return " . ";
         }
-        return result;
     }
 }

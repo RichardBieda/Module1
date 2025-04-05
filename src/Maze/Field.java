@@ -10,7 +10,11 @@ class Field {
     }
 
     String getSign() {
-        return MazeSign.getSign(this);
+        return MazeSignConsole.getSign(this);
+    }
+
+    int getHudle() {
+        return HudleValue.getValue(this);
     }
 
     void setIsChecked(boolean checked) {
