@@ -1,7 +1,5 @@
 package Maze;
 
-class Barrier extends Field {
+abstract class Barrier extends Field {
 
-    Barrier() {
-    }
 }
