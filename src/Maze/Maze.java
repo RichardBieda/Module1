@@ -129,20 +129,38 @@ public final class Maze {
         }
     }
 
-    void setHorizontalBarrier(int y, int x, int length) {
+    void setHorizontalWall(int y, int x, int length) {
         checkCoordinates(y, x);
         Field tmp = getDesiredField(y, x);
         while (length-- > 0 && tmp != null) {
-            tmp.replaceFieldBy(new Barrier());
+            tmp.replaceFieldBy(new Wall());
             tmp = tmp.getRight();
         }
     }
 
-    void setVerticalBarrier(int y, int x, int length) {
+    void setVerticalWall(int y, int x, int length) {
         checkCoordinates(y, x);
         Field tmp = getDesiredField(y, x);
         while (length-- > 0 && tmp != null) {
-            tmp.replaceFieldBy(new Barrier());
+            tmp.replaceFieldBy(new Wall());
+            tmp = tmp.getBelow();
+        }
+    }
+
+    void setHorizontalWater(int y, int x, int length) {
+        checkCoordinates(y, x);
+        Field tmp = getDesiredField(y, x);
+        while (length-- > 0 && tmp != null) {
+            tmp.replaceFieldBy(new Water());
+            tmp = tmp.getRight();
+        }
+    }
+
+    void setVerticalWater(int y, int x, int length) {
+        checkCoordinates(y, x);
+        Field tmp = getDesiredField(y, x);
+        while (length-- > 0 && tmp != null) {
+            tmp.replaceFieldBy(new Water());
             tmp = tmp.getBelow();
         }
     }

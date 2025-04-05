@@ -13,10 +13,6 @@ class Field {
         return MazeSignConsole.getSign(this);
     }
 
-    int getHudle() {
-        return HudleValue.getValue(this);
-    }
-
     void setIsChecked(boolean checked) {
         isChecked = checked;
     }
