@@ -5,10 +5,8 @@ class Field {
     private Field caller;
     private boolean isChecked;
     private Field below, left, right, above;
-    static int count = 0;
 
     Field() {
-        ++count;
     }
 
     String getSign() {
@@ -47,13 +45,6 @@ class Field {
         this.below = below;
     }
 
-    void setNeighbors(Field above, Field right, Field below, Field left) {
-        this.above = above;
-        this.right = right;
-        this.below = below;
-        this.left = left;
-    }
-
     void replaceFieldBy(Field newField) {
         newField.setCaller(getCaller());
         newField.setIsChecked(getIsChecked());
@@ -63,7 +54,10 @@ class Field {
         if (getBelow() != null) {getBelow().setAbove(newField);}
         if (getLeft() != null) {getLeft().setRight(newField);}
 
-        newField.setNeighbors(getAbove(), getRight(), getBelow(), getLeft());
+        newField.setAbove(getAbove());
+        newField.setRight(getRight());
+        newField.setBelow(getBelow());
+        newField.setLeft(getLeft());
     }
 
     Field getRight() {

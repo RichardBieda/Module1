@@ -1,6 +1,7 @@
 package Maze;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class Maze {
 
@@ -14,7 +15,6 @@ public final class Maze {
         checkMazeSize(verticalSize, horizontalSize);
         Y = verticalSize;
         X = horizontalSize;
-        initialField = new Field();
         createMaze();
     }
 
@@ -33,24 +33,32 @@ public final class Maze {
     void setStart(int y, int x) {
         checkCoordinates(y, x);
         start = new Start();
-        replacer(y, x, start);
+        Field tmp = getDesiredField(y, x);
+        if (tmp == initialField) {
+            initialField = start;
+        }
+        tmp.replaceFieldBy(start);
     }
 
     void setDestination(int y, int x) {
         checkCoordinates(y, x);
         destination = new Destination();
-        replacer(y, x, destination);
+        Field tmp = getDesiredField(y, x);
+        if (tmp == initialField) {
+            initialField = destination;
+        }
+        tmp.replaceFieldBy(destination);
     }
 
-    private void replacer(int y, int x, Field field) {
-        Field tmp = initialField;
+    private Field getDesiredField(int y, int x) {
+        Field result = initialField;
         for (int i = 0; i < y; i++) {
-            tmp = tmp.getBelow();
+            result = result.getBelow();
         }
         for (int i = 0; i < x; i++) {
-            tmp = tmp.getRight();
+            result = result.getRight();
         }
-        tmp.replaceFieldBy(field);
+        return result;
     }
 
     void showMaze() {
@@ -77,132 +85,117 @@ public final class Maze {
     }
 
     private void createMaze() {
-        Field[][] arr = new Field[Y][X];
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = 0; j < arr[i].length; j++) {
-                arr[i][j] = new Field();
-            }
+        initialField = new Field();
+        Field right = initialField;
+        //sets the first row with fields without field.above
+        for (int i = 0; i < X-1; i++) {
+            right.setRight(new Field());
+            right.getRight().setLeft(right);
+            right = right.getRight();
         }
-        arr[0][0] = initialField;
-
-        for (int i = 0; i < Y; i++) {
-            for (int j = 0; j < X; j++) {
-                if (i == 0) {
-                    if (j == 0) {
-                        arr[i][j].setNeighbors(null, arr[i][j + 1], arr[i + 1][j], null);
-                    } else if (j == X -1) {
-                        arr[i][j].setNeighbors(null, null, arr[i + 1][j], arr[i][j - 1]);
-                    } else {
-                        arr[i][j].setNeighbors(null, arr[i][j + 1], arr[i + 1][j], arr[i][j - 1]);
-                    }
-                } else if (i == Y -1) {
-                    if (j == 0) {
-                        arr[i][j].setNeighbors(arr[i - 1][j], arr[i][j + 1], null, null);
-                    } else if (j == X -1) {
-                        arr[i][j].setNeighbors(arr[i - 1][j], null, null, arr[i][j - 1]);
-                    } else {
-                        arr[i][j].setNeighbors(arr[i - 1][j], arr[i][j + 1], null, arr[i][j - 1]);
-                    }
-                } else {
-                    if (j == 0) {
-                        arr[i][j].setNeighbors(arr[i - 1][j], arr[i][j + 1], arr[i + 1][j], null);
-                    } else if (j == X -1) {
-                        arr[i][j].setNeighbors(arr[i - 1][j], null, arr[i + 1][j], arr[i][j - 1]);
-                    } else {
-                        arr[i][j].setNeighbors(arr[i - 1][j], arr[i][j + 1], arr[i + 1][j], arr[i][j - 1]);
-                    }
-                }
+        Field firstInRow = initialField;
+        Field row = initialField;
+        Field column = initialField;
+        for (int i = 0; i < Y-1; i++) {
+            //sets the first field int the next row
+            firstInRow.setBelow(new Field());
+            firstInRow.getBelow().setAbove(firstInRow);
+            firstInRow = firstInRow.getBelow();
+            column = firstInRow;
+            for (int j = 0; j < X-1; j++) {
+                //sets the column of the next row including field.above
+                column.setRight(new Field());
+                column.getRight().setLeft(column);
+                column = column.getRight();
+                row = row.getRight();
+                column.setAbove(row);
+                row.setBelow(column);
             }
+            row = firstInRow;
+            column = firstInRow;
         }
     }
 
-//    void findPath() {
-//        List<int[]> childList = new ArrayList<>();
-//        childList.add(start);
-//        bfs(childList);
-//        insertPathToMaze();
-//    }
+    void setHorizontalBarrier(int y, int x, int length) {
+        checkCoordinates(y, x);
+        Field tmp = getDesiredField(y, x);
+        while (length-- > 0 && tmp != null) {
+            tmp.replaceFieldBy(new Barrier());
+            tmp = tmp.getRight();
+        }
+    }
 
-//    private void bfs(List<int[]> bfsList) {
-//        List<int[]> tmpList = new ArrayList<>();
-//        for (int[] tmp : bfsList) {
-//            if (tmp[0] +1 < sizeY) { //down
-//                Field child = fieldArray[tmp[0] +1][tmp[1]];
-//                if (child == destination) {
-//                    destination.setCaller(fieldArray[tmp[0]][tmp[1]]);
-//                    bfsList.clear();
-//                    return;
-//                }
-//                if (!(child instanceof Barrier) && !child.getIsChecked()) {
-//                    child.setIsChecked(true);
-//                    child.setCaller(fieldArray[tmp[0]][tmp[1]]);
-//                    tmpList.add(new int[] {tmp[0] +1, tmp[1]});
-//                }
-//            }
-//            if (tmp[1] +1 < sizeX) {//right
-//                Field child = fieldArray[tmp[0]][tmp[1] +1];
-//                if (child == destination) {
-//                    destination.setCaller(fieldArray[tmp[0]][tmp[1]]);
-//                    bfsList.clear();
-//                    return;
-//                }
-//                if (!(child instanceof Barrier) && !child.getIsChecked()) {
-//                    child.setIsChecked(true);
-//                    child.setCaller(fieldArray[tmp[0]][tmp[1]]);
-//                    tmpList.add(new int[] {tmp[0], tmp[1] +1});
-//                }
-//            }
-//            if (tmp[1] -1 > -1) {//left
-//                Field child = fieldArray[tmp[0]][tmp[1] -1];
-//                if (child == destination) {
-//                    destination.setCaller(fieldArray[tmp[0]][tmp[1]]);
-//                    bfsList.clear();
-//                    return;
-//                }
-//                if (!(child instanceof Barrier) && !child.getIsChecked()) {
-//                    child.setIsChecked(true);
-//                    child.setCaller(fieldArray[tmp[0]][tmp[1]]);
-//                    tmpList.add(new int[] {tmp[0], tmp[1] -1});
-//                }
-//            }
-//            if (tmp[0] -1 > -1) {//up
-//                Field child = fieldArray[tmp[0] -1][tmp[1]];
-//                if (child == destination) {
-//                    destination.setCaller(fieldArray[tmp[0]][tmp[1]]);
-//                    bfsList.clear();
-//                    return;
-//                }
-//                if (!(child instanceof Barrier) && !child.getIsChecked()) {
-//                    child.setIsChecked(true);
-//                    child.setCaller(fieldArray[tmp[0]][tmp[1]]);
-//                    tmpList.add(new int[] {tmp[0] -1, tmp[1]});
-//                }
-//            }
-//        }
-//        bfsList = tmpList;
-//        if (!bfsList.isEmpty()) {
-//            bfs(bfsList);
-//        }
-//    }
+    void setVerticalBarrier(int y, int x, int length) {
+        checkCoordinates(y, x);
+        Field tmp = getDesiredField(y, x);
+        while (length-- > 0 && tmp != null) {
+            tmp.replaceFieldBy(new Barrier());
+            tmp = tmp.getBelow();
+        }
+    }
 
-//    private void insertPathToMaze() {
-//        Field tmp = destination.getCaller();
-//        while (tmp != fieldArray[start[0]][start[1]]) {
-//
-//        }
-//    }
+    void findPath() {
+        List<Field> childList = new ArrayList<>();
+        childList.add(start);
+        doBfs(childList);
+        insertPathToMaze();
+    }
 
-//    private void setPaths() {
-//        List<Field> list = new ArrayList<>();
-//        Field tmp = destination.getCaller();
-//        while (tmp != fieldArray[start[0]][start[1]]) {
-//            list.add(tmp);
-//            tmp = tmp.getCaller();
-//        }
-//        for (Field x : list) {
-//            Field path = new Path();
-//            path.setCaller(x.getCaller());
-//            fieldArray[x.getY()][x.getX()] = path;
-//        }
-//    }
+    private void doBfs(List<Field> childList) {
+        List<Field> tmpList = new ArrayList<>();
+        for (Field x : childList) {
+            if (checkDestination(x)) {
+                childList.clear();
+                return;
+            }
+            Field below = x.getBelow();
+            if (below != null && !(below instanceof Barrier) && !below.getIsChecked()) {
+                below.setIsChecked(true);
+                below.setCaller(x);
+                tmpList.add(below);
+            }
+            Field left = x.getLeft();
+            if (left != null && !(left instanceof Barrier) && !left.getIsChecked()) {
+                left.setIsChecked(true);
+                left.setCaller(x);
+                tmpList.add(left);
+            }
+            Field right = x.getRight();
+            if (right != null && !(right instanceof Barrier) && !right.getIsChecked()) {
+                right.setIsChecked(true);
+                right.setCaller(x);
+                tmpList.add(right);
+            }
+            Field above = x.getAbove();
+            if (above != null && !(above instanceof Barrier) && !above.getIsChecked()) {
+                above.setIsChecked(true);
+                above.setCaller(x);
+                tmpList.add(above);
+            }
+        }
+        childList = tmpList;
+        if (!childList.isEmpty()) {
+            doBfs(childList);
+        }
+    }
+
+    private boolean checkDestination(Field field) {
+        if (field.getAbove() == destination || field.getRight() == destination || field.getBelow() == destination || field.getLeft() == destination) {
+            destination.setCaller(field);
+            return true;
+        }
+        return false;
+    }
+
+    private void insertPathToMaze() {
+        Field tmp = destination.getCaller();
+        if (tmp == null) {
+            System.out.println("destination not reached!");
+            return;
+        }
+        while (tmp != start) {
+            tmp.replaceFieldBy(new Path());
+            tmp = tmp.getCaller();
+        }
+    }
 }

@@ -4,10 +4,13 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Maze m = new Maze(10, 10);
-        System.out.println(Field.count);
-        m.setStart(0, 8);
-        m.setDestination(9, 1);
+        Maze m = new Maze(11, 11);
+        m.setStart(6, 6);
+        m.setDestination(6, 8);
+        m.setVerticalBarrier(2, 5, 7);
+        m.setHorizontalBarrier(5, 2, 7);
+        m.findPath();
+
         m.showMaze();
     }
 }
