@@ -66,6 +66,10 @@ class Maze {
         return destination;
     }
 
+    Field getInitialField() {
+        return initialField;
+    }
+
     private Field getDesiredField(int y, int x) {
         Field result = initialField;
         for (int i = 0; i < y; i++) {

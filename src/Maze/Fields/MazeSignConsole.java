@@ -9,27 +9,21 @@ enum MazeSignConsole {
     WATER(" \u2248 "),
     NoFlyZone(" § ");
 
-    private String SIGN;
+    private final String SIGN;
 
     MazeSignConsole(String sign) {
         this.SIGN = sign;
     }
 
     static String getSign(Field field) {
-        if (field instanceof Start) {
-            return START.SIGN;
-        } else if (field instanceof Wall) {
-            return WALL.SIGN;
-        } else if (field instanceof Water) {
-            return WATER.SIGN;
-        } else if (field instanceof NoFlyZone) {
-            return NoFlyZone.SIGN;
-        } else if (field instanceof Path) {
-            return PATH.SIGN;
-        } else if (field instanceof Destination) {
-            return DESTINATION.SIGN;
-        } else {
-            return " ¸ ";
-        }
+        return switch (field) {
+            case Start start -> START.SIGN;
+            case Wall wall -> WALL.SIGN;
+            case Water water -> WATER.SIGN;
+            case NoFlyZone noFlyZone -> NoFlyZone.SIGN;
+            case Path path -> PATH.SIGN;
+            case Destination destination -> DESTINATION.SIGN;
+            case null, default -> " ¸ ";
+        };
     }
 }

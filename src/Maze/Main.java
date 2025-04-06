@@ -28,6 +28,8 @@ public class Main {
         } catch (PathNotFoundException | NullPointerException e) {
             System.out.println(e);
         }
-        m.showMaze();
+
+        Displayable dis = new ConsoleDisplay();
+        dis.display(m.getInitialField());
     }
 }
