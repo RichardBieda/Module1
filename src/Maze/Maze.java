@@ -101,11 +101,11 @@ class Maze {
     }
 
     private void createMaze() {
-        initialField = new Field();
+        initialField = new EmptyField();
         Field right = initialField;
         //sets the first row with fields without field.above
         for (int i = 0; i < X-1; i++) {
-            right.setRight(new Field());
+            right.setRight(new EmptyField());
             right.getRight().setLeft(right);
             right = right.getRight();
         }
@@ -114,13 +114,13 @@ class Maze {
         Field column = initialField;
         for (int i = 0; i < Y-1; i++) {
             //sets the first field in the next row
-            firstInRow.setBelow(new Field());
+            firstInRow.setBelow(new EmptyField());
             firstInRow.getBelow().setAbove(firstInRow);
             firstInRow = firstInRow.getBelow();
             column = firstInRow;
             for (int j = 0; j < X-1; j++) {
                 //sets the column of the next row including field.above
-                column.setRight(new Field());
+                column.setRight(new EmptyField());
                 column.getRight().setLeft(column);
                 column = column.getRight();
                 row = row.getRight();

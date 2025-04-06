@@ -2,6 +2,7 @@ package Maze;
 
 import Maze.Exceptions.PathNotFoundException;
 import Maze.Interfaces.Movable;
+import Maze.User.Amphibious;
 import Maze.User.Pedestrian;
 
 public class Main {

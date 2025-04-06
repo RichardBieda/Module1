@@ -1,14 +1,13 @@
 package Maze.User;
 
-import Maze.Fields.Barrier;
 import Maze.Fields.Field;
+import Maze.Fields.Wall;
 import Maze.Interfaces.Movable;
 
-public class Pedestrian implements Movable {
-
+public class Amphibious implements Movable  {
     @Override
     public boolean canMove(Field field) {
-        if (field instanceof Barrier) {
+        if (field instanceof Wall) {
             return false;
         }
         return true;

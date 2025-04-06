@@ -1,7 +1,5 @@
 package Maze.Fields;
 
-import Maze.Fields.*;
-
 enum MazeSignConsole {
 
     WALL(" X "),

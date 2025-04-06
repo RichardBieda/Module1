@@ -36,25 +36,25 @@ class MazeSolver {
                 return;
             }
             Field below = x.getBelow();
-            if (below != null && !(below instanceof Barrier) && !below.getIsChecked()) {
+            if (below != null && user.canMove(below) && !below.getIsChecked()) {
                 below.setIsChecked(true);
                 below.setCaller(x);
                 tmpList.add(below);
             }
             Field left = x.getLeft();
-            if (left != null && !(left instanceof Barrier) && !left.getIsChecked()) {
+            if (left != null && user.canMove(left) && !left.getIsChecked()) {
                 left.setIsChecked(true);
                 left.setCaller(x);
                 tmpList.add(left);
             }
             Field right = x.getRight();
-            if (right != null && !(right instanceof Barrier) && !right.getIsChecked()) {
+            if (right != null && user.canMove(right) && !right.getIsChecked()) {
                 right.setIsChecked(true);
                 right.setCaller(x);
                 tmpList.add(right);
             }
             Field above = x.getAbove();
-            if (above != null && !(above instanceof Barrier) && !above.getIsChecked()) {
+            if (above != null && user.canMove(above) && !above.getIsChecked()) {
                 above.setIsChecked(true);
                 above.setCaller(x);
                 tmpList.add(above);

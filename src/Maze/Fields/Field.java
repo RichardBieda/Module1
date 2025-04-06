@@ -1,6 +1,6 @@
 package Maze.Fields;
 
-public class Field {
+public abstract class Field {
 
     private Field caller;
     private boolean isChecked;
