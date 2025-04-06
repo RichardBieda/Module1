@@ -1,6 +1,9 @@
 package Maze;
 
-public final class Maze {
+import Maze.Exceptions.InvalidSizeException;
+import Maze.Fields.*;
+
+class Maze {
 
     private final int Y;
     private final int X;
@@ -8,7 +11,7 @@ public final class Maze {
     private Field start;
     private Field destination;
 
-    public Maze(int verticalSize, int horizontalSize) {
+    Maze(int verticalSize, int horizontalSize) {
         checkMazeSize(verticalSize, horizontalSize);
         Y = verticalSize;
         X = horizontalSize;
@@ -110,7 +113,7 @@ public final class Maze {
         Field row = initialField;
         Field column = initialField;
         for (int i = 0; i < Y-1; i++) {
-            //sets the first field int the next row
+            //sets the first field in the next row
             firstInRow.setBelow(new Field());
             firstInRow.getBelow().setAbove(firstInRow);
             firstInRow = firstInRow.getBelow();

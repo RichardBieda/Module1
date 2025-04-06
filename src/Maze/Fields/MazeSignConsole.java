@@ -1,4 +1,6 @@
-package Maze;
+package Maze.Fields;
+
+import Maze.Fields.*;
 
 enum MazeSignConsole {
 

@@ -1,11 +1,19 @@
 package Maze;
 
+import Maze.Exceptions.PathNotFoundException;
+import Maze.Fields.Barrier;
+import Maze.Fields.Field;
+import Maze.Fields.Path;
+import Maze.Interfaces.Movable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 class MazeSolver {
 
-    MazeSolver() {
+    private final Movable user;
+    MazeSolver(Movable user) {
+        this.user = user;
     }
 
     void solve(Field startField, Field destination) throws PathNotFoundException {

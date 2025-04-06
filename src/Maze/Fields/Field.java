@@ -1,51 +1,51 @@
-package Maze;
+package Maze.Fields;
 
-class Field {
+public class Field {
 
     private Field caller;
     private boolean isChecked;
     private Field below, left, right, above;
 
-    Field() {
+    public Field() {
     }
 
-    String getSign() {
+    public String getSign() {
         return MazeSignConsole.getSign(this);
     }
 
-    void setIsChecked(boolean checked) {
+    public void setIsChecked(boolean checked) {
         isChecked = checked;
     }
 
-    boolean getIsChecked() {
+    public boolean getIsChecked() {
         return isChecked;
     }
 
-    Field getCaller() {
+    public Field getCaller() {
         return caller;
     }
 
-    void setCaller(Field field) {
+    public void setCaller(Field field) {
         caller = field;
     }
 
-    void setLeft(Field left) {
+    public void setLeft(Field left) {
         this.left = left;
     }
 
-    void setRight(Field right) {
+    public void setRight(Field right) {
         this.right = right;
     }
 
-    void setAbove(Field above) {
+    public void setAbove(Field above) {
         this.above = above;
     }
 
-    void setBelow(Field below) {
+    public void setBelow(Field below) {
         this.below = below;
     }
 
-    void replaceFieldBy(Field newField) {
+    public void replaceFieldBy(Field newField) {
         newField.setCaller(getCaller());
         newField.setIsChecked(getIsChecked());
 
@@ -60,19 +60,19 @@ class Field {
         newField.setLeft(getLeft());
     }
 
-    Field getRight() {
+    public Field getRight() {
         return right;
     }
 
-    Field getBelow() {
+    public Field getBelow() {
         return below;
     }
 
-    Field getLeft() {
+    public Field getLeft() {
         return left;
     }
 
-    Field getAbove() {
+    public Field getAbove() {
         return above;
     }
 }
