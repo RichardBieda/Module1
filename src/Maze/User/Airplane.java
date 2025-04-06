@@ -2,7 +2,7 @@ package Maze.User;
 
 import Maze.Fields.Field;
 import Maze.Fields.NoFlyZone;
-import Maze.Interfaces.Movable;
+import Maze.Movable;
 
 public class Airplane implements Movable {
     @Override

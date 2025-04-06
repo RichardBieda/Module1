@@ -1,10 +1,7 @@
 package Maze;
 
 import Maze.Exceptions.PathNotFoundException;
-import Maze.Fields.Barrier;
-import Maze.Fields.Field;
-import Maze.Fields.Path;
-import Maze.Interfaces.Movable;
+import Maze.Fields.*;
 
 import java.util.ArrayList;
 import java.util.List;

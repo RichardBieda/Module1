@@ -1,4 +1,4 @@
-package Maze.Interfaces;
+package Maze;
 
 import Maze.Fields.Field;
 

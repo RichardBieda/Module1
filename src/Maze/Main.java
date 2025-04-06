@@ -1,7 +1,6 @@
 package Maze;
 
 import Maze.Exceptions.PathNotFoundException;
-import Maze.Interfaces.Movable;
 import Maze.User.*;
 
 
@@ -16,10 +15,12 @@ public class Main {
 
         m.setVerticalWall(2, 5, 7);
         m.setHorizontalWall(5, 2, 7);
+
         m.setVerticalWater(0, 3, 4);
+
         m.setVerticalNoFlyZone(3, 6, 5);
 
-        Movable user = new Airplane();
+        Movable user = new Pedestrian();
 
 
         try {

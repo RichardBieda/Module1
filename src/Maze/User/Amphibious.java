@@ -2,7 +2,7 @@ package Maze.User;
 
 import Maze.Fields.Field;
 import Maze.Fields.Wall;
-import Maze.Interfaces.Movable;
+import Maze.Movable;
 
 public class Amphibious implements Movable  {
     @Override
