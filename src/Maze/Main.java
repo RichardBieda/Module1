@@ -2,8 +2,8 @@ package Maze;
 
 import Maze.Exceptions.PathNotFoundException;
 import Maze.Interfaces.Movable;
-import Maze.User.Amphibious;
-import Maze.User.Pedestrian;
+import Maze.User.*;
+
 
 public class Main {
 
@@ -11,14 +11,15 @@ public class Main {
 
         Maze m = new Maze(11, 11);
 
-        m.setDestination(0, 0);
-        m.setStart(4, 8);
+        m.setDestination(5, 1);
+        m.setStart(4, 9);
 
         m.setVerticalWall(2, 5, 7);
         m.setHorizontalWall(5, 2, 7);
         m.setVerticalWater(0, 3, 4);
+        m.setVerticalNoFlyZone(3, 6, 5);
 
-        Movable user = new Pedestrian();
+        Movable user = new Airplane();
 
 
         try {

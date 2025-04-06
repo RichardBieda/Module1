@@ -167,4 +167,22 @@ class Maze {
             tmp = tmp.getBelow();
         }
     }
+
+    void setHorizontalNoFlyZone(int y, int x, int length) {
+        checkCoordinates(y, x);
+        Field tmp = getDesiredField(y, x);
+        while (length-- > 0 && tmp != null) {
+            tmp.replaceFieldBy(new NoFlyZone());
+            tmp = tmp.getRight();
+        }
+    }
+
+    void setVerticalNoFlyZone(int y, int x, int length) {
+        checkCoordinates(y, x);
+        Field tmp = getDesiredField(y, x);
+        while (length-- > 0 && tmp != null) {
+            tmp.replaceFieldBy(new NoFlyZone());
+            tmp = tmp.getBelow();
+        }
+    }
 }

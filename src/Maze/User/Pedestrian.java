@@ -8,9 +8,6 @@ public class Pedestrian implements Movable {
 
     @Override
     public boolean canMove(Field field) {
-        if (field instanceof Barrier) {
-            return false;
-        }
-        return true;
+        return !(field instanceof Barrier);
     }
 }

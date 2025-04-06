@@ -6,7 +6,8 @@ enum MazeSignConsole {
     DESTINATION(" D "),
     PATH(" + "),
     START(" S "),
-    WATER(" \u2248 ");
+    WATER(" \u2248 "),
+    NoFlyZone(" § ");
 
     private String SIGN;
 
@@ -21,7 +22,9 @@ enum MazeSignConsole {
             return WALL.SIGN;
         } else if (field instanceof Water) {
             return WATER.SIGN;
-        }else if (field instanceof Path) {
+        } else if (field instanceof NoFlyZone) {
+            return NoFlyZone.SIGN;
+        } else if (field instanceof Path) {
             return PATH.SIGN;
         } else if (field instanceof Destination) {
             return DESTINATION.SIGN;

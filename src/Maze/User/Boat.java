@@ -1,12 +1,12 @@
 package Maze.User;
 
 import Maze.Fields.Field;
-import Maze.Fields.Wall;
+import Maze.Fields.Water;
 import Maze.Interfaces.Movable;
 
-public class Amphibious implements Movable  {
+public class Boat implements Movable {
     @Override
     public boolean canMove(Field field) {
-        return !(field instanceof Wall);
+        return field instanceof Water;
     }
 }
