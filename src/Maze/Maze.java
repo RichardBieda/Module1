@@ -3,6 +3,9 @@ package Maze;
 import Maze.Exceptions.InvalidSizeException;
 import Maze.Fields.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 class Maze {
 
     private final int Y;
@@ -10,11 +13,15 @@ class Maze {
     private Field initialField;
     private Field start;
     private Field destination;
+    private boolean isSolved = false;
+
+    private Map<Field, Field> resetMap;
 
     Maze(int verticalSize, int horizontalSize) {
         checkMazeSize(verticalSize, horizontalSize);
         Y = verticalSize;
         X = horizontalSize;
+        resetMap = new HashMap<>();
         createMaze();
     }
 
@@ -31,31 +38,51 @@ class Maze {
     }
 
     void setStart(int y, int x) {
-        checkCoordinates(y, x);
-        Field tmp = getDesiredField(y, x);
+        if (isSolved) {
+            resetMaze();
+        }
         if (start == null) {
+            checkCoordinates(y, x);
+            Field tmp = getDesiredField(y, x);
             start = new Start();
             tmp.replaceFieldBy(start);
+            if (tmp == initialField) {initialField = start;}
+            if (tmp == destination) {destination = null;}
         } else {
-            start.replaceFieldBy(tmp);
-            start = tmp;
+            start.replaceFieldBy(new EmptyField());
+            start = null;
+            setStart(y, x);
         }
-        if (tmp == initialField) {initialField = start;}
-        if (tmp == destination) {destination = null;}
     }
 
     void setDestination(int y, int x) {
-        checkCoordinates(y, x);
-        Field tmp = getDesiredField(y, x);
+        if (isSolved) {
+            resetMaze();
+        }
         if (destination == null) {
+            checkCoordinates(y, x);
+            Field tmp = getDesiredField(y, x);
             destination = new Destination();
             tmp.replaceFieldBy(destination);
+            if (tmp == initialField) {initialField = destination;}
+            if (tmp == start) {start = null;}
         } else {
-            destination.replaceFieldBy(tmp);
-            destination = tmp;
+            destination.replaceFieldBy(new EmptyField());
+            destination = null;
+            setDestination(y, x);
         }
-        if (tmp == initialField) {initialField = destination;}
-        if (tmp == start) {start = null;}
+    }
+
+    void setInitialField(Field field) {
+        initialField = field;
+    }
+
+    void setIsSolved(boolean solved) {
+        isSolved = solved;
+    }
+
+    void setResetMap(Map<Field, Field> map) {
+        resetMap = map;
     }
 
     Field getStart() {
@@ -134,6 +161,27 @@ class Maze {
             row = firstInRow;
             column = firstInRow;
         }
+    }
+
+    private void resetMaze() {
+        for(Map.Entry<Field, Field> fields : resetMap.entrySet()) {
+            if (fields.getKey() == initialField) {
+                initialField = fields.getValue();
+            }
+            fields.getKey().replaceFieldBy(fields.getValue());
+        }
+        Field tmp = initialField;
+        Field row = tmp;
+        for (int i = 0; i < Y; i++) {
+            for (int j = 0; j < X; j++) {
+                tmp.setIsChecked(false);
+                tmp.setCaller(null);
+                tmp = tmp.getRight();
+            }
+            tmp = row;
+            row = row.getBelow();
+        }
+        isSolved = false;
     }
 
     void setHorizontalWall(int y, int x, int length) {

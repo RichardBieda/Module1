@@ -4,7 +4,9 @@ import Maze.Exceptions.PathNotFoundException;
 import Maze.Fields.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 class MazeSolver {
 
@@ -13,13 +15,12 @@ class MazeSolver {
         this.user = user;
     }
 
-    void solve(Field startField, Field destination) throws PathNotFoundException {
-
+    void solve(Maze maze) throws PathNotFoundException {
         List<Field> childList = new ArrayList<>();
         try {
-            childList.add(startField);
-            doBfs(childList, destination);
-            insertPathToMaze(startField, destination);
+            childList.add(maze.getStart());
+            doBfs(childList, maze.getDestination());
+            insertPathToMaze(maze);
         } catch (NullPointerException e) {
             throw new PathNotFoundException(e);
         }
@@ -71,14 +72,22 @@ class MazeSolver {
         return false;
     }
 
-    private void insertPathToMaze(Field start, Field destination) throws PathNotFoundException{
-        Field tmp = destination.getCaller();
+    private void insertPathToMaze(Maze maze) throws PathNotFoundException{
+        Field tmp = maze.getDestination().getCaller();
         if (tmp == null) {
             throw new PathNotFoundException(PathNotFoundException.NO_PATH_FOUND);
         }
-        while (tmp != start) {
-            tmp.replaceFieldBy(new Path());
+        Map<Field, Field> resetMap = new HashMap<>();
+        while (tmp != maze.getStart()) {
+            Field path = new Path();
+            if (tmp == maze.getInitialField()) {
+                maze.setInitialField(path);
+            }
+            resetMap.put(path, tmp);
+            tmp.replaceFieldBy(path);
             tmp = tmp.getCaller();
         }
+        maze.setResetMap(resetMap);
+        maze.setIsSolved(true);
     }
 }

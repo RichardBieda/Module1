@@ -2,16 +2,17 @@ package Maze.Fields;
 
 enum MazeSignConsole {
 
-    WALL(" X "),
-    DESTINATION(" D "),
-    PATH(" + "),
-    START(" S "),
-    WATER(" \u2248 "),
-    NoFlyZone(" § ");
+    WALL(" X ", 0),
+    DESTINATION(" D ", 1),
+    PATH(" + ", 2),
+    START(" S ", 3),
+    WATER(" \u2248 ", 4),
+    NoFlyZone(" § ", 5),
+    EMPTY_FIELD(" . ", 6);
 
     private final String SIGN;
 
-    MazeSignConsole(String sign) {
+    MazeSignConsole(String sign, int number) {
         this.SIGN = sign;
     }
 
