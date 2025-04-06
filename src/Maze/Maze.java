@@ -14,7 +14,6 @@ class Maze {
     private Field start;
     private Field destination;
     private boolean isSolved = false;
-
     private Map<Field, Field> resetMap;
 
     Maze(int verticalSize, int horizontalSize) {
@@ -85,30 +84,6 @@ class Maze {
         resetMap = map;
     }
 
-    Field getStart() {
-        return start;
-    }
-
-    Field getDestination() {
-        return destination;
-    }
-
-    Field getInitialField() {
-        return initialField;
-    }
-
-    int getY() {
-        return Y;
-    }
-
-    int getX() {
-        return X;
-    }
-
-    boolean getIsSolved() {
-        return isSolved;
-    }
-
     private Field getDesiredField(int y, int x) {
         Field result = initialField;
         for (int i = 0; i < y; i++) {
@@ -171,6 +146,30 @@ class Maze {
             row = row.getBelow();
         }
         isSolved = false;
+    }
+
+    Field getStart() {
+        return start;
+    }
+
+    Field getDestination() {
+        return destination;
+    }
+
+    Field getInitialField() {
+        return initialField;
+    }
+
+    int getY() {
+        return Y;
+    }
+
+    int getX() {
+        return X;
+    }
+
+    boolean getIsSolved() {
+        return isSolved;
     }
 
     void setHorizontalWall(int y, int x, int length) {

@@ -1,0 +1,6 @@
+package Maze;
+
+class ConsoleUI {
+
+
+}

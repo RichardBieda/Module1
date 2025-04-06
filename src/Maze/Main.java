@@ -33,5 +33,17 @@ public class Main {
         DisplayConsole dis = new DisplayConsole();
         System.out.println(dis.display(m));
         System.out.println("steps count: " + solver.getSteps());
+
+        m.setDestination(16, 7);
+
+        Movable user1 = new Pedestrian();
+        MazeSolver solver1 = new MazeSolver(user1);
+        try {
+            solver1.solve(m);
+        } catch (PathNotFoundException | NullPointerException e) {
+            System.out.println(e);
+        }
+        System.out.println(dis.display(m));
+        System.out.println("steps count: " + solver1.getSteps());
     }
 }

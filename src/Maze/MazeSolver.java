@@ -17,7 +17,6 @@ class MazeSolver {
     }
 
     void solve(Maze maze) throws PathNotFoundException {
-        if (maze.getIsSolved()) {steps = 0;}
         List<Field> childList = new ArrayList<>();
         try {
             childList.add(maze.getStart());
@@ -29,7 +28,9 @@ class MazeSolver {
     }
 
     int getSteps() {
-        return steps;
+        int result = steps;
+        steps = 0;
+        return result;
     }
 
     private void doBfs(List<Field> childList, Field destination) {
@@ -92,7 +93,7 @@ class MazeSolver {
             resetMap.put(path, tmp);
             tmp.replaceFieldBy(path);
             tmp = tmp.getCaller();
-            ++steps;
+            steps++;
         }
         maze.setResetMap(resetMap);
         maze.setIsSolved(true);
