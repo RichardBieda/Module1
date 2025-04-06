@@ -8,62 +8,30 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Maze m = new Maze(11, 11);
+        Maze m = new Maze(20, 40);
 
-        m.setDestination(2, 0);
-        m.setStart(0, 6);
+        m.setDestination(19, 0);
+        m.setStart(0, 39);
 
-        m.setVerticalWall(2, 5, 4);
-        m.setHorizontalWall(1, 1, 5);
+        m.setHorizontalWall(7, 6, 15);
+        m.setHorizontalWall(9, 0, 19);
+        m.setVerticalWall(9, 26, 11);
 
-//        m.setVerticalWater(0, 3, 4);
-//        m.setHorizontalWater(6, 5, 4);
+        m.setVerticalWater(0, 28, 8);
+        m.setHorizontalWater(7, 22, 5);
+        m.setVerticalWater(7, 21, 13);
 
-//        m.setVerticalNoFlyZone(3, 6, 5);
+        m.setVerticalNoFlyZone(14, 13, 6);
 
-        Movable user = new Pedestrian();
-
-
+        Movable user = new Amphibious();
+        MazeSolver solver = new MazeSolver(user);
         try {
-            new MazeSolver(user).solve(m);
+            solver.solve(m);
         } catch (PathNotFoundException | NullPointerException e) {
             System.out.println(e);
         }
-
-        m.showMaze();
-//        Displayable dis = new ConsoleDisplay();
-//        dis.display(m.getInitialField());
-
-//        m.setDestination(2, 4);
-//        m.showMaze();
-
-        m.setStart(2, 0);
-        m.setDestination(2, 4);
-        try {
-            new MazeSolver(user).solve(m);
-        } catch (PathNotFoundException | NullPointerException e) {
-            System.out.println(e);
-        }
-        m.showMaze();
-
-        m.setStart(1, 6);
-        m.setDestination(6, 6);
-        m.setHorizontalWater(5, 5, 6);
-        try {
-            new MazeSolver(new Amphibious()).solve(m);
-        } catch (PathNotFoundException | NullPointerException e) {
-            System.out.println(e);
-        }
-        m.showMaze();
-
-        m.setStart(1, 6);
-        m.setDestination(4, 9);
-        m.setHorizontalWater(5, 5, 6);
-        try {
-            new MazeSolver(new Airplane()).solve(m);
-        } catch (PathNotFoundException | NullPointerException e) {
-            System.out.println(e);
-        }
-        m.showMaze();
+        DisplayConsole dis = new DisplayConsole();
+        System.out.println(dis.display(m));
+        System.out.println("steps count: " + solver.getSteps());
     }
 }

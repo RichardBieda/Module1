@@ -11,11 +11,13 @@ import java.util.Map;
 class MazeSolver {
 
     private final Movable user;
+    private int steps;
     MazeSolver(Movable user) {
         this.user = user;
     }
 
     void solve(Maze maze) throws PathNotFoundException {
+        if (maze.getIsSolved()) {steps = 0;}
         List<Field> childList = new ArrayList<>();
         try {
             childList.add(maze.getStart());
@@ -24,6 +26,10 @@ class MazeSolver {
         } catch (NullPointerException e) {
             throw new PathNotFoundException(e);
         }
+    }
+
+    int getSteps() {
+        return steps;
     }
 
     private void doBfs(List<Field> childList, Field destination) {
@@ -72,7 +78,7 @@ class MazeSolver {
         return false;
     }
 
-    private void insertPathToMaze(Maze maze) throws PathNotFoundException{
+    private void insertPathToMaze(Maze maze) throws PathNotFoundException {
         Field tmp = maze.getDestination().getCaller();
         if (tmp == null) {
             throw new PathNotFoundException(PathNotFoundException.NO_PATH_FOUND);
@@ -86,6 +92,7 @@ class MazeSolver {
             resetMap.put(path, tmp);
             tmp.replaceFieldBy(path);
             tmp = tmp.getCaller();
+            ++steps;
         }
         maze.setResetMap(resetMap);
         maze.setIsSolved(true);

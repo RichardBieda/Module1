@@ -4,5 +4,5 @@ import Maze.Fields.Field;
 
 public interface Displayable {
 
-    public void display(Field field);
+    public String display(Maze maze);
 }

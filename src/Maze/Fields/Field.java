@@ -9,10 +9,6 @@ public abstract class Field {
     public Field() {
     }
 
-    public String getSign() {
-        return MazeSignConsole.getSign(this);
-    }
-
     public void setIsChecked(boolean checked) {
         isChecked = checked;
     }

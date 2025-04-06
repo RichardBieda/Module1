@@ -26,7 +26,7 @@ class Maze {
     }
 
     private void checkMazeSize(int sizeY, int sizeX) {
-        if (sizeY < 1 || sizeX < 1) {
+        if (sizeY < 1 || sizeX < 1 || sizeY > 999 || sizeX > 999) {
             throw new InvalidSizeException(InvalidSizeException.INVALID_MAZE_SIZE);
         }
     }
@@ -97,6 +97,18 @@ class Maze {
         return initialField;
     }
 
+    int getY() {
+        return Y;
+    }
+
+    int getX() {
+        return X;
+    }
+
+    boolean getIsSolved() {
+        return isSolved;
+    }
+
     private Field getDesiredField(int y, int x) {
         Field result = initialField;
         for (int i = 0; i < y; i++) {
@@ -106,29 +118,6 @@ class Maze {
             result = result.getRight();
         }
         return result;
-    }
-
-    void showMaze() {
-        StringBuilder sb = new StringBuilder();
-        Field row = initialField;
-        Field column = row;
-        for (int i = 0; i < Y; i++) {
-            for (int j = 0; j < X; j++) {
-                sb.append(column.getSign());
-                column = column.getRight();
-            }
-            sb.append(" " + i + "\n");
-            row = row.getBelow();
-            column = row;
-        }
-        for (int i = 0; i < X; i++) {
-            if (i < 10) {
-                sb.append(" " + i + " ");
-            } else {
-                sb.append(i + " ");
-            }
-        }
-        System.out.println(sb);
     }
 
     private void createMaze() {

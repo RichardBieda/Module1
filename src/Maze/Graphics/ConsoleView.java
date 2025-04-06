@@ -1,6 +1,8 @@
-package Maze.Fields;
+package Maze.Graphics;
 
-enum MazeSignConsole {
+import Maze.Fields.*;
+
+public enum ConsoleView {
 
     WALL(" X ", 0),
     DESTINATION(" D ", 1),
@@ -12,16 +14,16 @@ enum MazeSignConsole {
 
     private final String SIGN;
 
-    MazeSignConsole(String sign, int number) {
+    ConsoleView(String sign, int number) {
         this.SIGN = sign;
     }
 
-    static String getSign(Field field) {
+    public static String getSign(Field field) {
         return switch (field) {
             case Start start -> START.SIGN;
             case Wall wall -> WALL.SIGN;
             case Water water -> WATER.SIGN;
-            case NoFlyZone noFlyZone -> NoFlyZone.SIGN;
+            case Maze.Fields.NoFlyZone noFlyZone -> NoFlyZone.SIGN;
             case Path path -> PATH.SIGN;
             case Destination destination -> DESTINATION.SIGN;
             case null, default -> " ¸ ";
