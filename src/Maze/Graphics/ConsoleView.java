@@ -10,7 +10,8 @@ public enum ConsoleView {
     START(" S ", 3),
     WATER(" \u2248 ", 4),
     NoFlyZone(" § ", 5),
-    EMPTY_FIELD(" . ", 6);
+    EMPTY_FIELD("   ", 6),
+    BRIDGE(" n ", 7);
 
     private final String SIGN;
 
@@ -24,9 +25,10 @@ public enum ConsoleView {
             case Wall wall -> WALL.SIGN;
             case Water water -> WATER.SIGN;
             case NoFlyZone noFlyZone -> NoFlyZone.SIGN;
+            case Bridge bridge -> BRIDGE.SIGN;
             case Path path -> PATH.SIGN;
             case Destination destination -> DESTINATION.SIGN;
-            case null, default -> " ¸ ";
+            case null, default -> "   ";
         };
     }
 }

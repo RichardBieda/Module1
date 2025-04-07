@@ -1,5 +1,6 @@
 package Maze.User;
 
+import Maze.Fields.Bridge;
 import Maze.Fields.Field;
 import Maze.Fields.Wall;
 import Maze.Movable;

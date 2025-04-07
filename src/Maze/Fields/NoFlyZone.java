@@ -1,4 +1,4 @@
 package Maze.Fields;
 
-public class NoFlyZone extends Field {
+public class NoFlyZone extends Barrier {
 }

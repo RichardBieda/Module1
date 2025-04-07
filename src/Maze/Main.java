@@ -20,7 +20,11 @@ public class Main {
         m.setVerticalWater(0, 28, 8);
         m.setHorizontalWater(7, 22, 5);
         m.setVerticalWater(7, 21, 13);
+        m.setVerticalWater(15, 34, 5);
+        m.setHorizontalWater(14, 34, 6);
 
+        m.setBridge(14, 35, 1);
+        m.setBridge(7, 27, 1);
         m.setVerticalNoFlyZone(14, 13, 6);
 
         Movable user = new Amphibious();
@@ -34,7 +38,8 @@ public class Main {
         System.out.println(dis.display(m));
         System.out.println("steps count: " + solver.getSteps());
 
-        m.setDestination(16, 7);
+        m.setDestination(16, 36);
+        m.setStart(5, 5);
 
         Movable user1 = new Pedestrian();
         MazeSolver solver1 = new MazeSolver(user1);

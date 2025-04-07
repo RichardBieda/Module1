@@ -225,4 +225,13 @@ class Maze {
             tmp = tmp.getBelow();
         }
     }
+
+    void setBridge(int y, int x, int length) {
+        checkCoordinates(y, x);
+        Field tmp = getDesiredField(y, x);
+        while (length-- > 0 && tmp != null) {
+            tmp.replaceFieldBy(new Bridge());
+            tmp = tmp.getBelow();
+        }
+    }
 }
