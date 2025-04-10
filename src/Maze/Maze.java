@@ -172,66 +172,82 @@ class Maze {
         return isSolved;
     }
 
-    void setHorizontalWall(int y, int x, int length) {
+    void setHorizontalField(int y, int x, int length, Class<? extends Field> clazz) {
         checkCoordinates(y, x);
         Field tmp = getDesiredField(y, x);
-        while (length-- > 0 && tmp != null) {
-            tmp.replaceFieldBy(new Wall());
-            tmp = tmp.getRight();
+        try {
+            while (length-- > 0 && tmp != null) {
+                tmp.replaceFieldBy(clazz.newInstance());
+                tmp = tmp.getRight();
+            }
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    void setVerticalWall(int y, int x, int length) {
+    void setVerticalField(int y, int x, int length, Class<? extends Field> clazz) {
         checkCoordinates(y, x);
         Field tmp = getDesiredField(y, x);
-        while (length-- > 0 && tmp != null) {
-            tmp.replaceFieldBy(new Wall());
-            tmp = tmp.getBelow();
+        try {
+            while (length-- > 0 && tmp != null) {
+                tmp.replaceFieldBy(clazz.newInstance());
+                tmp = tmp.getBelow();
+            }
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new RuntimeException(e);
         }
     }
-
-    void setHorizontalWater(int y, int x, int length) {
-        checkCoordinates(y, x);
-        Field tmp = getDesiredField(y, x);
-        while (length-- > 0 && tmp != null) {
-            tmp.replaceFieldBy(new Water());
-            tmp = tmp.getRight();
-        }
-    }
-
-    void setVerticalWater(int y, int x, int length) {
-        checkCoordinates(y, x);
-        Field tmp = getDesiredField(y, x);
-        while (length-- > 0 && tmp != null) {
-            tmp.replaceFieldBy(new Water());
-            tmp = tmp.getBelow();
-        }
-    }
-
-    void setHorizontalNoFlyZone(int y, int x, int length) {
-        checkCoordinates(y, x);
-        Field tmp = getDesiredField(y, x);
-        while (length-- > 0 && tmp != null) {
-            tmp.replaceFieldBy(new NoFlyZone());
-            tmp = tmp.getRight();
-        }
-    }
-
-    void setVerticalNoFlyZone(int y, int x, int length) {
-        checkCoordinates(y, x);
-        Field tmp = getDesiredField(y, x);
-        while (length-- > 0 && tmp != null) {
-            tmp.replaceFieldBy(new NoFlyZone());
-            tmp = tmp.getBelow();
-        }
-    }
-
-    void setBridge(int y, int x, int length) {
-        checkCoordinates(y, x);
-        Field tmp = getDesiredField(y, x);
-        while (length-- > 0 && tmp != null) {
-            tmp.replaceFieldBy(new Bridge());
-            tmp = tmp.getBelow();
-        }
-    }
+//    void setHorizontalWall(int y, int x, int length) {
+//        checkCoordinates(y, x);
+//        Field tmp = getDesiredField(y, x);
+//        while (length-- > 0 && tmp != null) {
+//            tmp.replaceFieldBy(new Wall());
+//            tmp = tmp.getRight();
+//        }
+//    }
+//
+//    void setVerticalWall(int y, int x, int length) {
+//        checkCoordinates(y, x);
+//        Field tmp = getDesiredField(y, x);
+//        while (length-- > 0 && tmp != null) {
+//            tmp.replaceFieldBy(new Wall());
+//            tmp = tmp.getBelow();
+//        }
+//    }
+//
+//    void setHorizontalWater(int y, int x, int length) {
+//        checkCoordinates(y, x);
+//        Field tmp = getDesiredField(y, x);
+//        while (length-- > 0 && tmp != null) {
+//            tmp.replaceFieldBy(new Water());
+//            tmp = tmp.getRight();
+//        }
+//    }
+//
+//    void setVerticalWater(int y, int x, int length) {
+//        checkCoordinates(y, x);
+//        Field tmp = getDesiredField(y, x);
+//        while (length-- > 0 && tmp != null) {
+//            tmp.replaceFieldBy(new Water());
+//            tmp = tmp.getBelow();
+//        }
+//    }
+//
+//    void setHorizontalNoFlyZone(int y, int x, int length) {
+//        checkCoordinates(y, x);
+//        Field tmp = getDesiredField(y, x);
+//        while (length-- > 0 && tmp != null) {
+//            tmp.replaceFieldBy(new NoFlyZone());
+//            tmp = tmp.getRight();
+//        }
+//    }
+//
+//    void setVerticalNoFlyZone(int y, int x, int length) {
+//        checkCoordinates(y, x);
+//        Field tmp = getDesiredField(y, x);
+//        while (length-- > 0 && tmp != null) {
+//            tmp.replaceFieldBy(new NoFlyZone());
+//            tmp = tmp.getBelow();
+//        }
+//    }
 }
