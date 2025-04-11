@@ -172,7 +172,7 @@ class Maze {
         return isSolved;
     }
 
-    void setHorizontalField(int y, int x, int length, Class<? extends Field> clazz) {
+    void setHorizontalFields(int y, int x, int length, Class<? extends Field> clazz) {
         checkCoordinates(y, x);
         Field tmp = getDesiredField(y, x);
         try {
@@ -185,7 +185,7 @@ class Maze {
         }
     }
 
-    void setVerticalField(int y, int x, int length, Class<? extends Field> clazz) {
+    void setVerticalFields(int y, int x, int length, Class<? extends Field> clazz) {
         checkCoordinates(y, x);
         Field tmp = getDesiredField(y, x);
         try {

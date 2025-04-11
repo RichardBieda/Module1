@@ -14,16 +14,16 @@ public class Main {
 
         Maze m = new Maze(16, 16);
 
-        m.setVerticalField(1, 8, 6, Wall.class);
-        m.setVerticalField(8, 8, 8, Wall.class);
+        m.setVerticalFields(1, 8, 6, Wall.class);
+        m.setVerticalFields(8, 8, 8, Wall.class);
 //
-        m.setVerticalField(0, 10, 7, Water.class);
-        m.setHorizontalField(7, 7, 4, Water.class);
-        m.setVerticalField(7, 6, 9, Water.class);
+        m.setVerticalFields(0, 10, 7, Water.class);
+        m.setHorizontalFields(7, 7, 4, Water.class);
+        m.setVerticalFields(7, 6, 9, Water.class);
 //
-        m.setVerticalField(7, 9, 1, Bridge.class);
-        m.setVerticalField(1, 10, 1, Bridge.class);
-        m.setVerticalField(7, 4, 4, NoFlyZone.class);
+        m.setVerticalFields(7, 9, 1, Bridge.class);
+        m.setVerticalFields(1, 10, 1, Bridge.class);
+        m.setVerticalFields(7, 4, 4, NoFlyZone.class);
 
         m.setDestination(10, 2);
         m.setStart(0, 15);
