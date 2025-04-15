@@ -1,5 +1,6 @@
 package Module2.ObjectsClass;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Objects;
 
@@ -34,6 +35,12 @@ public class Person implements Cloneable {
         Person p3 = new Person("Ronald", "McDonald");
         Person p4 = p3.clone();
         System.out.println(p4.name+ " "+p4.surName);
+
+        try {
+            Method m = String.class.getMethod("hashCode");
+            int x = (int) m.invoke("R");
+            System.out.println(x);
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {}
     }
 
 //    @Override
