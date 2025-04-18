@@ -25,6 +25,11 @@ class BiNode<T> {
         this.lesserNode = lesserNode;
     }
 
+    void replace(BiNode<T> node) {
+       this.lesserNode = node.getLesserNode();
+       this.biggerNode = node.getBiggerNode();
+    }
+
     BiNode<T> getBiggerNode() {
         return biggerNode;
     }

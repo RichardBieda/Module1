@@ -1,11 +1,13 @@
 package BinaryTree;
 
+import java.util.Iterator;
 import java.util.Objects;
 
 public final class BiTree<T> {
 
     private BiNode<T> root;
     private final Referrer<T> allocator;
+    private int size;
 
     public BiTree() {
         this(new DefaultReferrer<>());
@@ -22,6 +24,7 @@ public final class BiTree<T> {
     public void add(T element) {
         if (root == null) {
             root = new BiNode<>(element);
+            size++;
             return;
         }
         int newNodeValue = allocator.allocate(element);
@@ -33,6 +36,7 @@ public final class BiTree<T> {
         if (newNodeValue < nodeValue) {
             if (node.getLesserNode() == null) {
                 node.setLesserNode(new BiNode<>(element));
+                size++;
             } else {
                 addRecursive(node.getLesserNode(), element, newNodeValue);
             }
@@ -42,6 +46,7 @@ public final class BiTree<T> {
         if (newNodeValue > nodeValue) {
             if (node.getBiggerNode() == null) {
                 node.setBiggerNode(new BiNode<>(element));
+                size++;
             } else {
                 addRecursive(node.getBiggerNode(), element, newNodeValue);
             }
@@ -55,8 +60,30 @@ public final class BiTree<T> {
         }
     }
 
-    public T get(T element) {
+    public int getValue(T element) {
+        return allocator.allocate(element);
+    }
+
+    public T getElement(int value) {
+        return getElementsRecursive(root, value);
+    }
+
+    private T getElementsRecursive(BiNode<T> node, int value) {
+        int nodeValue = allocator.allocate(node.getElement());
+        if (nodeValue == value) {
+            return node.getElement();
+        }
+        if (value < nodeValue && node.getLesserNode() != null) {
+            return getElementsRecursive(node.getLesserNode(), value);
+        } else if (value > nodeValue && node.getBiggerNode() != null) {
+            return getElementsRecursive(node.getBiggerNode(), value);
+        }
         return null;
+    }
+
+    public Iterator<T> getIterator() {
+        Iterator<T> it = new BiTreeIterator<>(root);
+        return it;
     }
 
     private static class DefaultReferrer<T> implements Referrer<T> {
