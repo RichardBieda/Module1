@@ -20,14 +20,9 @@ class BiNode<T> {
 
     void setLesserNode(BiNode<T> lesserNode) {
         if (this.lesserNode != null) {
-            throw new RuntimeException("Nodes cannot be changed");
+            throw  new RuntimeException("Nodes cannot be replaced");
         }
         this.lesserNode = lesserNode;
-    }
-
-    void replace(BiNode<T> node) {
-       this.lesserNode = node.getLesserNode();
-       this.biggerNode = node.getBiggerNode();
     }
 
     BiNode<T> getBiggerNode() {
@@ -36,7 +31,7 @@ class BiNode<T> {
 
     void setBiggerNode(BiNode<T> biggerNode) {
         if (this.biggerNode != null) {
-            throw new RuntimeException("Nodes cannot be changed");
+            throw  new RuntimeException("Nodes cannot be replaced");
         }
         this.biggerNode = biggerNode;
     }
