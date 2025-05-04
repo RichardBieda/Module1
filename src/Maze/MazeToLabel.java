@@ -1,7 +1,7 @@
 package Maze;
 
 import Maze.Fields.Field;
-import Maze.SwingComponents.FieldLabel;
+import Maze.SwingComponents.MazeLabel;
 
 public class MazeToLabel {
 
@@ -10,13 +10,13 @@ public class MazeToLabel {
        maze = new Maze(y, x);
    }
 
-   public FieldLabel[][] getLabels() {
-        FieldLabel[][] result = new FieldLabel[maze.getY()][maze.getX()];
+   public MazeLabel[][] getLabels() {
+        MazeLabel[][] result = new MazeLabel[maze.getY()][maze.getX()];
        Field tmp = maze.getInitialField();
        Field row = tmp;
        for (int i = 0; i < maze.getY(); i++) {
            for (int j = 0; j < maze.getX(); j++) {
-               result[i][j] = new FieldLabel(tmp);
+               result[i][j] = new MazeLabel(i, j);
                tmp = tmp.getRight();
            }
            row = row.getBelow();

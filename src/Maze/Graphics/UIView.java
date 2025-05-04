@@ -20,6 +20,10 @@ public enum UIView {
         this.COLOR = color;
     }
 
+    public Color getCOLOR() {
+        return COLOR;
+    }
+
     public static Color getLabelColor(Field field) {
         return switch (field) {
             case Start start -> START.COLOR;
