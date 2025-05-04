@@ -4,18 +4,18 @@ import Maze.Fields.*;
 
 public enum ConsoleView {
 
-    WALL(" X ", 0),
-    DESTINATION(" D ", 1),
-    PATH(" + ", 2),
-    START(" S ", 3),
-    WATER(" \u2248 ", 4),
-    NoFlyZone(" § ", 5),
-    EMPTY_FIELD(" . ", 6),
-    BRIDGE(" n ", 7);
+    WALL(" X "),
+    DESTINATION(" D "),
+    PATH(" + "),
+    START(" S "),
+    WATER(" \u2248 "),
+    NoFlyZone(" § "),
+    EMPTY_FIELD(" . "),
+    BRIDGE(" n ");
 
     private final String SIGN;
 
-    ConsoleView(String sign, int number) {
+    ConsoleView(String sign) {
         this.SIGN = sign;
     }
 
