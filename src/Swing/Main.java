@@ -13,7 +13,6 @@ public class Main {
 
         JFrame frame = new JFrame(); //new Frame
         frame.setTitle("Main Frame"); //sets the window title
-        frame.setVisible(true); // makes it visible
         frame.setSize(1200, 800); //set window size
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Exits the application
         frame.setResizable(true); //makes the window resizable
@@ -62,5 +61,7 @@ public class Main {
         label1.setText("New label");
         label1.setFont(new Font("MV Boli", Font.LAYOUT_RIGHT_TO_LEFT, 80));
         bluePanel.add(label1);
+
+        frame.setVisible(true); // makes it visible
     }
 }

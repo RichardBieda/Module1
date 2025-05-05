@@ -1,8 +1,8 @@
 package Maze.User;
 
-import Maze.Fields.Bridge;
-import Maze.Fields.Field;
-import Maze.Fields.Water;
+import Maze.FieldLabel.Bridge;
+import Maze.FieldLabel.Field;
+import Maze.FieldLabel.Water;
 import Maze.Movable;
 
 public class Boat implements Movable {

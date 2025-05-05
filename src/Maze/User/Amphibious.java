@@ -1,8 +1,8 @@
 package Maze.User;
 
-import Maze.Fields.Bridge;
-import Maze.Fields.Field;
-import Maze.Fields.Wall;
+import Maze.FieldLabel.Bridge;
+import Maze.FieldLabel.Field;
+import Maze.FieldLabel.Wall;
 import Maze.Movable;
 
 public class Amphibious implements Movable  {

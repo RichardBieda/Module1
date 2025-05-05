@@ -1,7 +1,7 @@
 package Maze.User;
 
-import Maze.Fields.Field;
-import Maze.Fields.NoFlyZone;
+import Maze.FieldLabel.Field;
+import Maze.FieldLabel.NoFlyZone;
 import Maze.Movable;
 
 public class Airplane implements Movable {

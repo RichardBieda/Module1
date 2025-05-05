@@ -7,23 +7,27 @@ import java.awt.event.ActionListener;
 
 import static java.awt.GridBagConstraints.BOTH;
 
-public class MazeUI extends JFrame implements ActionListener {
+class MazeUI extends JFrame implements ActionListener {
 
+    private final static int DEFAULT_WINDOW_WIDTH = 1600;
+    private final static int DEFAULT_WINDOW_HEIGHT = 1125;
+    private final static int DEFAULT_MAZE_SIZE = 10;
     private final static String TITLE = "Maze";
+    final static Color DEFAULT_BACKGROUND = new Color(235, 235, 255);
     private MazePanel mazePanel;
     private final HeadPanel headPanel;
     private final MenuPanel menuPanel;
 
-    public MazeUI() {
+    MazeUI() {
         super(TITLE);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        getContentPane().setBackground(new Color(235, 235, 255));
-        setSize(1200,900);
+        getContentPane().setBackground(DEFAULT_BACKGROUND);
+        setSize(DEFAULT_WINDOW_WIDTH,DEFAULT_WINDOW_HEIGHT);
+        setLocationRelativeTo(null);
         setResizable(true);
 
-        mazePanel = new MazePanel(10,10);
-        Thread thread = new Thread(mazePanel);
-        thread.start();
+        mazePanel = new MazePanel(DEFAULT_MAZE_SIZE, DEFAULT_MAZE_SIZE);
+        mazePanel.addAllFields();
 
         headPanel = new HeadPanel();
         headPanel.getNEW_MAZE_BUTTON().addActionListener(this);
@@ -32,8 +36,40 @@ public class MazeUI extends JFrame implements ActionListener {
         menuPanel = new MenuPanel();
 
         setFrameLayout();
-
         setVisible(true);
+    }
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == headPanel.getNEW_MAZE_BUTTON()) {
+            NewMazeFrame createFrame = new NewMazeFrame(headPanel.getNEW_MAZE_BUTTON());
+            createFrame.getCreateButton().addActionListener(e1 -> {
+                setNewMazePanel(Integer.parseInt(createFrame.getIntHeight().getText()), Integer.parseInt(createFrame.getIntWidth().getText()));
+                createFrame.dispose();
+            });
+        } else if (e.getSource() == headPanel.getSOLVE_BUTTON()) {
+            solveMaze();
+        }
+    }
+
+    private void setNewMazePanel(int y, int x) {
+        remove(mazePanel);
+        mazePanel = new MazePanel(y, x);
+        Thread t = new Thread(mazePanel);
+        setFrameLayout();
+        t.start();
+    }
+//    private void setNewMazePanel() {
+//        NewMazeFrame createFrame = new NewMazeFrame(headPanel.getNEW_MAZE_BUTTON());
+//        createFrame.getCreateButton().addActionListener(e1 -> {
+//            setNewMazePanel(Integer.parseInt(createFrame.getIntHeight().getText()), Integer.parseInt(createFrame.getIntWidth().getText()));
+//            createFrame.dispose();
+//        });
+//    }
+
+    private void solveMaze() {
+        System.out.println("ttttttttttt");
     }
 
     private void setFrameLayout() {
@@ -63,31 +99,5 @@ public class MazeUI extends JFrame implements ActionListener {
         constraints.weighty = 0.9;
         constraints.fill = BOTH;
         add(menuPanel, constraints);
-    }
-
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == headPanel.getNEW_MAZE_BUTTON()) {
-            NewMazeFrame createFrame = new NewMazeFrame(headPanel.getNEW_MAZE_BUTTON());
-            createFrame.createButton.addActionListener(e1 -> {
-                getNewMaze(Integer.parseInt(createFrame.intHeight.getText()), Integer.parseInt(createFrame.intWidth.getText()));
-                createFrame.dispose();
-            });
-        } else if (e.getSource() == headPanel.getSOLVE_BUTTON()) {
-            solveMaze();
-        }
-    }
-
-    private void getNewMaze(int y, int x) {
-        remove(mazePanel);
-        mazePanel = new MazePanel(y, x);
-        setFrameLayout();
-        Thread thread = new Thread(mazePanel);
-        thread.start();
-    }
-
-    private void solveMaze() {
-        System.out.println("ttttttttttt");
     }
 }

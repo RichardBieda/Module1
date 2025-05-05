@@ -1,6 +1,6 @@
 package Maze;
 
-import Maze.Fields.Field;
+import Maze.FieldLabel.Field;
 
 public interface Movable {
 

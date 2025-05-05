@@ -2,7 +2,7 @@ package Maze.SwingComponents;
 import javax.swing.*;
 import java.awt.*;
 
-public class NewMazeFrame extends JFrame {
+class NewMazeFrame extends JFrame {
 
     private final static String WINDOW_TEXT = "Maze creator";
     private final static String WIDTH_TEXT = "width x :";
@@ -10,34 +10,38 @@ public class NewMazeFrame extends JFrame {
     private final static String CREATE = "create";
     private final static String EXIT = "exit";
 
-    JTextField intWidth;
-    JTextField intHeight;
-    JButton createButton;
+    private final JTextField intWidth;
+    private final JTextField intHeight;
+    private final JButton createButton;
+    private final JButton exitButton;
 
     NewMazeFrame(JComponent jComponent) {
         super(WINDOW_TEXT);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(jComponent);
-        getContentPane().setBackground(new Color(235, 235, 255));
+        getContentPane().setBackground(MazeUI.DEFAULT_BACKGROUND);
         setSize(320, 180);
         setLayout(new GridLayout(3, 2));
 
         JLabel width = new JLabel(WIDTH_TEXT);
-        width.setBackground(new Color(235, 235, 255));
+        width.setBackground(MazeUI.DEFAULT_BACKGROUND);
         width.setFont(new Font(Font.DIALOG, Font.BOLD, 35));
         width.setHorizontalAlignment(SwingConstants.CENTER);
 
         JLabel height = new JLabel(HEIGHT_TEXT);
-        height.setBackground(new Color(235, 235, 255));
+        height.setBackground(MazeUI.DEFAULT_BACKGROUND);
         height.setFont(new Font(Font.DIALOG, Font.BOLD, 35));
         height.setHorizontalAlignment(SwingConstants.CENTER);
 
         intWidth = new JTextField();
+        intWidth.setFont(new Font(Font.DIALOG, Font.BOLD, 25));
         intHeight = new JTextField();
+        intHeight.setFont(new Font(Font.DIALOG, Font.BOLD, 25));
 
         createButton = new HeadButton(CREATE);
+        createButton.addActionListener();
 
-        JButton exitButton = new HeadButton(EXIT);
+        exitButton = new HeadButton(EXIT);
         exitButton.addActionListener(e -> dispose());
 
         add(width);
@@ -48,5 +52,17 @@ public class NewMazeFrame extends JFrame {
         add(exitButton);
 
         setVisible(true);
+    }
+
+    public JTextField getIntWidth() {
+        return intWidth;
+    }
+
+    public JTextField getIntHeight() {
+        return intHeight;
+    }
+
+    public JButton getCreateButton() {
+        return createButton;
     }
 }

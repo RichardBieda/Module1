@@ -1,6 +1,6 @@
 package Maze.Graphics;
 
-import Maze.Fields.*;
+import Maze.FieldLabel.*;
 import java.awt.*;
 
 public enum UIView {

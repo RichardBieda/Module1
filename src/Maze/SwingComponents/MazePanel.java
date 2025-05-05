@@ -1,36 +1,33 @@
 package Maze.SwingComponents;
 
-import Maze.MazeToLabel;
+import Maze.FieldLabel.*;
+import Maze.Maze;
+
 import javax.swing.*;
 import java.awt.*;
 
 class MazePanel extends JPanel implements Runnable {
 
-    private int panelX;
-    private int panelY;
-    private MazeLabel[][] labels;
+    private final Field[][] fields;
+
     MazePanel(int y, int x) {
-        panelX = x;
-        panelY = y;
-        labels = new MazeLabel[panelY][panelX];
-        setBackground(new Color(235, 235, 255));
-        setLayout(new GridLayout(panelY, panelX));
+        fields = Maze.createNewMaze(y, x);
+        setBackground(MazeUI.DEFAULT_BACKGROUND);
+        setLayout(new GridLayout(y, x));
         setOpaque(true);
     }
 
-    void insertLabels() {
-        for (int i = 0; i < panelY; i++) {
-            for (int j = 0; j < panelX; j++) {
-                MazeLabel tmp = new MazeLabel(i, j);
-                labels[i][j] = tmp;
-                add(tmp);
+    void addAllFields() {
+        for (int i = 0; i < fields.length; i++) {
+            for (int j = 0; j < fields[i].length; j++) {
+                add(fields[i][j]);
             }
         }
     }
 
     @Override
     public void run() {
-        insertLabels();
+        addAllFields();
         revalidate();
         repaint();
     }
