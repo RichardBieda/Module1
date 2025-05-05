@@ -1,5 +1,8 @@
 package Maze.SwingComponents;
 
+import Maze.Exceptions.InvalidSizeException;
+import Maze.Maze;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -43,32 +46,35 @@ class MazeUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == headPanel.getNEW_MAZE_BUTTON()) {
-            NewMazeFrame createFrame = new NewMazeFrame(headPanel.getNEW_MAZE_BUTTON());
-            createFrame.getCreateButton().addActionListener(e1 -> {
-                setNewMazePanel(Integer.parseInt(createFrame.getIntHeight().getText()), Integer.parseInt(createFrame.getIntWidth().getText()));
-                createFrame.dispose();
-            });
+            newMazeButtonPressed();
         } else if (e.getSource() == headPanel.getSOLVE_BUTTON()) {
-            solveMaze();
+            solveButtonPressed();
         }
     }
 
-    private void setNewMazePanel(int y, int x) {
-        remove(mazePanel);
-        mazePanel = new MazePanel(y, x);
-        Thread t = new Thread(mazePanel);
-        setFrameLayout();
-        t.start();
+    private void newMazeButtonPressed() {
+        NewMazeFrame newMazeFrame = new NewMazeFrame(headPanel.getNEW_MAZE_BUTTON());
+        newMazeFrame.getCreateButton().addActionListener(e1 -> {
+            try {
+                int y = Integer.parseInt(newMazeFrame.getIntHeight().getText());
+                int x = Integer.parseInt(newMazeFrame.getIntWidth().getText());
+                Maze.checkMazeSize(y, x);
+                remove(mazePanel);
+                mazePanel = new MazePanel(y, x);
+                Thread t = new Thread(mazePanel);
+                setFrameLayout();
+                t.start();
+            } catch (NumberFormatException | InvalidSizeException e) {
+                JLabel label = new JLabel("your input is invalid");
+                label.setFont(new Font(Font.DIALOG, Font.BOLD, 15));
+                JOptionPane.showMessageDialog(newMazeFrame, label, "Something went wrong", JOptionPane.WARNING_MESSAGE);
+            } finally {
+                newMazeFrame.dispose();
+            }
+        });
     }
-//    private void setNewMazePanel() {
-//        NewMazeFrame createFrame = new NewMazeFrame(headPanel.getNEW_MAZE_BUTTON());
-//        createFrame.getCreateButton().addActionListener(e1 -> {
-//            setNewMazePanel(Integer.parseInt(createFrame.getIntHeight().getText()), Integer.parseInt(createFrame.getIntWidth().getText()));
-//            createFrame.dispose();
-//        });
-//    }
 
-    private void solveMaze() {
+    private void solveButtonPressed() {
         System.out.println("ttttttttttt");
     }
 

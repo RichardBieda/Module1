@@ -39,10 +39,8 @@ class NewMazeFrame extends JFrame {
         intHeight.setFont(new Font(Font.DIALOG, Font.BOLD, 25));
 
         createButton = new HeadButton(CREATE);
-        createButton.addActionListener();
 
         exitButton = new HeadButton(EXIT);
-        exitButton.addActionListener(e -> dispose());
 
         add(width);
         add(intWidth);
@@ -54,15 +52,15 @@ class NewMazeFrame extends JFrame {
         setVisible(true);
     }
 
-    public JTextField getIntWidth() {
+    JTextField getIntWidth() {
         return intWidth;
     }
 
-    public JTextField getIntHeight() {
+    JTextField getIntHeight() {
         return intHeight;
     }
 
-    public JButton getCreateButton() {
+    JButton getCreateButton() {
         return createButton;
     }
 }

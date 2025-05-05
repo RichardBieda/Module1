@@ -1,5 +1,7 @@
 package Maze.FieldLabel;
 
+import Maze.Graphics.UIView;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -16,6 +18,9 @@ public abstract class Field extends JLabel {
 
 
     public Field() {
+        setBackground(UIView.getLabelColor(this));
+        setBorder(Field.BORDER_FACTORY);
+        setOpaque(true);
     }
 
     public void setFY(int y) {

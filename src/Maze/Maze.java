@@ -6,6 +6,8 @@ import Maze.FieldLabel.Field;
 
 public final class Maze {
 
+    private final static int MIN_MAZE_SIZE = 1;
+    private final static int MAX_MAZE_SIZE = 50;
     private Maze() {}
 
     public static Field[][] createNewMaze(int y, int x) {
@@ -21,8 +23,8 @@ public final class Maze {
         return result;
     }
 
-    public void checkMazeSize(int sizeY, int sizeX) {
-        if (sizeY < 1 || sizeX < 1 || sizeY > 50 || sizeX > 50) {
+    public static void checkMazeSize(int sizeY, int sizeX) {
+        if (sizeY < MIN_MAZE_SIZE || sizeX < MIN_MAZE_SIZE || sizeY > MAX_MAZE_SIZE || sizeX > MAX_MAZE_SIZE) {
             throw new InvalidSizeException(InvalidSizeException.INVALID_MAZE_SIZE);
         }
     }
