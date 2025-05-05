@@ -9,7 +9,6 @@ class NewMazeFrame extends JFrame {
     private final static String HEIGHT_TEXT = "height y :";
     private final static String CREATE = "create";
     private final static String EXIT = "exit";
-
     private final JTextField intWidth;
     private final JTextField intHeight;
     private final JButton createButton;
@@ -63,4 +62,5 @@ class NewMazeFrame extends JFrame {
     JButton getCreateButton() {
         return createButton;
     }
+    JButton getExitButton() {return exitButton; }
 }
