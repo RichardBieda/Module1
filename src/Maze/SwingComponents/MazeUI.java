@@ -2,6 +2,7 @@ package Maze.SwingComponents;
 
 import Maze.Exceptions.InvalidSizeException;
 import Maze.Maze;
+import Maze.User.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,6 +36,10 @@ class MazeUI extends JFrame implements ActionListener {
         headPanel = new HeadPanel();
         headPanel.getNEW_MAZE_BUTTON().addActionListener(this);
         headPanel.getSOLVE_BUTTON().addActionListener(this);
+        headPanel.getPEDESTRIAN().addActionListener(this);
+        headPanel.getAIRPLANE().addActionListener(this);
+        headPanel.getAMPHIBIOUS().addActionListener(this);
+        headPanel.getBOAT().addActionListener(this);
 
         menuPanel = new MenuPanel();
 
@@ -49,7 +54,16 @@ class MazeUI extends JFrame implements ActionListener {
             newMazeButtonPressed();
         } else if (e.getSource() == headPanel.getSOLVE_BUTTON()) {
             solveButtonPressed();
+        } else if (e.getSource() == headPanel.getPEDESTRIAN()) {
+            mazePanel.setMovable(User.getMovable(User.PEDESTRIAN));
+        } else if (e.getSource() == headPanel.getAIRPLANE()) {
+            mazePanel.setMovable(User.getMovable(User.AIRPLANE));
+        } else if (e.getSource() == headPanel.getAMPHIBIOUS()) {
+            mazePanel.setMovable(User.getMovable(User.AMPHIBIOUS));
+        } else if (e.getSource() == headPanel.getBOAT()) {
+            mazePanel.setMovable(User.getMovable(User.BOAT));
         }
+        System.out.println(mazePanel.getMovable());
     }
 
     private void newMazeButtonPressed() {

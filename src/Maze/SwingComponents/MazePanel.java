@@ -2,6 +2,9 @@ package Maze.SwingComponents;
 
 import Maze.FieldLabel.*;
 import Maze.Maze;
+import Maze.Movable;
+import Maze.User.Pedestrian;
+import Maze.User.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,9 +12,12 @@ import java.awt.*;
 class MazePanel extends JPanel implements Runnable {
 
     private final Field[][] fields;
+    private Movable movable;
 
     MazePanel(int y, int x) {
         fields = Maze.createNewMaze(y, x);
+        movable = User.getMovable(User.PEDESTRIAN);
+
         setBackground(MazeUI.DEFAULT_BACKGROUND);
         setLayout(new GridLayout(y, x));
         setOpaque(true);
@@ -23,6 +29,14 @@ class MazePanel extends JPanel implements Runnable {
                 add(fields[i][j]);
             }
         }
+    }
+
+    void setMovable(Movable movable) {
+        this.movable = movable;
+    }
+
+    Movable getMovable() {
+        return movable;
     }
 
     @Override

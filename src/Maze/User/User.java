@@ -1,14 +1,23 @@
 package Maze.User;
 
+import Maze.FieldLabel.*;
+import Maze.Movable;
+
+import java.awt.*;
+
 public enum User {
 
-    AIRPLANE("Airplane"),
-    AMPHIBIOUS("Amphibious"),
-    BOAT("Boat"),
-    PEDESTRIAN("Pedestrian");
+    PEDESTRIAN(new Pedestrian()),
+    AIRPLANE(new Airplane()),
+    AMPHIBIOUS(new Amphibious()),
+    BOAT(new Boat());
 
-    private String userTyp;
-    User(String userTyp) {
-        this.userTyp = userTyp;
+    private Movable movable;
+    User(Movable movable) {
+        this.movable = movable;
+    }
+
+    public static Movable getMovable(User user) {
+        return user.movable;
     }
 }
