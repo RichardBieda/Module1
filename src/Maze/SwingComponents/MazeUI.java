@@ -28,7 +28,6 @@ class MazeUI extends JFrame implements ActionListener {
         getContentPane().setBackground(DEFAULT_BACKGROUND);
         setSize(DEFAULT_WINDOW_WIDTH,DEFAULT_WINDOW_HEIGHT);
         setLocationRelativeTo(null);
-        setResizable(true);
 
         mazePanel = new MazePanel(DEFAULT_MAZE_SIZE, DEFAULT_MAZE_SIZE);
         mazePanel.addAllFields();
@@ -63,7 +62,6 @@ class MazeUI extends JFrame implements ActionListener {
         } else if (e.getSource() == headPanel.getBOAT()) {
             mazePanel.setMovable(User.getMovable(User.BOAT));
         }
-        System.out.println(mazePanel.getMovable());
     }
 
     private void newMazeButtonPressed() {
@@ -108,15 +106,15 @@ class MazeUI extends JFrame implements ActionListener {
         constraints.gridx = 0;
         constraints.gridy = 1;
         constraints.gridwidth = 1;
-        constraints.weightx = 0.6;
+        constraints.weightx = 0.7;
         constraints.weighty = 0.85;
         constraints.fill = BOTH;
         add(mazePanel, constraints);
 
         constraints.gridx = 1;
         constraints.gridy = 1;
-        constraints.weightx = 0.4;
-        constraints.weighty = 0.9;
+        constraints.weightx = 0.3;
+        constraints.weighty = 0.85;
         constraints.fill = BOTH;
         add(menuPanel, constraints);
     }

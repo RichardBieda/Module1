@@ -35,10 +35,6 @@ class MazePanel extends JPanel implements Runnable {
         this.movable = movable;
     }
 
-    Movable getMovable() {
-        return movable;
-    }
-
     @Override
     public void run() {
         addAllFields();
