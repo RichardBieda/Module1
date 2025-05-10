@@ -1,7 +1,5 @@
 package Module2.Threads1;
 
-import static java.lang.Thread.sleep;
-
 class ThreadTest {
 
     public static void main(String[] args) throws InterruptedException {
