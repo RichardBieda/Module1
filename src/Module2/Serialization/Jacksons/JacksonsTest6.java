@@ -34,7 +34,6 @@ class JacksonsTest6 {
                 JsonToken token = parser.nextToken();
                 if (JsonToken.FIELD_NAME.equals(token)) {
                     String fieldName = parser.getCurrentName();
-                    //parser.nextToken();
                     System.out.println(parser.nextToken() + ", " + fieldName + ", " + parser.getText());
                 }
             }
