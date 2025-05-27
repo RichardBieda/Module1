@@ -1,15 +1,14 @@
-package Maze.SwingComponents;
+package Maze.Swing;
 
 import javax.swing.*;
 import java.awt.*;
 
-class UserButton extends JRadioButton {
+public class HeadButton extends JButton {
 
-
-    UserButton(String text) {
+    HeadButton(String text) {
         super(text);
-        setBackground(MazeUI.DEFAULT_BACKGROUND);
         setFont(new Font(Font.DIALOG, Font.BOLD, 15));
+        setBackground(MainFrame.DEFAULT_BACKGROUND);
         setFocusable(false);
         setOpaque(true);
     }

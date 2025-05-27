@@ -1,22 +1,21 @@
-package Maze.Graphics;
+package Maze.MazeLabels;
 
-import Maze.FieldLabel.*;
 import java.awt.*;
 
-public enum UIView {
+public enum FieldGraphics {
 
     WALL(Color.RED),
     DESTINATION(Color.ORANGE),
     PATH(Color.GRAY),
     START(Color.YELLOW),
     WATER(Color.BLUE),
-    NoFlyZone(Color.BLACK),
+    NO_FLY_ZONE(Color.BLACK),
     EMPTY_FIELD(new Color(248, 255, 255)),
     BRIDGE(new Color(150, 75,0));
 
     private final Color COLOR;
 
-    UIView(Color color) {
+    FieldGraphics(Color color) {
         this.COLOR = color;
     }
 
@@ -29,7 +28,7 @@ public enum UIView {
             case Start start -> START.COLOR;
             case Wall wall -> WALL.COLOR;
             case Water water -> WATER.COLOR;
-            case NoFlyZone noFlyZone -> NoFlyZone.COLOR;
+            case NoFlyZone noFlyZone -> NO_FLY_ZONE.COLOR;
             case Bridge bridge -> BRIDGE.COLOR;
             case Path path -> PATH.COLOR;
             case Destination destination -> DESTINATION.COLOR;

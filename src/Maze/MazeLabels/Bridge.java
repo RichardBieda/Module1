@@ -1,6 +1,4 @@
-package Maze.FieldLabel;
-
-import Maze.Graphics.UIView;
+package Maze.MazeLabels;
 
 public class Bridge extends Barrier {
     public Bridge() {

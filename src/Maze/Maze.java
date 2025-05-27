@@ -1,10 +1,8 @@
 package Maze;
+import Maze.MazeLabels.Field;
+import Maze.MazeLabels.EmptyField;
 
-import Maze.Exceptions.InvalidSizeException;
-import Maze.FieldLabel.EmptyField;
-import Maze.FieldLabel.Field;
-
-public final class Maze {
+public class Maze {
 
     private final static int MIN_MAZE_SIZE = 1;
     private final static int MAX_MAZE_SIZE = 50;

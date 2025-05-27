@@ -1,4 +1,4 @@
-package Maze.Exceptions;
+package Maze;
 
 public class PathNotFoundException extends Exception {
 

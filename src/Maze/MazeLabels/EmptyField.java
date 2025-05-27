@@ -1,6 +1,4 @@
-package Maze.FieldLabel;
-
-import Maze.Graphics.UIView;
+package Maze.MazeLabels;
 
 public class EmptyField extends Field {
     public EmptyField() {

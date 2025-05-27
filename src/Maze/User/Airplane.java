@@ -1,8 +1,5 @@
 package Maze.User;
-
-import Maze.FieldLabel.Field;
-import Maze.FieldLabel.NoFlyZone;
-import Maze.Movable;
+import Maze.MazeLabels.*;
 
 public class Airplane implements Movable {
     @Override

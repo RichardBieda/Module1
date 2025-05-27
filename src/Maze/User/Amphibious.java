@@ -1,9 +1,5 @@
 package Maze.User;
-
-import Maze.FieldLabel.Bridge;
-import Maze.FieldLabel.Field;
-import Maze.FieldLabel.Wall;
-import Maze.Movable;
+import Maze.MazeLabels.*;
 
 public class Amphibious implements Movable  {
     @Override

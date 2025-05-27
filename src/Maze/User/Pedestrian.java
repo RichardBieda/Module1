@@ -1,10 +1,5 @@
 package Maze.User;
-
-import Maze.FieldLabel.Barrier;
-import Maze.FieldLabel.Bridge;
-import Maze.FieldLabel.Field;
-import Maze.FieldLabel.NoFlyZone;
-import Maze.Movable;
+import Maze.MazeLabels.*;
 
 public class Pedestrian implements Movable {
 
