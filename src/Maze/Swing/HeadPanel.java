@@ -6,7 +6,7 @@ import Maze.User.*;
 
 class HeadPanel extends JPanel {
 
-    private final static String TITLE = "create aMAZEing paths";
+    private final static String TITLE = "find aMAZEing paths";
     private final static String NEW_MAZE_BUTTON_TEXT = "create new maze";
     private final static String SOLVE_BUTTON_TEXT = "solve maze";
     private final static int DEFAULT_HEADPANEL_WIDTH = 1600;
@@ -22,10 +22,7 @@ class HeadPanel extends JPanel {
         setBackground(MainFrame.DEFAULT_BACKGROUND);
         setLayout(new GridLayout(2, 0));
         setOpaque(true);
-//        setSize(new Dimension(DEFAULT_HEADPANEL_WIDTH, DEFAULT_HEADPANEL_HEIGHT));
         setPreferredSize(new Dimension(DEFAULT_HEADPANEL_WIDTH, DEFAULT_HEADPANEL_HEIGHT));
-//        setMaximumSize(new Dimension(DEFAULT_HEADPANEL_WIDTH, DEFAULT_HEADPANEL_HEIGHT));
-//        setMinimumSize(new Dimension(DEFAULT_HEADPANEL_WIDTH, DEFAULT_HEADPANEL_HEIGHT));
 
         //create upper panel
         JPanel UPPER_PANEL = new JPanel();

@@ -23,10 +23,8 @@ public class MazePanel extends JPanel {
         setBackground(MainFrame.DEFAULT_BACKGROUND);
         setLayout(new GridLayout(mazeWidth, mazeHeight));
         setOpaque(true);
-//        setSize(new Dimension(DEFAULT_MAZEPANEL_WIDTH,DEFAULT_MAZEPANEL_HEIGHT));
         setPreferredSize(new Dimension(DEFAULT_MAZEPANEL_WIDTH,DEFAULT_MAZEPANEL_HEIGHT));
-//        setMaximumSize(new Dimension(DEFAULT_MAZEPANEL_WIDTH, DEFAULT_MAZEPANEL_HEIGHT));
-//        setMinimumSize(new Dimension(DEFAULT_MAZEPANEL_WIDTH, DEFAULT_MAZEPANEL_HEIGHT));
+
         fields = Maze.createNewMaze(mazeHeight, mazeWidth);
         movable = User.getMovable(User.PEDESTRIAN);
     }
@@ -60,5 +58,9 @@ public class MazePanel extends JPanel {
 
     void setMazeHeight(int mazeHeight) {
         this.mazeHeight = mazeHeight;
+    }
+
+    public Movable getMovable() {
+        return movable;
     }
 }

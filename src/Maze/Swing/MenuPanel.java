@@ -11,18 +11,21 @@ class MenuPanel extends JPanel {
         setBackground(MainFrame.DEFAULT_BACKGROUND);
         setLayout(new GridLayout(3, 0));
         setOpaque(true);
-//        setSize(new Dimension(480, 1020));
         setPreferredSize(new Dimension(480, 1020));
-//        setMaximumSize(new Dimension(480, 1020));
-//        setMinimumSize(new Dimension(480, 1020));
+
         JPanel panel1 = new JPanel();
         panel1.setBackground(MainFrame.DEFAULT_BACKGROUND);
 
         FieldGraphics[] fields = FieldGraphics.values();
         JComboBox<FieldGraphics> box = new JComboBox<>(fields);
         box.setSelectedIndex(6);
+        box.setFont(new Font(Font.DIALOG, Font.BOLD, 15));
+        box.setBackground(Color.WHITE);
 
-        JSlider slider = new JSlider();
+        JSlider slider = new JSlider(1, 5, 1);
+        slider.setMajorTickSpacing(1);
+        slider.setPaintTicks(true);
+        slider.setPaintLabels(true);
 
         panel1.add(box);
         panel1.add(slider);
