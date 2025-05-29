@@ -1,15 +1,7 @@
 package Maze.Swing;
 
-import Maze.Maze;
-import Maze.User.User;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import Maze.InvalidSizeException;
 
 import static java.awt.GridBagConstraints.BOTH;
 
@@ -27,12 +19,13 @@ class MainPanel extends JPanel {
         setOpaque(true);
 
         headPanel = new HeadPanel();
-        addHeadPanelAction(new HeadActionListener(this));
+        headPanel.addHeadPanelAction(new HeadActionListener(this));
 
         mazePanel = new MazePanel();
         mazePanel.addAllFields();
 
         menuPanel = new MenuPanel();
+        menuPanel.addMenuPanelAction(new MenuActionListener(this));
 
         setFrameLayout();
     }
@@ -45,17 +38,12 @@ class MainPanel extends JPanel {
         return mazePanel;
     }
 
-    void setMazePanel(MazePanel mazePanel) {
-        this.mazePanel = mazePanel;
+    MenuPanel getMenuPanel() {
+        return menuPanel;
     }
 
-    private void addHeadPanelAction(HeadActionListener listener) {
-        getHeadPanel().getNEW_MAZE_BUTTON().addActionListener(listener);
-        getHeadPanel().getSOLVE_BUTTON().addActionListener(listener);
-        getHeadPanel().getPEDESTRIAN().addActionListener(listener);
-        getHeadPanel().getAIRPLANE().addActionListener(listener);
-        getHeadPanel().getAMPHIBIOUS().addActionListener(listener);
-        getHeadPanel().getBOAT().addActionListener(listener);
+    void setMazePanel(MazePanel mazePanel) {
+        this.mazePanel = mazePanel;
     }
 
     void setFrameLayout() {

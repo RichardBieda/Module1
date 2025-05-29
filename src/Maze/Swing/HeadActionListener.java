@@ -13,7 +13,8 @@ import Maze.InvalidSizeException;
 
 class HeadActionListener implements ActionListener {
 
-    private MainPanel mainPanel;
+    private final MainPanel mainPanel;
+
     HeadActionListener(MainPanel mainPanel) {
         this.mainPanel = mainPanel;
     }
@@ -59,6 +60,7 @@ class HeadActionListener implements ActionListener {
                     MazePanel tmp = null;
                     @Override
                     protected Void doInBackground() throws Exception {
+                        System.out.println("newMazeButton doInBackground: " + Thread.currentThread());
                         tmp = new MazePanel(x, y);
                         tmp.addAllFields();
                         return null;

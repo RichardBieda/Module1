@@ -8,8 +8,9 @@ public class HeadButton extends JButton {
     HeadButton(String text) {
         super(text);
         setFont(new Font(Font.DIALOG, Font.BOLD, 15));
-        setBackground(MainFrame.DEFAULT_BACKGROUND);
+        setBackground(Color.WHITE);
         setFocusable(false);
+        setContentAreaFilled(true);
         setOpaque(true);
     }
 }

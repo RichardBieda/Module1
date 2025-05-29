@@ -13,10 +13,10 @@ class HeadPanel extends JPanel {
     private final static int DEFAULT_HEADPANEL_HEIGHT = 180;
     private final HeadButton NEW_MAZE_BUTTON;
     private final HeadButton SOLVE_BUTTON;
-    private final UserButton PEDESTRIAN;
-    private final UserButton AIRPLANE;
-    private final UserButton AMPHIBIOUS;
-    private final UserButton BOAT;
+    private final MazeToggleButton PEDESTRIAN;
+    private final MazeToggleButton AIRPLANE;
+    private final MazeToggleButton AMPHIBIOUS;
+    private final MazeToggleButton BOAT;
 
     HeadPanel() {
         setBackground(MainFrame.DEFAULT_BACKGROUND);
@@ -49,10 +49,10 @@ class HeadPanel extends JPanel {
         //assign buttons
         NEW_MAZE_BUTTON = new HeadButton(NEW_MAZE_BUTTON_TEXT);
         SOLVE_BUTTON = new HeadButton(SOLVE_BUTTON_TEXT);
-        PEDESTRIAN = new UserButton(User.PEDESTRIAN.name());
-        AIRPLANE = new UserButton(User.AIRPLANE.name());
-        AMPHIBIOUS = new UserButton(User.AMPHIBIOUS.name());
-        BOAT = new UserButton(User.BOAT.name());
+        PEDESTRIAN = new MazeToggleButton(User.PEDESTRIAN.name());
+        AIRPLANE = new MazeToggleButton(User.AIRPLANE.name());
+        AMPHIBIOUS = new MazeToggleButton(User.AMPHIBIOUS.name());
+        BOAT = new MazeToggleButton(User.BOAT.name());
         //create button grout for users
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(PEDESTRIAN);
@@ -78,6 +78,15 @@ class HeadPanel extends JPanel {
         add(LOWER_PANEL);
     }
 
+    void addHeadPanelAction(HeadActionListener listener) {
+        NEW_MAZE_BUTTON.addActionListener(listener);
+        SOLVE_BUTTON.addActionListener(listener);
+        PEDESTRIAN.addActionListener(listener);
+        AIRPLANE.addActionListener(listener);
+        AMPHIBIOUS.addActionListener(listener);
+        BOAT.addActionListener(listener);
+    }
+
     HeadButton getNEW_MAZE_BUTTON() {
         return NEW_MAZE_BUTTON;
     }
@@ -86,19 +95,19 @@ class HeadPanel extends JPanel {
         return SOLVE_BUTTON;
     }
 
-    UserButton getPEDESTRIAN() {
+    MazeToggleButton getPEDESTRIAN() {
         return PEDESTRIAN;
     }
 
-    UserButton getAIRPLANE() {
+    MazeToggleButton getAIRPLANE() {
         return AIRPLANE;
     }
 
-    UserButton getAMPHIBIOUS() {
+    MazeToggleButton getAMPHIBIOUS() {
         return AMPHIBIOUS;
     }
 
-    UserButton getBOAT() {
+    MazeToggleButton getBOAT() {
         return BOAT;
     }
 }

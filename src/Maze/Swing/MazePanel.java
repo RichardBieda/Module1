@@ -9,8 +9,8 @@ import Maze.User.User;
 public class MazePanel extends JPanel {
 
     private final static int DEFAULT_MAZE_SIZE = 10;
-    private final int DEFAULT_MAZEPANEL_WIDTH = 1120;
-    private final int DEFAULT_MAZEPANEL_HEIGHT = 1020;
+    private final static int DEFAULT_MAZEPANEL_WIDTH = 1120;
+    private final static int DEFAULT_MAZEPANEL_HEIGHT = 1020;
 
     private int mazeWidth;
     private int mazeHeight;
@@ -42,22 +42,6 @@ public class MazePanel extends JPanel {
 
     void setMovable(Movable movable) {
         this.movable = movable;
-    }
-
-    int getMazeWidth() {
-        return mazeWidth;
-    }
-
-    void setMazeWidth(int mazeWidth) {
-        this.mazeWidth = mazeWidth;
-    }
-
-    int getMazeHeight() {
-        return mazeHeight;
-    }
-
-    void setMazeHeight(int mazeHeight) {
-        this.mazeHeight = mazeHeight;
     }
 
     public Movable getMovable() {

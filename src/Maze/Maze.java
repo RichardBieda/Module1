@@ -1,4 +1,5 @@
 package Maze;
+
 import Maze.MazeLabels.Field;
 import Maze.MazeLabels.EmptyField;
 

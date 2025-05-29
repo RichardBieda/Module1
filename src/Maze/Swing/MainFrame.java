@@ -16,7 +16,6 @@ public class MainFrame extends JFrame {
         setBackground(DEFAULT_BACKGROUND);
 
         mainPanel = new MainPanel();
-//        addHeadPanelAction();
 
         add(mainPanel);
         pack();

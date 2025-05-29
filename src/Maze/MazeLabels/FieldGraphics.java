@@ -5,7 +5,7 @@ import java.awt.*;
 public enum FieldGraphics {
 
     WALL(Color.RED),
-    DESTINATION(Color.ORANGE),
+    GOAL(Color.ORANGE),
     PATH(Color.GRAY),
     START(Color.YELLOW),
     WATER(Color.BLUE),
@@ -31,7 +31,7 @@ public enum FieldGraphics {
             case NoFlyZone noFlyZone -> NO_FLY_ZONE.COLOR;
             case Bridge bridge -> BRIDGE.COLOR;
             case Path path -> PATH.COLOR;
-            case Destination destination -> DESTINATION.COLOR;
+            case Goal goal -> GOAL.COLOR;
             default -> EMPTY_FIELD.COLOR;
         };
     }
