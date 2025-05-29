@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 
 class MenuPanel extends JPanel {
+
+    private final static int DEFAULT_MENUPANEL_WIDTH = 480;
+    private final static int DEFAULT_MENUPANEL_HEIGHT = 1020;
     private final JSlider slider;
     private final MazeToggleButton EMPTY_FIELD;
     private final MazeToggleButton BRIDGE;
@@ -17,7 +20,7 @@ class MenuPanel extends JPanel {
         setBackground(MainFrame.DEFAULT_BACKGROUND);
         setLayout(new GridLayout(3, 0));
         setOpaque(true);
-        setPreferredSize(new Dimension(480, 1020));
+        setPreferredSize(new Dimension(DEFAULT_MENUPANEL_WIDTH, DEFAULT_MENUPANEL_HEIGHT));
 
         //creation of panel1
         JPanel panel1 = new JPanel();

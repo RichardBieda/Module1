@@ -6,14 +6,14 @@ import Maze.MazeLabels.Field;
 import Maze.User.Movable;
 import Maze.Maze;
 import Maze.User.User;
-public class MazePanel extends JPanel {
+class MazePanel extends JPanel {
 
     private final static int DEFAULT_MAZE_SIZE = 10;
     private final static int DEFAULT_MAZEPANEL_WIDTH = 1120;
     private final static int DEFAULT_MAZEPANEL_HEIGHT = 1020;
 
-    private int mazeWidth;
-    private int mazeHeight;
+    private final int mazeWidth;
+    private final int mazeHeight;
     private final Field[][] fields;
     private Movable movable;
 

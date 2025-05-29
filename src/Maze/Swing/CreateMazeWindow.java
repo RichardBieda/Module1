@@ -9,8 +9,8 @@ class CreateMazeWindow extends JFrame {
     private final static String HEIGHT_TEXT = "height y :";
     private final static String CREATE = "create";
     private final static String EXIT = "exit";
-    private final int WIDTH = 320;
-    private final int HEIGHT = 180;
+    private final static int WIDTH = 320;
+    private final static int HEIGHT = 180;
     private final JTextField intWidth;
     private final JTextField intHeight;
     private final JButton createButton;
@@ -26,12 +26,12 @@ class CreateMazeWindow extends JFrame {
 
         JLabel width = new JLabel(WIDTH_TEXT);
         width.setBackground(MainFrame.DEFAULT_BACKGROUND);
-        width.setFont(new Font(Font.DIALOG, Font.BOLD, 35));
+        width.setFont(new Font(Font.DIALOG, Font.BOLD, 30));
         width.setHorizontalAlignment(SwingConstants.CENTER);
 
         JLabel height = new JLabel(HEIGHT_TEXT);
         height.setBackground(MainFrame.DEFAULT_BACKGROUND);
-        height.setFont(new Font(Font.DIALOG, Font.BOLD, 35));
+        height.setFont(new Font(Font.DIALOG, Font.BOLD, 30));
         height.setHorizontalAlignment(SwingConstants.CENTER);
 
         intWidth = new JTextField();
