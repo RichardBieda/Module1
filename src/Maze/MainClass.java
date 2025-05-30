@@ -14,6 +14,5 @@ class MainClass {
 //        }
 
         SwingUtilities.invokeLater(MainFrame::new);
-        System.out.println(UIManager.getLookAndFeel());
     }
 }

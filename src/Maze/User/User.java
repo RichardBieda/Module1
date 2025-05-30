@@ -7,7 +7,7 @@ public enum User {
     AMPHIBIOUS(new Amphibious()),
     BOAT(new Boat());
 
-    private Movable movable;
+    private final Movable movable;
     User(Movable movable) {
         this.movable = movable;
     }

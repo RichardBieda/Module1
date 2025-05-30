@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 
-public abstract class Field extends JLabel {
+public abstract class Field extends JButton {
 
     private final static Color BORDER_COLOR = new Color(200,200,200);
     private final static int BORDER_THICKNESS = 1;
@@ -67,5 +67,10 @@ public abstract class Field extends JLabel {
 
     public int getBelowF() {
         return fY + 1;
+    }
+
+    @Override
+    public String toString() {
+        return " " + this.getClass().getSimpleName() + " ";
     }
 }

@@ -16,10 +16,16 @@ public class MainFrame extends JFrame {
         setBackground(DEFAULT_BACKGROUND);
 
         mainPanel = new MainPanel();
+        mainPanel.getMenuPanel().addCreateAndSolveAction(new HeadActionListener(this));
+        mainPanel.getMazePanel().addMazeAction(this);
 
         add(mainPanel);
         pack();
         setVisible(true);
+    }
+
+    MainPanel getMainPanel() {
+        return mainPanel;
     }
 }
 

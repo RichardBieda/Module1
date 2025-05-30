@@ -19,19 +19,13 @@ class MainPanel extends JPanel {
         setOpaque(true);
 
         headPanel = new HeadPanel();
-        headPanel.addHeadPanelAction(new HeadActionListener(this));
 
         mazePanel = new MazePanel();
-        mazePanel.addAllFields();
 
         menuPanel = new MenuPanel();
-        menuPanel.addMenuPanelAction(new MenuActionListener(this));
+        menuPanel.addMenuPanelAction(this);
 
         setFrameLayout();
-    }
-
-    HeadPanel getHeadPanel() {
-        return headPanel;
     }
 
     MazePanel getMazePanel() {

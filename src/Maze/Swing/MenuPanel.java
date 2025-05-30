@@ -1,5 +1,8 @@
 package Maze.Swing;
 
+import Maze.MazeLabels.*;
+import Maze.User.User;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -7,6 +10,10 @@ class MenuPanel extends JPanel {
 
     private final static int DEFAULT_MENUPANEL_WIDTH = 480;
     private final static int DEFAULT_MENUPANEL_HEIGHT = 1020;
+    private final static String NEW_MAZE_BUTTON_TEXT = "create new maze";
+    private final static String SOLVE_BUTTON_TEXT = "solve maze";
+    private final MazeToggleButton VERTICAL;
+    private final MazeToggleButton HORIZONTAL;
     private final JSlider slider;
     private final MazeToggleButton EMPTY_FIELD;
     private final MazeToggleButton BRIDGE;
@@ -15,6 +22,15 @@ class MenuPanel extends JPanel {
     private final MazeToggleButton START;
     private final MazeToggleButton WALL;
     private final MazeToggleButton WATER;
+    private final MazeToggleButton PEDESTRIAN;
+    private final MazeToggleButton AIRPLANE;
+    private final MazeToggleButton AMPHIBIOUS;
+    private final MazeToggleButton BOAT;
+    private final HeadButton NEW_MAZE_BUTTON;
+    private final HeadButton SOLVE_BUTTON;
+    private int sliderValue;
+    private boolean orientation;
+    private Class<? extends Field> FieldClass;
 
     MenuPanel() {
         setBackground(MainFrame.DEFAULT_BACKGROUND);
@@ -24,68 +40,192 @@ class MenuPanel extends JPanel {
 
         //creation of panel1
         JPanel panel1 = new JPanel();
-        panel1.setLayout(new GridBagLayout());
+        panel1.setLayout(new GridLayout(2,0));
         panel1.setOpaque(true);
         panel1.setBackground(MainFrame.DEFAULT_BACKGROUND);
 
-        slider = new JSlider(1, 5, 1);
-        slider.setBackground(MainFrame.DEFAULT_BACKGROUND);
-        slider.setMajorTickSpacing(1);
-        slider.setPreferredSize(new Dimension(300, 100));
-        slider.setPaintTicks(true);
-        slider.setPaintLabels(true);
+        JPanel mazeNSolvePanel = new JPanel();
+        mazeNSolvePanel.setBackground(MainFrame.DEFAULT_BACKGROUND);
+        mazeNSolvePanel.setOpaque(true);
+        NEW_MAZE_BUTTON = new HeadButton(NEW_MAZE_BUTTON_TEXT);
+        SOLVE_BUTTON = new HeadButton(SOLVE_BUTTON_TEXT);
+        mazeNSolvePanel.add(NEW_MAZE_BUTTON);
+        mazeNSolvePanel.add(SOLVE_BUTTON);
 
+        JPanel userPanel = new JPanel();
+        userPanel.setBackground(MainFrame.DEFAULT_BACKGROUND);
+        userPanel.setLayout(new FlowLayout());
+        userPanel.setOpaque(true);
+        PEDESTRIAN = new MazeToggleButton(User.PEDESTRIAN.name());
+        AIRPLANE = new MazeToggleButton(User.AIRPLANE.name());
+        AMPHIBIOUS = new MazeToggleButton(User.AMPHIBIOUS.name());
+        BOAT = new MazeToggleButton(User.BOAT.name());
+        userPanel.add(PEDESTRIAN);
+        userPanel.add(AIRPLANE);
+        userPanel.add(AMPHIBIOUS);
+        userPanel.add(BOAT);
+
+        ButtonGroup userGroup = new ButtonGroup();
+        userGroup.add(PEDESTRIAN);
+        userGroup.add(AIRPLANE);
+        userGroup.add(AMPHIBIOUS);
+        userGroup.add(BOAT);
+        PEDESTRIAN.setSelected(true);
         //creation of panel 2
         JPanel panel2 = new JPanel();
-        panel2.setLayout(new FlowLayout());
+        panel2.setLayout(new GridLayout(2, 0));
         panel2.setOpaque(true);
         panel2.setBackground(MainFrame.DEFAULT_BACKGROUND);
-        ButtonGroup buttonGroup = new ButtonGroup();
 
-        EMPTY_FIELD = new MazeToggleButton("Empty field");
-        BRIDGE = new MazeToggleButton("Bridge");
-        GOAL = new MazeToggleButton("Destinatin");
-        NO_FLY_ZONE = new MazeToggleButton("No fly zone ");
-        START = new MazeToggleButton("Start");
-        WALL = new MazeToggleButton("Wall");
-        WATER = new MazeToggleButton("Water");
-        buttonGroup.add(EMPTY_FIELD);
-        buttonGroup.add(BRIDGE);
-        buttonGroup.add(GOAL);
-        buttonGroup.add(NO_FLY_ZONE);
-        buttonGroup.add(START);
-        buttonGroup.add(WALL);
-        buttonGroup.add(WATER);
+        JPanel XYPanel = new JPanel();
+        XYPanel.setBackground(MainFrame.DEFAULT_BACKGROUND);
+        XYPanel.setLayout(new GridBagLayout());
+        XYPanel.setOpaque(true);
+
+        ButtonGroup XYGroup = new ButtonGroup();
+        VERTICAL = new MazeToggleButton("vertical");
+        HORIZONTAL = new MazeToggleButton("horizontal");
+        HORIZONTAL.setSelected(true);
+        orientation = HORIZONTAL.isSelected();
+        XYGroup.add(VERTICAL);
+        XYGroup.add(HORIZONTAL);
+        XYPanel.add(HORIZONTAL);
+        XYPanel.add(VERTICAL);
+
+
+        JPanel sliderPanel = new JPanel();
+        sliderPanel.setBackground(MainFrame.DEFAULT_BACKGROUND);
+        sliderPanel.setLayout(new GridBagLayout());
+        sliderPanel.setOpaque(true);
+        slider = new JSlider(1, 10, 1);
+        slider.setBackground(MainFrame.DEFAULT_BACKGROUND);
+        slider.setMajorTickSpacing(1);
+        slider.setPreferredSize(new Dimension(280, 100));
+        slider.setPaintTicks(true);
+        slider.setPaintLabels(true);
+        sliderPanel.add(slider);
+        sliderValue = 1;
 
         //creation of panel 3
         JPanel panel3 = new JPanel();
         panel3.setBackground(MainFrame.DEFAULT_BACKGROUND);
-        panel3.setLayout(new GridBagLayout());
+        panel3.setLayout(new FlowLayout());
         panel3.setOpaque(true);
 
+        ButtonGroup fieldGroup = new ButtonGroup();
+        EMPTY_FIELD = new MazeToggleButton("Empty field");
+        BRIDGE = new MazeToggleButton("Bridge");
+        GOAL = new MazeToggleButton("Goal");
+        NO_FLY_ZONE = new MazeToggleButton("No fly zone ");
+        START = new MazeToggleButton("Start");
+        WALL = new MazeToggleButton("Wall");
+        WATER = new MazeToggleButton("Water");
+        EMPTY_FIELD.setSelected(true);
+        FieldClass = EmptyField.class;
+        fieldGroup.add(EMPTY_FIELD);
+        fieldGroup.add(BRIDGE);
+        fieldGroup.add(GOAL);
+        fieldGroup.add(NO_FLY_ZONE);
+        fieldGroup.add(START);
+        fieldGroup.add(WALL);
+        fieldGroup.add(WATER);
+
         //adding to panel 1
-        panel1.add(slider);
+        panel1.add(mazeNSolvePanel);
+        panel1.add(userPanel);
         //adding to panel 2
-        panel2.add(EMPTY_FIELD);
-        panel2.add(BRIDGE);
-        panel2.add(GOAL);
-        panel2.add(NO_FLY_ZONE);
-        panel2.add(START);
-        panel2.add(WALL);
-        panel2.add(WATER);
+        panel2.add(XYPanel);
+        panel2.add(sliderPanel);
+        //adding to panel 3
+        panel3.add(EMPTY_FIELD);
+        panel3.add(BRIDGE);
+        panel3.add(NO_FLY_ZONE);
+        panel3.add(WALL);
+        panel3.add(WATER);
+        panel3.add(START);
+        panel3.add(GOAL);
         //adding all sub panels to menu panel
         add(panel1);
         add(panel2);
         add(panel3);
     }
 
-    void addMenuPanelAction(MenuActionListener listener) {
-        EMPTY_FIELD.addActionListener(listener);
-        BRIDGE.addActionListener(listener);
-        GOAL.addActionListener(listener);
-        NO_FLY_ZONE.addActionListener(listener);
-        START.addActionListener(listener);
-        WALL.addActionListener(listener);
-        WATER.addActionListener(listener);
+//    private Field getField() {
+//        if (dndClass == EmptyField.class) {
+//            return new EmptyField();
+//        } else if (dndClass == Bridge.class) {
+//            return  new Bridge();
+//        } else if (dndClass == Goal.class) {
+//            return  new Goal();
+//        } else if (dndClass == NoFlyZone.class) {
+//            return  new NoFlyZone();
+//        } else if (dndClass == Start.class) {
+//            return  new Start();
+//        } else if (dndClass == Water.class) {
+//            return  new Water();
+//        } else {
+//            return new Wall();
+//        }
+//    }
+
+    void addMenuPanelAction(MainPanel mainPanel) {
+        HORIZONTAL.addItemListener(e -> orientation = true);
+        VERTICAL.addItemListener(e -> orientation = false);
+
+        slider.addChangeListener(e -> sliderValue = slider.getValue());
+
+        EMPTY_FIELD.addChangeListener(e -> FieldClass = EmptyField.class);
+        BRIDGE.addChangeListener(e -> FieldClass = Bridge.class);
+        GOAL.addChangeListener(e -> FieldClass = Goal.class);
+        NO_FLY_ZONE.addChangeListener(e -> FieldClass = NoFlyZone.class);
+        START.addChangeListener(e -> FieldClass = Start.class);
+        WALL.addChangeListener(e -> FieldClass = Wall.class);
+        WATER.addChangeListener(e -> FieldClass = Water.class);
+
+        PEDESTRIAN.addItemListener(e -> mainPanel.getMazePanel().setMovable(User.getMovable(User.PEDESTRIAN)));
+        AIRPLANE.addItemListener(e -> mainPanel.getMazePanel().setMovable(User.getMovable(User.AIRPLANE)));
+        AMPHIBIOUS.addItemListener(e -> mainPanel.getMazePanel().setMovable(User.getMovable(User.AMPHIBIOUS)));
+        BOAT.addItemListener(e -> mainPanel.getMazePanel().setMovable(User.getMovable(User.BOAT)));
+    }
+
+    void addCreateAndSolveAction(HeadActionListener listener) {
+        NEW_MAZE_BUTTON.addActionListener(listener);
+        SOLVE_BUTTON.addActionListener(listener);
+    }
+
+    int getSliderValue() {
+        return sliderValue;
+    }
+
+    boolean getOrientation() {
+        return orientation;
+    }
+
+    Class<? extends Field> getFieldClass() {
+        return FieldClass;
+    }
+
+    MazeToggleButton getPEDESTRIAN() {
+        return PEDESTRIAN;
+    }
+
+    MazeToggleButton getAIRPLANE() {
+        return AIRPLANE;
+    }
+
+    MazeToggleButton getAMPHIBIOUS() {
+        return AMPHIBIOUS;
+    }
+
+    MazeToggleButton getBOAT() {
+        return BOAT;
+    }
+
+    HeadButton getNEW_MAZE_BUTTON() {
+        return NEW_MAZE_BUTTON;
+    }
+
+    HeadButton getSOLVE_BUTTON() {
+        return SOLVE_BUTTON;
     }
 }
