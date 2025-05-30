@@ -28,9 +28,6 @@ class MenuPanel extends JPanel {
     private final MazeToggleButton BOAT;
     private final HeadButton NEW_MAZE_BUTTON;
     private final HeadButton SOLVE_BUTTON;
-    private int sliderValue;
-    private boolean orientation;
-    private Class<? extends Field> FieldClass;
 
     MenuPanel() {
         setBackground(MainFrame.DEFAULT_BACKGROUND);
@@ -86,7 +83,6 @@ class MenuPanel extends JPanel {
         VERTICAL = new MazeToggleButton("vertical");
         HORIZONTAL = new MazeToggleButton("horizontal");
         HORIZONTAL.setSelected(true);
-        orientation = HORIZONTAL.isSelected();
         XYGroup.add(VERTICAL);
         XYGroup.add(HORIZONTAL);
         XYPanel.add(HORIZONTAL);
@@ -104,7 +100,6 @@ class MenuPanel extends JPanel {
         slider.setPaintTicks(true);
         slider.setPaintLabels(true);
         sliderPanel.add(slider);
-        sliderValue = 1;
 
         //creation of panel 3
         JPanel panel3 = new JPanel();
@@ -121,7 +116,6 @@ class MenuPanel extends JPanel {
         WALL = new MazeToggleButton("Wall");
         WATER = new MazeToggleButton("Water");
         EMPTY_FIELD.setSelected(true);
-        FieldClass = EmptyField.class;
         fieldGroup.add(EMPTY_FIELD);
         fieldGroup.add(BRIDGE);
         fieldGroup.add(GOAL);
@@ -150,37 +144,19 @@ class MenuPanel extends JPanel {
         add(panel3);
     }
 
-//    private Field getField() {
-//        if (dndClass == EmptyField.class) {
-//            return new EmptyField();
-//        } else if (dndClass == Bridge.class) {
-//            return  new Bridge();
-//        } else if (dndClass == Goal.class) {
-//            return  new Goal();
-//        } else if (dndClass == NoFlyZone.class) {
-//            return  new NoFlyZone();
-//        } else if (dndClass == Start.class) {
-//            return  new Start();
-//        } else if (dndClass == Water.class) {
-//            return  new Water();
-//        } else {
-//            return new Wall();
-//        }
-//    }
-
     void addMenuPanelAction(MainPanel mainPanel) {
-        HORIZONTAL.addItemListener(e -> orientation = true);
-        VERTICAL.addItemListener(e -> orientation = false);
+        HORIZONTAL.addItemListener(e -> mainPanel.getMazePanel().getListener().setOri(true));
+        VERTICAL.addItemListener(e -> mainPanel.getMazePanel().getListener().setOri(false));
 
-        slider.addChangeListener(e -> sliderValue = slider.getValue());
+        slider.addChangeListener(e -> mainPanel.getMazePanel().getListener().setSliderValue(slider.getValue()));
 
-        EMPTY_FIELD.addChangeListener(e -> FieldClass = EmptyField.class);
-        BRIDGE.addChangeListener(e -> FieldClass = Bridge.class);
-        GOAL.addChangeListener(e -> FieldClass = Goal.class);
-        NO_FLY_ZONE.addChangeListener(e -> FieldClass = NoFlyZone.class);
-        START.addChangeListener(e -> FieldClass = Start.class);
-        WALL.addChangeListener(e -> FieldClass = Wall.class);
-        WATER.addChangeListener(e -> FieldClass = Water.class);
+        EMPTY_FIELD.addChangeListener(e -> mainPanel.getMazePanel().getListener().setAClass(EmptyField.class));
+        BRIDGE.addChangeListener(e -> mainPanel.getMazePanel().getListener().setAClass(Bridge.class));
+        GOAL.addChangeListener(e -> mainPanel.getMazePanel().getListener().setAClass(Goal.class));
+        NO_FLY_ZONE.addChangeListener(e -> mainPanel.getMazePanel().getListener().setAClass(NoFlyZone.class));
+        START.addChangeListener(e -> mainPanel.getMazePanel().getListener().setAClass(Start.class));
+        WALL.addChangeListener(e -> mainPanel.getMazePanel().getListener().setAClass(Wall.class));
+        WATER.addChangeListener(e -> mainPanel.getMazePanel().getListener().setAClass(Water.class));
 
         PEDESTRIAN.addItemListener(e -> mainPanel.getMazePanel().setMovable(User.getMovable(User.PEDESTRIAN)));
         AIRPLANE.addItemListener(e -> mainPanel.getMazePanel().setMovable(User.getMovable(User.AIRPLANE)));
@@ -191,18 +167,6 @@ class MenuPanel extends JPanel {
     void addCreateAndSolveAction(HeadActionListener listener) {
         NEW_MAZE_BUTTON.addActionListener(listener);
         SOLVE_BUTTON.addActionListener(listener);
-    }
-
-    int getSliderValue() {
-        return sliderValue;
-    }
-
-    boolean getOrientation() {
-        return orientation;
-    }
-
-    Class<? extends Field> getFieldClass() {
-        return FieldClass;
     }
 
     MazeToggleButton getPEDESTRIAN() {

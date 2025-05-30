@@ -46,7 +46,7 @@ class HeadActionListener implements ActionListener {
                     @Override
                     protected Void doInBackground() throws Exception {
                         tmp = new MazePanel(x,y);
-                        tmp.addMazeAction(frame);
+                        tmp.setFields();
                         return null;
                     }
                     @Override

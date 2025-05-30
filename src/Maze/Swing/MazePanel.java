@@ -20,6 +20,7 @@ class MazePanel extends JPanel {
     private final int mazeHeight;
     private Field[][] fields;
     private Movable movable;
+    MazeActionListener listener;
 
     MazePanel() {
         this(DEFAULT_MAZE_SIZE, DEFAULT_MAZE_SIZE);
@@ -33,7 +34,7 @@ class MazePanel extends JPanel {
         setOpaque(true);
         setPreferredSize(new Dimension(DEFAULT_MAZEPANEL_WIDTH,DEFAULT_MAZEPANEL_HEIGHT));
         movable = User.getMovable(User.PEDESTRIAN);
-        setFields();
+        listener = new MazeActionListener(this.mazeWidth, this.mazeHeight, this);
     }
 
     static void checkMazeSize(int sizeY, int sizeX) {
@@ -42,13 +43,14 @@ class MazePanel extends JPanel {
         }
     }
 
-    private void setFields() {
+    void setFields() {
         Field[][] result = new Field[mazeHeight][mazeWidth];
         for (int i = 0; i < mazeHeight; i++) {
             for (int j = 0; j < mazeWidth; j++) {
                 Field tmp = new EmptyField();
                 tmp.setFX(j);
                 tmp.setFY(i);
+                tmp.addActionListener(listener);
                 result[i][j] = tmp;
                 add(tmp);
             }
@@ -56,14 +58,13 @@ class MazePanel extends JPanel {
         fields = result;
     }
 
-    void addMazeAction(MainFrame frame) {
-        MazeActionListener mazeActionListener = new MazeActionListener(frame);
-        for (int i = 0; i < fields.length; i++) {
-            for (int j = 0; j < fields[i].length; j++) {
-                fields[i][j].addActionListener(mazeActionListener);
-            }
-        }
-    }
+//    void addMazeAction(MazeActionListener listener) {
+//        for (int i = 0; i < fields.length; i++) {
+//            for (int j = 0; j < fields[i].length; j++) {
+//                fields[i][j].addActionListener(listener);
+//            }
+//        }
+//    }
 
     void setMovable(Movable movable) {
         this.movable = movable;
@@ -83,5 +84,9 @@ class MazePanel extends JPanel {
 
     int getMazeHeight() {
         return mazeHeight;
+    }
+
+    MazeActionListener getListener() {
+        return listener;
     }
 }

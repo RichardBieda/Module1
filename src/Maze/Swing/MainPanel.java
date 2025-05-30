@@ -25,6 +25,8 @@ class MainPanel extends JPanel {
         menuPanel = new MenuPanel();
         menuPanel.addMenuPanelAction(this);
 
+        getMazePanel().setFields();
+        getMenuPanel().addCreateAndSolveAction(new HeadActionListener(this));
         setFrameLayout();
     }
 
