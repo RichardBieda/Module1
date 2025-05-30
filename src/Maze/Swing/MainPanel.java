@@ -21,12 +21,13 @@ class MainPanel extends JPanel {
         headPanel = new HeadPanel();
 
         mazePanel = new MazePanel();
+        mazePanel.setFields();
+
 
         menuPanel = new MenuPanel();
         menuPanel.addMenuPanelAction(this);
+        menuPanel.addCreateAndSolveAction(new HeadActionListener(this));
 
-        getMazePanel().setFields();
-        getMenuPanel().addCreateAndSolveAction(new HeadActionListener(this));
         setFrameLayout();
     }
 

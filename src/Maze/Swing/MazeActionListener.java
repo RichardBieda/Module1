@@ -15,25 +15,24 @@ class MazeActionListener implements ActionListener {
     private boolean ori = true;
     private int sliderValue = 1;
     private Class<? extends Field> aClass = EmptyField.class;
-    MazeActionListener(int aWidth, int aHeight, MazePanel mazePanel) {
-        this.aWidth = aWidth;
-        this.aHeight = aHeight;
+    MazeActionListener(MazePanel mazePanel) {
+        this.aWidth = mazePanel.getMazeWidth();
+        this.aHeight = mazePanel.getMazeHeight();
         this.mazePanel = mazePanel;
+        System.out.println("constructor " + aWidth + " " + aHeight);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("start");
         Field tmp = (Field) e.getSource();
         int xCor = tmp.getFX();
         int yCor = tmp.getFY();
-        System.out.println("inits: " + tmp + "--" + xCor + "--" + yCor + "--" + ori);
 
         int count = sliderValue;
-        System.out.println("getFieldClass: " + aClass + " -- " + count);
         try {
             //xCor < frame.getMainPanel().getMazePanel().getMazeWidth() && yCor < frame.getMainPanel().getMazePanel().getMazeHeight()
             Constructor<?> con = aClass.getConstructor();
+            System.out.println("while " + aWidth + " " + aHeight);
             while (count-- > 0 && xCor < aWidth && yCor < aHeight) {
                 Field newField = (Field) con.newInstance();
                 newField.addActionListener(this);

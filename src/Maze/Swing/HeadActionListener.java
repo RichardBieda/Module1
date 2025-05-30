@@ -10,30 +10,30 @@ import Maze.InvalidSizeException;
 
 class HeadActionListener implements ActionListener {
 
-    private final MainFrame frame;
+    private final MainPanel mainPanel;
 
-    HeadActionListener(MainFrame frame) {
-        this.frame = frame;
+    HeadActionListener(MainPanel mainPanel) {
+        this.mainPanel = mainPanel;
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == frame.getMainPanel().getMenuPanel().getNEW_MAZE_BUTTON()) {
+        if (e.getSource() == mainPanel.getMenuPanel().getNEW_MAZE_BUTTON()) {
             newMazeButtonPressed();
-        } else if (e.getSource() == frame.getMainPanel().getMenuPanel().getSOLVE_BUTTON()) {
+        } else if (e.getSource() == mainPanel.getMenuPanel().getSOLVE_BUTTON()) {
             solveButtonPressed();
         }
     }
 
     private void newMazeButtonPressed() {
-        frame.getMainPanel().getMenuPanel().getNEW_MAZE_BUTTON().setEnabled(false);
-        frame.getMainPanel().getMenuPanel().getSOLVE_BUTTON().setEnabled(false);
-        CreateMazeWindow nmw = new CreateMazeWindow(frame.getMainPanel().getMenuPanel().getNEW_MAZE_BUTTON());
+        mainPanel.getMenuPanel().getNEW_MAZE_BUTTON().setEnabled(false);
+        mainPanel.getMenuPanel().getSOLVE_BUTTON().setEnabled(false);
+        CreateMazeWindow nmw = new CreateMazeWindow(mainPanel.getMenuPanel().getNEW_MAZE_BUTTON());
         nmw.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
                 super.windowClosed(e);
-                frame.getMainPanel().getMenuPanel().getNEW_MAZE_BUTTON().setEnabled(true);
-                frame.getMainPanel().getMenuPanel().getSOLVE_BUTTON().setEnabled(true);
+                mainPanel.getMenuPanel().getNEW_MAZE_BUTTON().setEnabled(true);
+                mainPanel.getMenuPanel().getSOLVE_BUTTON().setEnabled(true);
             }
         });
         nmw.getCreateButton().addActionListener(e1 -> {
@@ -51,11 +51,12 @@ class HeadActionListener implements ActionListener {
                     }
                     @Override
                     protected void done() {
-                        frame.getMainPanel().remove(frame.getMainPanel().getMazePanel());
-                        frame.getMainPanel().setMazePanel(tmp);
-                        frame.getMainPanel().setFrameLayout();
-                        frame.getMainPanel().revalidate();
-                        frame.getMainPanel().repaint();
+                        mainPanel.remove(mainPanel.getMazePanel());
+                        mainPanel.setMazePanel(tmp);
+                        mainPanel.setFrameLayout();
+                        mainPanel.getMazePanel().repaint();
+                        mainPanel.revalidate();
+                        mainPanel.repaint();
                     }
                 };
                 worker.execute();
@@ -77,9 +78,9 @@ class HeadActionListener implements ActionListener {
 //        System.out.println(mainPanel.getMazePanel().getMovable());
 //        System.out.println(mainPanel.getMenuPanel().getOrientation());
 //        System.out.println(mainPanel.getMenuPanel().getSliderValue());
-        for (int i = 0; i < frame.getMainPanel().getMazePanel().getFields().length; i++) {
-            for (int j = 0; j < frame.getMainPanel().getMazePanel().getFields()[i].length; j++) {
-                System.out.print(frame.getMainPanel().getMazePanel().getFields()[i][j]);
+        for (int i = 0; i < mainPanel.getMazePanel().getFields().length; i++) {
+            for (int j = 0; j < mainPanel.getMazePanel().getFields()[i].length; j++) {
+                System.out.print(mainPanel.getMazePanel().getFields()[i][j]);
             }
             System.out.println();
         }

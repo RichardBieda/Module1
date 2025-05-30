@@ -2,6 +2,8 @@ package Maze.Swing;
 
 import javax.swing.*;
 import java.awt.*;
+import Maze.MazeLabels.Field;
+import Maze.MazeLabels.Wall;
 
 public class MainFrame extends JFrame {
 
@@ -20,10 +22,6 @@ public class MainFrame extends JFrame {
         add(mainPanel);
         pack();
         setVisible(true);
-    }
-
-    MainPanel getMainPanel() {
-        return mainPanel;
     }
 }
 

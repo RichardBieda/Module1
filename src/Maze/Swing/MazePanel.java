@@ -3,9 +3,12 @@ package Maze.Swing;
 import Maze.InvalidSizeException;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import Maze.MazeLabels.EmptyField;
 import Maze.MazeLabels.Field;
+import Maze.MazeLabels.Wall;
 import Maze.User.Movable;
 import Maze.User.User;
 
@@ -20,7 +23,7 @@ class MazePanel extends JPanel {
     private final int mazeHeight;
     private Field[][] fields;
     private Movable movable;
-    MazeActionListener listener;
+    private MazeActionListener listener;
 
     MazePanel() {
         this(DEFAULT_MAZE_SIZE, DEFAULT_MAZE_SIZE);
@@ -33,8 +36,9 @@ class MazePanel extends JPanel {
         setLayout(new GridLayout(this.mazeWidth, this.mazeHeight));
         setOpaque(true);
         setPreferredSize(new Dimension(DEFAULT_MAZEPANEL_WIDTH,DEFAULT_MAZEPANEL_HEIGHT));
+
         movable = User.getMovable(User.PEDESTRIAN);
-        listener = new MazeActionListener(this.mazeWidth, this.mazeHeight, this);
+        listener = new MazeActionListener(this);
     }
 
     static void checkMazeSize(int sizeY, int sizeX) {
@@ -57,14 +61,6 @@ class MazePanel extends JPanel {
         }
         fields = result;
     }
-
-//    void addMazeAction(MazeActionListener listener) {
-//        for (int i = 0; i < fields.length; i++) {
-//            for (int j = 0; j < fields[i].length; j++) {
-//                fields[i][j].addActionListener(listener);
-//            }
-//        }
-//    }
 
     void setMovable(Movable movable) {
         this.movable = movable;
