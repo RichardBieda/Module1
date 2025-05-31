@@ -2,8 +2,6 @@ package Maze.Swing;
 
 import javax.swing.*;
 import java.awt.*;
-import Maze.MazeLabels.Field;
-import Maze.MazeLabels.Wall;
 
 public class MainFrame extends JFrame {
 

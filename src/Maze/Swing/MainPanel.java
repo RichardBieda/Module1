@@ -1,5 +1,7 @@
 package Maze.Swing;
 
+import Maze.BfsSolver;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -43,6 +45,10 @@ class MainPanel extends JPanel {
 
     void setMazePanel(MazePanel mazePanel) {
         this.mazePanel = mazePanel;
+    }
+
+    HeadPanel getHeadPanel() {
+        return headPanel;
     }
 
     void setFrameLayout() {

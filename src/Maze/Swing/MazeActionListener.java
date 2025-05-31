@@ -39,7 +39,6 @@ class MazeActionListener implements ActionListener {
                 mainPanel.getMazePanel().setGoal(yCor, xCor);
                 return;
             }
-            System.out.println( mainPanel.getMenuPanel().getSlider().getValue());
             while (count-- > 0 && xCor < aWidth && yCor < aHeight) {
                 Field newField = (Field) con.newInstance();
                 mainPanel.getMazePanel().getFields()[yCor][xCor].setField(newField);
