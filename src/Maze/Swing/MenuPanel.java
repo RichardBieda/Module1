@@ -28,6 +28,10 @@ class MenuPanel extends JPanel {
     private final MazeToggleButton BOAT;
     private final HeadButton NEW_MAZE_BUTTON;
     private final HeadButton SOLVE_BUTTON;
+    private boolean orientation = true;
+    private Class<? extends Field> fClass = EmptyField.class;
+    private boolean isStart = false;
+    private boolean isGoal = false;
 
     MenuPanel() {
         setBackground(MainFrame.DEFAULT_BACKGROUND);
@@ -123,7 +127,6 @@ class MenuPanel extends JPanel {
         fieldGroup.add(START);
         fieldGroup.add(WALL);
         fieldGroup.add(WATER);
-
         //adding to panel 1
         panel1.add(mazeNSolvePanel);
         panel1.add(userPanel);
@@ -145,23 +148,23 @@ class MenuPanel extends JPanel {
     }
 
     void addMenuPanelAction(MainPanel mainPanel) {
-        HORIZONTAL.addItemListener(e -> mainPanel.getMazePanel().getListener().setOri(true));
-        VERTICAL.addItemListener(e -> mainPanel.getMazePanel().getListener().setOri(false));
-
-        slider.addChangeListener(e -> mainPanel.getMazePanel().getListener().setSliderValue(slider.getValue()));
-
-        EMPTY_FIELD.addChangeListener(e -> mainPanel.getMazePanel().getListener().setAClass(EmptyField.class));
-        BRIDGE.addChangeListener(e -> mainPanel.getMazePanel().getListener().setAClass(Bridge.class));
-        GOAL.addChangeListener(e -> mainPanel.getMazePanel().getListener().setAClass(Goal.class));
-        NO_FLY_ZONE.addChangeListener(e -> mainPanel.getMazePanel().getListener().setAClass(NoFlyZone.class));
-        START.addChangeListener(e -> mainPanel.getMazePanel().getListener().setAClass(Start.class));
-        WALL.addChangeListener(e -> mainPanel.getMazePanel().getListener().setAClass(Wall.class));
-        WATER.addChangeListener(e -> mainPanel.getMazePanel().getListener().setAClass(Water.class));
+        HORIZONTAL.addItemListener(e -> orientation = true);
+        VERTICAL.addItemListener(e -> orientation = false);
 
         PEDESTRIAN.addItemListener(e -> mainPanel.getMazePanel().setMovable(User.getMovable(User.PEDESTRIAN)));
         AIRPLANE.addItemListener(e -> mainPanel.getMazePanel().setMovable(User.getMovable(User.AIRPLANE)));
         AMPHIBIOUS.addItemListener(e -> mainPanel.getMazePanel().setMovable(User.getMovable(User.AMPHIBIOUS)));
         BOAT.addItemListener(e -> mainPanel.getMazePanel().setMovable(User.getMovable(User.BOAT)));
+    }
+
+    void addChangeListener(FieldChangeListener listener) {
+        EMPTY_FIELD.addChangeListener(listener);
+        BRIDGE.addChangeListener(listener);
+        GOAL.addChangeListener(listener);
+        NO_FLY_ZONE.addChangeListener(listener);
+        WALL.addChangeListener(listener);
+        WATER.addChangeListener(listener);
+        START.addChangeListener(listener);
     }
 
     void addCreateAndSolveAction(HeadActionListener listener) {
@@ -191,5 +194,49 @@ class MenuPanel extends JPanel {
 
     HeadButton getSOLVE_BUTTON() {
         return SOLVE_BUTTON;
+    }
+
+    public boolean getOrientation() {
+        return orientation;
+    }
+
+    public Class<? extends Field> getfClass() {
+        return fClass;
+    }
+
+    MazeToggleButton getEMPTY_FIELD() {
+        return EMPTY_FIELD;
+    }
+
+    MazeToggleButton getBRIDGE() {
+        return BRIDGE;
+    }
+
+    MazeToggleButton getGOAL() {
+        return GOAL;
+    }
+
+    MazeToggleButton getNO_FLY_ZONE() {
+        return NO_FLY_ZONE;
+    }
+
+    MazeToggleButton getSTART() {
+        return START;
+    }
+
+    MazeToggleButton getWALL() {
+        return WALL;
+    }
+
+    MazeToggleButton getWATER() {
+        return WATER;
+    }
+
+    void setFClass(Class<? extends Field> fClass) {
+        this.fClass = fClass;
+    }
+
+    JSlider getSlider() {
+        return slider;
     }
 }

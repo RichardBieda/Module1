@@ -2,6 +2,9 @@ package Maze.Swing;
 
 import Maze.MazeLabels.EmptyField;
 import Maze.MazeLabels.Field;
+import Maze.MazeLabels.Goal;
+import Maze.MazeLabels.Start;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.Constructor;
@@ -9,35 +12,38 @@ import java.lang.reflect.InvocationTargetException;
 
 class MazeActionListener implements ActionListener {
 
-    private final int aWidth;
-    private final int aHeight;
-    private final MazePanel mazePanel;
-    private boolean ori = true;
-    private int sliderValue = 1;
-    private Class<? extends Field> aClass = EmptyField.class;
-    MazeActionListener(MazePanel mazePanel) {
-        this.aWidth = mazePanel.getMazeWidth();
-        this.aHeight = mazePanel.getMazeHeight();
-        this.mazePanel = mazePanel;
-        System.out.println("constructor " + aWidth + " " + aHeight);
+    private final MainPanel mainPanel;
+
+    MazeActionListener(MainPanel mainPanel) {
+        this.mainPanel = mainPanel;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Field tmp = (Field) e.getSource();
+        FieldButton tmp = (FieldButton) e.getSource();
         int xCor = tmp.getFX();
         int yCor = tmp.getFY();
 
-        int count = sliderValue;
+        int aWidth = mainPanel.getMazePanel().getMazeWidth();
+        int aHeight = mainPanel.getMazePanel().getMazeWidth();
+
+        int count = mainPanel.getMenuPanel().getSlider().getValue();
         try {
             //xCor < frame.getMainPanel().getMazePanel().getMazeWidth() && yCor < frame.getMainPanel().getMazePanel().getMazeHeight()
-            Constructor<?> con = aClass.getConstructor();
-            System.out.println("while " + aWidth + " " + aHeight);
+            Constructor<?> con = mainPanel.getMenuPanel().getfClass().getConstructor();
+           if (mainPanel.getMenuPanel().getfClass() == Start.class) {
+               mainPanel.getMazePanel().setStart(yCor, xCor);
+               return;
+           }
+            if (mainPanel.getMenuPanel().getfClass() == Goal.class) {
+                mainPanel.getMazePanel().setGoal(yCor, xCor);
+                return;
+            }
+            System.out.println( mainPanel.getMenuPanel().getSlider().getValue());
             while (count-- > 0 && xCor < aWidth && yCor < aHeight) {
                 Field newField = (Field) con.newInstance();
-                newField.addActionListener(this);
-                mazePanel.getFields()[yCor][xCor] = newField;
-                if (ori)
+                mainPanel.getMazePanel().getFields()[yCor][xCor].setField(newField);
+                if (mainPanel.getMenuPanel().getOrientation())
                     xCor++;
                 else
                     yCor++;
@@ -45,17 +51,5 @@ class MazeActionListener implements ActionListener {
         } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException ex) {
             throw new RuntimeException(ex);
         }
-    }
-
-    void setOri(boolean ori) {
-        this.ori = ori;
-    }
-
-    void setSliderValue(int sliderValue) {
-        this.sliderValue = sliderValue;
-    }
-
-    void setAClass(Class<? extends Field> aClass) {
-        this.aClass = aClass;
     }
 }

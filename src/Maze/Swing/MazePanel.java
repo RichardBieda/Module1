@@ -3,12 +3,9 @@ package Maze.Swing;
 import Maze.InvalidSizeException;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-
 import Maze.MazeLabels.EmptyField;
-import Maze.MazeLabels.Field;
-import Maze.MazeLabels.Wall;
+import Maze.MazeLabels.Goal;
+import Maze.MazeLabels.Start;
 import Maze.User.Movable;
 import Maze.User.User;
 
@@ -21,9 +18,10 @@ class MazePanel extends JPanel {
     private final static int MAX_MAZE_SIZE = 50;
     private final int mazeWidth;
     private final int mazeHeight;
-    private Field[][] fields;
+    private FieldButton[][] fields;
     private Movable movable;
-    private MazeActionListener listener;
+    private FieldButton start;
+    private FieldButton goal;
 
     MazePanel() {
         this(DEFAULT_MAZE_SIZE, DEFAULT_MAZE_SIZE);
@@ -38,7 +36,6 @@ class MazePanel extends JPanel {
         setPreferredSize(new Dimension(DEFAULT_MAZEPANEL_WIDTH,DEFAULT_MAZEPANEL_HEIGHT));
 
         movable = User.getMovable(User.PEDESTRIAN);
-        listener = new MazeActionListener(this);
     }
 
     static void checkMazeSize(int sizeY, int sizeX) {
@@ -47,11 +44,11 @@ class MazePanel extends JPanel {
         }
     }
 
-    void setFields() {
-        Field[][] result = new Field[mazeHeight][mazeWidth];
+    void setFields(MazeActionListener listener) {
+        FieldButton[][] result = new FieldButton[mazeHeight][mazeWidth];
         for (int i = 0; i < mazeHeight; i++) {
             for (int j = 0; j < mazeWidth; j++) {
-                Field tmp = new EmptyField();
+                FieldButton tmp = new FieldButton(new EmptyField());
                 tmp.setFX(j);
                 tmp.setFY(i);
                 tmp.addActionListener(listener);
@@ -70,7 +67,7 @@ class MazePanel extends JPanel {
         return movable;
     }
 
-    Field[][] getFields() {
+    FieldButton[][] getFields() {
         return fields;
     }
 
@@ -82,7 +79,27 @@ class MazePanel extends JPanel {
         return mazeHeight;
     }
 
-    MazeActionListener getListener() {
-        return listener;
+    FieldButton getStart() {
+        return start;
+    }
+
+    void setStart(int y, int x) {
+        if (this.start != null) {
+            fields[this.start.getFY()][this.start.getFX()].setField(new EmptyField());
+        }
+        fields[y][x].setField(new Start());
+        start = fields[y][x];
+    }
+
+    FieldButton getGoal() {
+        return goal;
+    }
+
+    void setGoal(int y, int x) {
+        if (this.goal != null) {
+            fields[this.goal.getFY()][this.goal.getFX()].setField(new EmptyField());
+        }
+        fields[y][x].setField(new Goal());
+        goal = fields[y][x];
     }
 }
