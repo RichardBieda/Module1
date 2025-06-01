@@ -17,7 +17,6 @@ class MazePanel extends JPanel {
     private final static int MIN_MAZE_SIZE = 1;
     private final static int MAX_MAZE_SIZE = 50;
     private Cell[][] fields;
-    private Movable movable;
     private Cell start;
     private Cell goal;
 
@@ -27,8 +26,6 @@ class MazePanel extends JPanel {
         setOpaque(true);
         setPreferredSize(new Dimension(DEFAULT_MAZEPANEL_WIDTH,DEFAULT_MAZEPANEL_HEIGHT));
         setLayout(new GridLayout(height, width));
-
-        movable = User.getMovable(User.PEDESTRIAN);
     }
 
     static void checkMazeSize(int sizeY, int sizeX) {
@@ -63,14 +60,6 @@ class MazePanel extends JPanel {
                 field[j].setChecked(false);
             }
         }
-    }
-
-    void setMovable(Movable movable) {
-        this.movable = movable;
-    }
-
-    Movable getMovable() {
-        return movable;
     }
 
     Cell[][] getFields() {

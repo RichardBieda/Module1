@@ -25,7 +25,7 @@ class MainPanel extends JPanel {
         mazePanel.createMaze(MazePanel.DEFAULT_MAZE_SIZE, MazePanel.DEFAULT_MAZE_SIZE, mazeActionListener);
 
         menuPanel = new MenuPanel();
-        menuPanel.addMenuPanelAction(this);
+        menuPanel.addMenuPanelAction();
         menuPanel.addCreateAndSolveAction(new HeadActionListener(this));
         menuPanel.addChangeListener(new FieldChangeListener(this));
 

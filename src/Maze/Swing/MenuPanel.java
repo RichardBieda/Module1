@@ -1,6 +1,7 @@
 package Maze.Swing;
 
 import Maze.Fields.EmptyField;
+import Maze.User.Movable;
 import Maze.User.User;
 import javax.swing.*;
 import java.awt.*;
@@ -30,14 +31,14 @@ class MenuPanel extends JPanel {
     private final HeadButton SOLVE_BUTTON;
     private boolean orientation = true;
     private Class<? extends Field> fClass = EmptyField.class;
-    private boolean isStart = false;
-    private boolean isGoal = false;
+    private Movable movable;
 
     MenuPanel() {
         setBackground(MainFrame.DEFAULT_BACKGROUND);
         setLayout(new GridLayout(3, 0));
         setOpaque(true);
         setPreferredSize(new Dimension(DEFAULT_MENUPANEL_WIDTH, DEFAULT_MENUPANEL_HEIGHT));
+        movable = User.getMovable(User.PEDESTRIAN);
 
         //creation of panel1
         JPanel panel1 = new JPanel();
@@ -147,14 +148,14 @@ class MenuPanel extends JPanel {
         add(panel3);
     }
 
-    void addMenuPanelAction(MainPanel mainPanel) {
+    void addMenuPanelAction() {
         HORIZONTAL.addItemListener(e -> orientation = true);
         VERTICAL.addItemListener(e -> orientation = false);
 
-        PEDESTRIAN.addItemListener(e -> mainPanel.getMazePanel().setMovable(User.getMovable(User.PEDESTRIAN)));
-        AIRPLANE.addItemListener(e -> mainPanel.getMazePanel().setMovable(User.getMovable(User.AIRPLANE)));
-        AMPHIBIOUS.addItemListener(e -> mainPanel.getMazePanel().setMovable(User.getMovable(User.AMPHIBIOUS)));
-        BOAT.addItemListener(e -> mainPanel.getMazePanel().setMovable(User.getMovable(User.BOAT)));
+        PEDESTRIAN.addItemListener(e -> movable = User.getMovable(User.PEDESTRIAN));
+        AIRPLANE.addItemListener(e -> movable = User.getMovable(User.AIRPLANE));
+        AMPHIBIOUS.addItemListener(e -> movable = User.getMovable(User.AMPHIBIOUS));
+        BOAT.addItemListener(e -> movable = User.getMovable(User.BOAT));
     }
 
     void addChangeListener(FieldChangeListener listener) {
@@ -222,5 +223,9 @@ class MenuPanel extends JPanel {
 
     JSlider getSlider() {
         return slider;
+    }
+
+    Movable getMovable() {
+        return movable;
     }
 }

@@ -6,11 +6,10 @@ import Maze.Fields.*;
  class FieldChangeListener implements ChangeListener {
 
     private MenuPanel menuPanel;
-    private MazePanel mazePanel;
+
 
     FieldChangeListener(MainPanel mainPanel) {
         this.menuPanel = mainPanel.getMenuPanel();
-        this.mazePanel = mainPanel.getMazePanel();
     }
 
     @Override

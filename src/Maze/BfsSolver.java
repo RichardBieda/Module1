@@ -7,24 +7,20 @@ import java.util.List;
 
 public class BfsSolver {
 
-    private Cell[][] fields;
-    private int goalY;
-    private int goalX;
-    private int startY;
-    private int startX;
-    private List<Cell> paths = new ArrayList<>();
+    private final Cell[][] FIELDS;
+    private final List<Cell> PATH = new ArrayList<>();
+    private final Cell START;
+    private final Cell GOAL;
 
-    public BfsSolver() {
+    public BfsSolver(Cell[][] fields, Cell start, Cell goal) {
+        this.FIELDS = fields;
+        this.START = start;
+        this.GOAL = goal;
     }
 
-    public void solve(Cell[][] fields, Cell start, Cell goal, Movable user) throws PathNotFoundException {
-        this.fields = fields;
-        this.goalY = goal.getCY();
-        this.goalX = goal.getCX();
-        this.startY = start.getCY();
-        this.startX = start.getCX();
+    public void solve(Movable user) throws PathNotFoundException {
         List<Cell> neighbors = new ArrayList<>();
-        neighbors.add(fields[startY][startX]);
+        neighbors.add(START);
         doBfs(neighbors, user);
         determinePath();
     }
@@ -39,35 +35,35 @@ public class BfsSolver {
                 return;
             }
             //check below
-            if (fy +1 < fields.length) {
-                if (user.canMove(fields[fy+1][fx].getField()) && !fields[fy+1][fx].isChecked()) {
-                    fields[fy+1][fx].setChecked(true);
-                    fields[fy+1][fx].setCaller(fields[fy][fx]);
-                    tmpList.add(fields[fy+1][fx]);
+            if (fy +1 < FIELDS.length) {
+                if (user.canMove(FIELDS[fy+1][fx].getField()) && !FIELDS[fy+1][fx].isChecked()) {
+                    FIELDS[fy+1][fx].setChecked(true);
+                    FIELDS[fy+1][fx].setCaller(FIELDS[fy][fx]);
+                    tmpList.add(FIELDS[fy+1][fx]);
                 }
             }
             //check left
             if (fx -1 >= 0) {
-                if (user.canMove(fields[fy][fx-1].getField()) && !fields[fy][fx-1].isChecked()) {
-                    fields[fy][fx-1].setChecked(true);
-                    fields[fy][fx-1].setCaller(fields[fy][fx]);
-                    tmpList.add(fields[fy][fx-1]);
+                if (user.canMove(FIELDS[fy][fx-1].getField()) && !FIELDS[fy][fx-1].isChecked()) {
+                    FIELDS[fy][fx-1].setChecked(true);
+                    FIELDS[fy][fx-1].setCaller(FIELDS[fy][fx]);
+                    tmpList.add(FIELDS[fy][fx-1]);
                 }
             }
             //check right
-            if (fx +1 < fields[fy].length) {
-                if (user.canMove(fields[fy][fx+1].getField()) && !fields[fy][fx+1].isChecked()) {
-                    fields[fy][fx+1].setChecked(true);
-                    fields[fy][fx+1].setCaller(fields[fy][fx]);
-                    tmpList.add(fields[fy][fx+1]);
+            if (fx +1 < FIELDS[fy].length) {
+                if (user.canMove(FIELDS[fy][fx+1].getField()) && !FIELDS[fy][fx+1].isChecked()) {
+                    FIELDS[fy][fx+1].setChecked(true);
+                    FIELDS[fy][fx+1].setCaller(FIELDS[fy][fx]);
+                    tmpList.add(FIELDS[fy][fx+1]);
                 }
             }
             //check above
             if (fy -1 >= 0) {
-                if (user.canMove(fields[fy-1][fx].getField()) && !fields[fy-1][fx].isChecked()) {
-                    fields[fy-1][fx].setChecked(true);
-                    fields[fy-1][fx].setCaller(fields[fy][fx]);
-                    tmpList.add(fields[fy-1][fx]);
+                if (user.canMove(FIELDS[fy-1][fx].getField()) && !FIELDS[fy-1][fx].isChecked()) {
+                    FIELDS[fy-1][fx].setChecked(true);
+                    FIELDS[fy-1][fx].setCaller(FIELDS[fy][fx]);
+                    tmpList.add(FIELDS[fy-1][fx]);
                 }
             }
         }
@@ -77,16 +73,17 @@ public class BfsSolver {
         }
     }
 
+
     private void determinePath() throws PathNotFoundException {
-        if (fields[goalY][goalX].getCaller() == null) {
+        if (GOAL.getCaller() == null) {
             throw new PathNotFoundException(PathNotFoundException.NO_PATH_FOUND);
         }
         int rounds = 0;
-        Cell tmp = fields[goalY][goalX].getCaller();
-        while (tmp != null && tmp != fields[startY][startX]) {
-            paths.add(fields[tmp.getCY()][tmp.getCX()]);
-            tmp = fields[tmp.getCY()][tmp.getCX()].getCaller();
-            if (++rounds > fields.length * fields[0].length) break;
+        Cell tmp = GOAL.getCaller();
+        while (tmp != null && tmp != START) {
+            PATH.add(tmp);
+            tmp = tmp.getCaller();
+            if (++rounds > FIELDS.length * FIELDS[0].length) break;
         }
     }
 
@@ -95,40 +92,37 @@ public class BfsSolver {
         int x = c.getCX();
         //test above bound
         if (y -1 >= 0) {
-            if (fields[y-1][x] == fields[goalY][goalX]) {
-                fields[goalY][goalX].setCaller(fields[y][x]);
+            if (FIELDS[y-1][x] == GOAL) {
+                GOAL.setCaller(c);
                 return true;
             }
         }
         //test right bound
-        if (x +1 < fields[y].length) {
-            if (fields[y][x+1] == fields[goalY][goalX]) {
-                fields[goalY][goalX].setCaller(fields[y][x]);
+        if (x +1 < FIELDS[y].length) {
+            if (FIELDS[y][x+1] == GOAL) {
+                GOAL.setCaller(c);
                 return true;
             }
         }
         //test below bound
-        if (y +1 < fields.length) {
-            if (fields[y+1][x] == fields[goalY][goalX]) {
-                fields[goalY][goalX].setCaller(fields[y][x]);
+        if (y +1 < FIELDS.length) {
+            if (FIELDS[y+1][x] == GOAL) {
+                GOAL.setCaller(c);
                 return true;
             }
         }
         //test left bound
         if (x -1 >= 0) {
-            if (fields[y][x-1] == fields[goalY][goalX]) {
-                fields[goalY][goalX].setCaller(fields[y][x]);
+            if (FIELDS[y][x-1] == GOAL) {
+                GOAL.setCaller(c);
                 return true;
             }
         }
         return false;
     }
 
-    public List<Cell> getPaths() {
-        return paths;
+    public List<Cell> getPATH() {
+        return PATH;
     }
-
-
-
 }
 

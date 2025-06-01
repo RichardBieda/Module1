@@ -79,7 +79,7 @@ class HeadActionListener implements ActionListener {
     private void solveButtonPressed() {
         System.out.println("\nGoal: " + mainPanel.getMazePanel().getGoal().getCY() + ", " +  mainPanel.getMazePanel().getGoal().getCX());
         System.out.println("Start: " + mainPanel.getMazePanel().getStart().getCY() + ", " +  mainPanel.getMazePanel().getStart().getCX());
-        System.out.println("User: " + mainPanel.getMazePanel().getMovable());
+        System.out.println("User: " + mainPanel.getMenuPanel().getMovable());
         if (mainPanel.getMazePanel().getStart() == null || mainPanel.getMazePanel().getGoal() == null) {
             JLabel label = new JLabel("check your start and goal fields");
             label.setFont(new Font(Font.DIALOG, Font.BOLD, 15));
@@ -92,11 +92,9 @@ class HeadActionListener implements ActionListener {
 
             @Override
             protected Void doInBackground() {
-                solver = new BfsSolver();
-                Cell start = mainPanel.getMazePanel().getStart();
-                Cell goal = mainPanel.getMazePanel().getGoal();
+                solver = new BfsSolver(mainPanel.getMazePanel().getFields(), mainPanel.getMazePanel().getStart(), mainPanel.getMazePanel().getGoal());
                 try {
-                    solver.solve(mainPanel.getMazePanel().getFields(), start, goal, mainPanel.getMazePanel().getMovable());
+                    solver.solve(mainPanel.getMenuPanel().getMovable());
                 } catch (PathNotFoundException e) {
                     e.printStackTrace();
                     JLabel label = new JLabel("goal field is unreachable");
@@ -110,7 +108,7 @@ class HeadActionListener implements ActionListener {
 
             @Override
             protected void done() {
-                mainPanel.getMazePanel().insertPathToMaze(solver.getPaths());
+                mainPanel.getMazePanel().insertPathToMaze(solver.getPATH());
                 solver = null;
             }
         };
