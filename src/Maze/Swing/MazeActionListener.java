@@ -1,9 +1,8 @@
 package Maze.Swing;
 
-import Maze.MazeLabels.EmptyField;
-import Maze.MazeLabels.Field;
-import Maze.MazeLabels.Goal;
-import Maze.MazeLabels.Start;
+import Maze.Fields.Field;
+import Maze.Fields.Goal;
+import Maze.Fields.Start;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,12 +19,12 @@ class MazeActionListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        FieldButton tmp = (FieldButton) e.getSource();
-        int xCor = tmp.getFX();
-        int yCor = tmp.getFY();
+        Cell tmp = (Cell) e.getSource();
+        int xCor = tmp.getCX();
+        int yCor = tmp.getCY();
 
-        int aWidth = mainPanel.getMazePanel().getMazeWidth();
-        int aHeight = mainPanel.getMazePanel().getMazeWidth();
+        int aWidth = mainPanel.getMazePanel().getFields()[0].length;
+        int aHeight = mainPanel.getMazePanel().getFields().length;
 
         int count = mainPanel.getMenuPanel().getSlider().getValue();
         try {

@@ -1,9 +1,8 @@
 package Maze.Swing;
 
-import Maze.MazeLabels.*;
-
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import Maze.Fields.*;
  class FieldChangeListener implements ChangeListener {
 
     private MenuPanel menuPanel;

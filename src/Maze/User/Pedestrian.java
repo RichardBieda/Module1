@@ -1,15 +1,13 @@
 package Maze.User;
-import Maze.MazeLabels.*;
+import Maze.Fields.*;
 
 public class Pedestrian implements Movable {
 
     @Override
     public boolean canMove(Field field) {
-        if (field instanceof Bridge || field instanceof NoFlyZone) {
+        if (field instanceof NoFlyZone || field instanceof Bridge || field instanceof EmptyField) {
             return true;
-        } else if (field instanceof Barrier) {
-            return false;
         }
-        return true;
+        return false;
     }
 }

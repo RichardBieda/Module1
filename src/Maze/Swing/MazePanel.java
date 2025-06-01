@@ -1,39 +1,32 @@
 package Maze.Swing;
 
+import Maze.Fields.*;
 import Maze.InvalidSizeException;
 import javax.swing.*;
 import java.awt.*;
-import Maze.MazeLabels.EmptyField;
-import Maze.MazeLabels.Goal;
-import Maze.MazeLabels.Start;
+import java.util.List;
+import Maze.PathNotFoundException;
 import Maze.User.Movable;
 import Maze.User.User;
 
 class MazePanel extends JPanel {
 
-    private final static int DEFAULT_MAZE_SIZE = 10;
     private final static int DEFAULT_MAZEPANEL_WIDTH = 1120;
     private final static int DEFAULT_MAZEPANEL_HEIGHT = 1020;
+    final static int DEFAULT_MAZE_SIZE = 10;
     private final static int MIN_MAZE_SIZE = 1;
     private final static int MAX_MAZE_SIZE = 50;
-    private final int mazeWidth;
-    private final int mazeHeight;
-    private FieldButton[][] fields;
+    private Cell[][] fields;
     private Movable movable;
-    private FieldButton start;
-    private FieldButton goal;
+    private Cell start;
+    private Cell goal;
 
-    MazePanel() {
-        this(DEFAULT_MAZE_SIZE, DEFAULT_MAZE_SIZE);
-    }
 
-    MazePanel(int mazeWidth, int mazeHeight) {
-        this.mazeWidth = mazeWidth;
-        this.mazeHeight = mazeHeight;
+    MazePanel(int width, int height) {
         setBackground(MainFrame.DEFAULT_BACKGROUND);
-        setLayout(new GridLayout(this.mazeWidth, this.mazeHeight));
         setOpaque(true);
         setPreferredSize(new Dimension(DEFAULT_MAZEPANEL_WIDTH,DEFAULT_MAZEPANEL_HEIGHT));
+        setLayout(new GridLayout(height, width));
 
         movable = User.getMovable(User.PEDESTRIAN);
     }
@@ -44,19 +37,31 @@ class MazePanel extends JPanel {
         }
     }
 
-    void setFields(MazeActionListener listener) {
-        FieldButton[][] result = new FieldButton[mazeHeight][mazeWidth];
-        for (int i = 0; i < mazeHeight; i++) {
-            for (int j = 0; j < mazeWidth; j++) {
-                FieldButton tmp = new FieldButton(new EmptyField());
-                tmp.setFX(j);
-                tmp.setFY(i);
+    void createMaze(int width, int height, MazeActionListener listener) {
+        Cell[][] result = new Cell[height][width];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                Cell tmp = new Cell(new EmptyField(), i, j);
                 tmp.addActionListener(listener);
                 result[i][j] = tmp;
                 add(tmp);
             }
         }
         fields = result;
+    }
+
+    void insertPathToMaze(List<Cell> path) {
+        for (Cell c : path) {
+            c.setField(new Path());
+        }
+    }
+
+    void setCallerToNull() {
+        for (int i = 0; i < fields.length; i++) {
+            for (int j = 0; j < fields[i].length; j++) {
+                fields[i][j].setCaller(null);
+            }
+        }
     }
 
     void setMovable(Movable movable) {
@@ -67,37 +72,29 @@ class MazePanel extends JPanel {
         return movable;
     }
 
-    FieldButton[][] getFields() {
+    Cell[][] getFields() {
         return fields;
     }
 
-    int getMazeWidth() {
-        return mazeWidth;
-    }
-
-    int getMazeHeight() {
-        return mazeHeight;
-    }
-
-    FieldButton getStart() {
+    Cell getStart() {
         return start;
     }
 
     void setStart(int y, int x) {
         if (this.start != null) {
-            fields[this.start.getFY()][this.start.getFX()].setField(new EmptyField());
+            fields[this.start.getCY()][this.start.getCX()].setField(new EmptyField());
         }
         fields[y][x].setField(new Start());
         start = fields[y][x];
     }
 
-    FieldButton getGoal() {
+    Cell getGoal() {
         return goal;
     }
 
     void setGoal(int y, int x) {
         if (this.goal != null) {
-            fields[this.goal.getFY()][this.goal.getFX()].setField(new EmptyField());
+            fields[this.goal.getCY()][this.goal.getCX()].setField(new EmptyField());
         }
         fields[y][x].setField(new Goal());
         goal = fields[y][x];

@@ -1,10 +1,10 @@
 package Maze.Swing;
 
-import Maze.MazeLabels.*;
+import Maze.Fields.EmptyField;
 import Maze.User.User;
-
 import javax.swing.*;
 import java.awt.*;
+import Maze.Fields.Field;
 
 class MenuPanel extends JPanel {
 
@@ -170,22 +170,6 @@ class MenuPanel extends JPanel {
     void addCreateAndSolveAction(HeadActionListener listener) {
         NEW_MAZE_BUTTON.addActionListener(listener);
         SOLVE_BUTTON.addActionListener(listener);
-    }
-
-    MazeToggleButton getPEDESTRIAN() {
-        return PEDESTRIAN;
-    }
-
-    MazeToggleButton getAIRPLANE() {
-        return AIRPLANE;
-    }
-
-    MazeToggleButton getAMPHIBIOUS() {
-        return AMPHIBIOUS;
-    }
-
-    MazeToggleButton getBOAT() {
-        return BOAT;
     }
 
     HeadButton getNEW_MAZE_BUTTON() {

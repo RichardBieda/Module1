@@ -48,8 +48,8 @@ class HeadActionListener implements ActionListener {
                     MazePanel tmp = null;
                     @Override
                     protected Void doInBackground() throws Exception {
-                        tmp = new MazePanel(x,y);
-                        tmp.setFields(new MazeActionListener(mainPanel));
+                        tmp = new MazePanel(x, y);
+                        tmp.createMaze(x, y, new MazeActionListener(mainPanel));
                         return null;
                     }
                     @Override
@@ -77,36 +77,38 @@ class HeadActionListener implements ActionListener {
     }
 
     private void solveButtonPressed() {
-//        for (int i = 0; i < mainPanel.getMazePanel().getFields().length; i++) {
-//            for (int j = 0; j < mainPanel.getMazePanel().getFields()[i].length; j++) {
-//                System.out.print(" " + mainPanel.getMazePanel().getFields()[i][j]);
-//            }
-//            System.out.println();
-//        }
+        System.out.println("\nGoal: " + mainPanel.getMazePanel().getGoal().getCY() + ", " +  mainPanel.getMazePanel().getGoal().getCX());
+        System.out.println("Start: " + mainPanel.getMazePanel().getStart().getCY() + ", " +  mainPanel.getMazePanel().getStart().getCX());
+        System.out.println("User: " + mainPanel.getMazePanel().getMovable());
         if (mainPanel.getMazePanel().getStart() == null || mainPanel.getMazePanel().getGoal() == null) {
             JLabel label = new JLabel("check your start and goal fields");
             label.setFont(new Font(Font.DIALOG, Font.BOLD, 15));
             JOptionPane.showMessageDialog(mainPanel.getMenuPanel().getSOLVE_BUTTON(), label, "Something went wrong", JOptionPane.WARNING_MESSAGE);
             return;
         }
+
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             BfsSolver solver;
             @Override
             protected Void doInBackground() throws Exception {
                 solver = new BfsSolver();
-                solver.solve(mainPanel.getMazePanel().getFields(), mainPanel.getMazePanel().getStart(), mainPanel.getMazePanel().getGoal(), mainPanel.getMazePanel().getMovable());
+                Cell start = mainPanel.getMazePanel().getStart();
+                Cell goal = mainPanel.getMazePanel().getGoal();
+                try {
+                    solver.solve(mainPanel.getMazePanel().getFields(), start, goal, mainPanel.getMazePanel().getMovable());
+                    mainPanel.getMazePanel().setCallerToNull();
+                } catch (PathNotFoundException e) {
+                    e.printStackTrace();
+                    JLabel label = new JLabel("goal field is unreachable");
+                    label.setFont(new Font(Font.DIALOG, Font.BOLD, 15));
+                    JOptionPane.showMessageDialog(null, label, "Something went wrong", JOptionPane.WARNING_MESSAGE);
+                }
                 return null;
             }
 
             @Override
             protected void done() {
-                try {
-                    solver.insertPathToMaze();
-                } catch (PathNotFoundException e) {
-                    JLabel label = new JLabel("goal field is unreachable");
-                    label.setFont(new Font(Font.DIALOG, Font.BOLD, 15));
-                    JOptionPane.showMessageDialog(null, label, "Something went wrong", JOptionPane.WARNING_MESSAGE);
-                }
+                    mainPanel.getMazePanel().insertPathToMaze(solver.getPaths());
             }
         };
         worker.execute();

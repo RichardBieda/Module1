@@ -1,7 +1,5 @@
 package Maze.Swing;
 
-import Maze.BfsSolver;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -22,10 +20,9 @@ class MainPanel extends JPanel {
 
         headPanel = new HeadPanel();
 
-        mazePanel = new MazePanel();
+        mazePanel = new MazePanel(MazePanel.DEFAULT_MAZE_SIZE, MazePanel.DEFAULT_MAZE_SIZE);
         MazeActionListener mazeActionListener = new MazeActionListener(this);
-        mazePanel.setFields(mazeActionListener);
-
+        mazePanel.createMaze(MazePanel.DEFAULT_MAZE_SIZE, MazePanel.DEFAULT_MAZE_SIZE, mazeActionListener);
 
         menuPanel = new MenuPanel();
         menuPanel.addMenuPanelAction(this);
@@ -45,10 +42,6 @@ class MainPanel extends JPanel {
 
     void setMazePanel(MazePanel mazePanel) {
         this.mazePanel = mazePanel;
-    }
-
-    HeadPanel getHeadPanel() {
-        return headPanel;
     }
 
     void setFrameLayout() {

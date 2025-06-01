@@ -1,21 +1,21 @@
-package Maze.MazeLabels;
+package Maze.Fields;
 
 import java.awt.*;
 
-public enum FieldGraphics {
+public enum Look {
 
     WALL(Color.RED),
     GOAL(Color.ORANGE),
     PATH(Color.GRAY),
     START(Color.YELLOW),
     WATER(Color.BLUE),
-    NO_FLY_ZONE(Color.GRAY),
+    NO_FLY_ZONE(Color.PINK),
     EMPTY_FIELD(new Color(248, 255, 255)),
     BRIDGE(new Color(150, 75,0));
 
     private final Color COLOR;
 
-    FieldGraphics(Color color) {
+    Look(Color color) {
         this.COLOR = color;
     }
 

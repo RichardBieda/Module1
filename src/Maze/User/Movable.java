@@ -1,5 +1,5 @@
 package Maze.User;
-import Maze.MazeLabels.Field;
+import Maze.Fields.Field;
 
 public interface Movable {
 

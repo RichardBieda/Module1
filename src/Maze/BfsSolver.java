@@ -1,80 +1,79 @@
 package Maze;
 
-import Maze.MazeLabels.Field;
-import Maze.MazeLabels.Path;
-import Maze.Swing.FieldButton;
+import Maze.Swing.Cell;
 import Maze.User.Movable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BfsSolver {
 
-    private FieldButton[][] fields;
-    private int width;
-    private int height;
+    private Cell[][] fields;
     private Movable user;
-    private FieldButton goal;
-    private FieldButton start;
+    private int goalY;
+    private int goalX;
+    private int startY;
+    private int startX;
+    private List<Cell> paths = new ArrayList<>();
 
     public BfsSolver() {
     }
 
-    public void solve(FieldButton[][] fields, FieldButton start, FieldButton goal, Movable user) {
-        System.out.println("start solve");
+    public void solve(Cell[][] fields, Cell start, Cell goal, Movable user) throws PathNotFoundException {
         this.fields = fields;
-        this.width = fields[0].length;
-        this.height = fields.length;
+        this.goalY = goal.getCY();
+        this.goalX = goal.getCX();
+        this.startY = start.getCY();
+        this.startX = start.getCX();
         this.user = user;
-        this.goal = goal;
-        this.start = start;
-        List<FieldButton> neighbors = new ArrayList<>();
-        neighbors.add(this.start);
+        List<Cell> neighbors = new ArrayList<>();
+        neighbors.add(fields[startY][startX]);
+        System.out.println(fields.length);
+        System.out.println(fields[0].length);
         System.out.println("start doBFS");
         doBfs(neighbors);
         System.out.println("end doBFS");
+        determinePath();
     }
 
-    private void doBfs(List<FieldButton> neighbors) {
-        List<FieldButton> tmpList = new ArrayList<>();
-        for (FieldButton x : neighbors) {
+    private void doBfs(List<Cell> neighbors) {
+        List<Cell> tmpList = new ArrayList<>();
+        for (Cell x : neighbors) {
+            int fx = x.getCX();
+            int fy = x.getCY();
             if (checkDestination(x)) {
                 neighbors.clear();
                 return;
             }
-            if (isBelow(x)) {
-                FieldButton belowField = below(x);
-                System.out.println(belowField.getFY() + " " + belowField.getFX());
-                if (user.canMove(belowField.getField()) && !belowField.isChecked()) {
-                    belowField.setChecked(true);
-                    belowField.setCaller(x);
-                    tmpList.add(belowField);
+            //check below
+            if (fy +1 < fields.length) {
+                if (user.canMove(fields[fy+1][fx].getField()) && !fields[fy+1][fx].isChecked()) {
+                    fields[fy+1][fx].setChecked(true);
+                    fields[fy+1][fx].setCaller(fields[fy][fx]);
+                    tmpList.add(fields[fy+1][fx]);
                 }
             }
-            if (isLeft(x)) {
-                FieldButton leftField = left(x);
-                System.out.println(leftField.getFY() + " " + leftField.getFX());
-                if (user.canMove(leftField.getField()) && !leftField.isChecked()) {
-                    leftField.setChecked(true);
-                    leftField.setCaller(x);
-                    tmpList.add(leftField);
+            //check left
+            if (fx -1 >= 0) {
+                if (user.canMove(fields[fy][fx-1].getField()) && !fields[fy][fx-1].isChecked()) {
+                    fields[fy][fx-1].setChecked(true);
+                    fields[fy][fx-1].setCaller(fields[fy][fx]);
+                    tmpList.add(fields[fy][fx-1]);
                 }
             }
-            if (isRight(x)) {
-                FieldButton rightField = right(x);
-                System.out.println(rightField.getFY() + " " + rightField.getFX());
-                if (user.canMove(rightField.getField()) && !rightField.isChecked()) {
-                    rightField.setChecked(true);
-                    rightField.setCaller(x);
-                    tmpList.add(rightField);
+            //check right
+            if (fx +1 < fields[fy].length) {
+                if (user.canMove(fields[fy][fx+1].getField()) && !fields[fy][fx+1].isChecked()) {
+                    fields[fy][fx+1].setChecked(true);
+                    fields[fy][fx+1].setCaller(fields[fy][fx]);
+                    tmpList.add(fields[fy][fx+1]);
                 }
             }
-            if (isAbove(x)) {
-                FieldButton aboveField = above(x);
-                System.out.println(aboveField.getFY() + " " + aboveField.getFX());
-                if (user.canMove(aboveField.getField()) && !aboveField.isChecked()) {
-                    aboveField.setChecked(true);
-                    aboveField.setCaller(x);
-                    tmpList.add(aboveField);
+            //check above
+            if (fy -1 >= 0) {
+                if (user.canMove(fields[fy-1][fx].getField()) && !fields[fy-1][fx].isChecked()) {
+                    fields[fy-1][fx].setChecked(true);
+                    fields[fy-1][fx].setCaller(fields[fy][fx]);
+                    tmpList.add(fields[fy-1][fx]);
                 }
             }
         }
@@ -82,87 +81,65 @@ public class BfsSolver {
         if (!neighbors.isEmpty()) {
             doBfs(neighbors);
         }
+        System.out.println("doBFS finished");
     }
 
-   public void insertPathToMaze() throws PathNotFoundException {
-        FieldButton tmp = goal.getCaller();
-        if (tmp == null) {
-            System.out.println("path exception");
+    private void determinePath() throws PathNotFoundException {
+        if (fields[goalY][goalX].getCaller() == null) {
             throw new PathNotFoundException(PathNotFoundException.NO_PATH_FOUND);
         }
-        while (tmp != start) {
-            System.out.println("while: " + tmp.getCaller());
-            Field path = new Path();
-            tmp.setField(path);
-            tmp = tmp.getCaller();
+        int rounds = 0;
+        Cell tmp = fields[goalY][goalX].getCaller();
+        System.out.println("goalC: " + fields[goalY][goalX].getCaller().getCY() + ", " + fields[goalY][goalX].getCaller().getCX());
+        while (tmp != null && tmp != fields[startY][startX]) {
+            paths.add(fields[tmp.getCY()][tmp.getCX()]);
+            System.out.println("WC: " + fields[tmp.getCY()][tmp.getCX()].getCaller().getCY() + ", " + fields[tmp.getCY()][tmp.getCX()].getCaller().getCX());
+            tmp = fields[tmp.getCY()][tmp.getCX()].getCaller();
+            if (++rounds > fields.length * fields[0].length) break;
         }
-       for (int i = 0; i < fields.length; i++) {
-           for (int j = 0; j < fields[i].length; j++) {
-               System.out.print(" " + fields[i][j]);
-           }
-           System.out.println();
-       }
     }
 
-    private boolean checkDestination(FieldButton field) {
+    private boolean checkDestination(Cell c) {
         System.out.println("checkDestination");
-        if (isAbove(field)) {
-            if (above(field) == goal) {
-                goal.setCaller(field);
+        int y = c.getCY();
+        int x = c.getCX();
+        //test above bound
+        if (y -1 >= 0) {
+            if (fields[y-1][x] == fields[goalY][goalX]) {
+                fields[goalY][goalX].setCaller(fields[y][x]);
+                System.out.println("found");
                 return true;
             }
         }
-        if (isRight(field)) {
-            if (right(field) == goal) {
-                goal.setCaller(field);
+        //test right bound
+        if (x +1 < fields[y].length) {
+            if (fields[y][x+1] == fields[goalY][goalX]) {
+                fields[goalY][goalX].setCaller(fields[y][x]);
+                System.out.println("found");
                 return true;
             }
         }
-        if (isBelow(field)) {
-            if (below(field) == goal) {
-                goal.setCaller(field);
+        //test below bound
+        if (y +1 < fields.length) {
+            if (fields[y+1][x] == fields[goalY][goalX]) {
+                fields[goalY][goalX].setCaller(fields[y][x]);
+                System.out.println("found");
                 return true;
             }
         }
-        if (isLeft(field)) {
-            if (left(field) == goal) {
-                goal.setCaller(field);
+        //test left bound
+        if (x -1 >= 0) {
+            if (fields[y][x-1] == fields[goalY][goalX]) {
+                fields[goalY][goalX].setCaller(fields[y][x]);
+                System.out.println("found");
                 return true;
             }
         }
-
         return false;
     }
 
-    private boolean isAbove(FieldButton field) {
-        return field.getFY() -1 >= 0;
-    }
-
-    private boolean isRight(FieldButton field) {
-        return field.getFX() +1 < width;
-    }
-
-    private boolean isBelow(FieldButton field) {
-        return field.getFY() +1 < height;
-    }
-
-    private boolean isLeft(FieldButton field) {
-        return field.getFX() >= 0;
-    }
-    private FieldButton above(FieldButton field) {
-        return fields[field.getFY() -1][field.getFX()];
-    }
-
-    private FieldButton right(FieldButton field) {
-        return fields[field.getFY()][field.getFX() +1];
-    }
-
-    private FieldButton below(FieldButton field) {
-        return fields[field.getFY() +1][field.getFX()];
-    }
-
-    private FieldButton left(FieldButton field) {
-        return fields[field.getFY()][field.getFX() -1];
+    public List<Cell> getPaths() {
+        return paths;
     }
 }
 

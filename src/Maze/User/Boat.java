@@ -1,5 +1,5 @@
 package Maze.User;
-import Maze.MazeLabels.*;
+import Maze.Fields.*;
 
 public class Boat implements Movable {
     @Override
