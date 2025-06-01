@@ -1,9 +1,10 @@
 package Maze.User;
-import Maze.Fields.*;
+import Maze.Look;
 
 public class Amphibious implements Movable  {
+
     @Override
-    public boolean canMove(Field field) {
-        return !(field instanceof Wall);
+    public boolean canMove(Look look) {
+        return !(look == Look.WALL);
     }
 }

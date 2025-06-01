@@ -36,7 +36,7 @@ public class BfsSolver {
             }
             //check below
             if (fy +1 < FIELDS.length) {
-                if (user.canMove(FIELDS[fy+1][fx].getField()) && !FIELDS[fy+1][fx].isChecked()) {
+                if (user.canMove(FIELDS[fy+1][fx].Getlook()) && !FIELDS[fy+1][fx].isChecked()) {
                     FIELDS[fy+1][fx].setChecked(true);
                     FIELDS[fy+1][fx].setCaller(FIELDS[fy][fx]);
                     tmpList.add(FIELDS[fy+1][fx]);
@@ -44,7 +44,7 @@ public class BfsSolver {
             }
             //check left
             if (fx -1 >= 0) {
-                if (user.canMove(FIELDS[fy][fx-1].getField()) && !FIELDS[fy][fx-1].isChecked()) {
+                if (user.canMove(FIELDS[fy][fx-1].Getlook()) && !FIELDS[fy][fx-1].isChecked()) {
                     FIELDS[fy][fx-1].setChecked(true);
                     FIELDS[fy][fx-1].setCaller(FIELDS[fy][fx]);
                     tmpList.add(FIELDS[fy][fx-1]);
@@ -52,7 +52,7 @@ public class BfsSolver {
             }
             //check right
             if (fx +1 < FIELDS[fy].length) {
-                if (user.canMove(FIELDS[fy][fx+1].getField()) && !FIELDS[fy][fx+1].isChecked()) {
+                if (user.canMove(FIELDS[fy][fx+1].Getlook()) && !FIELDS[fy][fx+1].isChecked()) {
                     FIELDS[fy][fx+1].setChecked(true);
                     FIELDS[fy][fx+1].setCaller(FIELDS[fy][fx]);
                     tmpList.add(FIELDS[fy][fx+1]);
@@ -60,7 +60,7 @@ public class BfsSolver {
             }
             //check above
             if (fy -1 >= 0) {
-                if (user.canMove(FIELDS[fy-1][fx].getField()) && !FIELDS[fy-1][fx].isChecked()) {
+                if (user.canMove(FIELDS[fy-1][fx].Getlook()) && !FIELDS[fy-1][fx].isChecked()) {
                     FIELDS[fy-1][fx].setChecked(true);
                     FIELDS[fy-1][fx].setCaller(FIELDS[fy][fx]);
                     tmpList.add(FIELDS[fy-1][fx]);

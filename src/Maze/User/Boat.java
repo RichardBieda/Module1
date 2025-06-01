@@ -1,9 +1,10 @@
 package Maze.User;
-import Maze.Fields.*;
+import Maze.Look;
 
 public class Boat implements Movable {
+
     @Override
-    public boolean canMove(Field field) {
-        return field instanceof Water || field instanceof Bridge;
+    public boolean canMove(Look look) {
+        return look == Look.WATER || look == Look.BRIDGE;
     }
 }

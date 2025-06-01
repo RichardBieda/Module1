@@ -1,13 +1,10 @@
 package Maze.Swing;
 
-import Maze.Fields.*;
+import Maze.Look;
 import Maze.InvalidSizeException;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
-
-import Maze.User.Movable;
-import Maze.User.User;
 
 class MazePanel extends JPanel {
 
@@ -38,7 +35,7 @@ class MazePanel extends JPanel {
         Cell[][] result = new Cell[height][width];
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                Cell tmp = new Cell(new EmptyField(), i, j);
+                Cell tmp = new Cell(Look.EMPTY_FIELD, i, j);
                 tmp.addActionListener(listener);
                 result[i][j] = tmp;
                 add(tmp);
@@ -49,7 +46,7 @@ class MazePanel extends JPanel {
 
     void insertPathToMaze(List<Cell> path) {
         for (Cell c : path) {
-            c.setField(new Path());
+            c.setLook(Look.PATH);
         }
     }
 
@@ -72,9 +69,9 @@ class MazePanel extends JPanel {
 
     void setStart(int y, int x) {
         if (this.start != null) {
-            fields[this.start.getCY()][this.start.getCX()].setField(new EmptyField());
+            fields[this.start.getCY()][this.start.getCX()].setLook(Look.EMPTY_FIELD);
         }
-        fields[y][x].setField(new Start());
+        fields[y][x].setLook(Look.START);
         start = fields[y][x];
     }
 
@@ -84,9 +81,9 @@ class MazePanel extends JPanel {
 
     void setGoal(int y, int x) {
         if (this.goal != null) {
-            fields[this.goal.getCY()][this.goal.getCX()].setField(new EmptyField());
+            fields[this.goal.getCY()][this.goal.getCX()].setLook(Look.EMPTY_FIELD);
         }
-        fields[y][x].setField(new Goal());
+        fields[y][x].setLook(Look.GOAL);
         goal = fields[y][x];
     }
 }

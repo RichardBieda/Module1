@@ -2,7 +2,8 @@ package Maze.Swing;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import Maze.Fields.*;
+import Maze.Look;
+
  class FieldChangeListener implements ChangeListener {
 
     private MenuPanel menuPanel;
@@ -16,24 +17,24 @@ import Maze.Fields.*;
     public void stateChanged(ChangeEvent e) {
         if (e.getSource() == menuPanel.getEMPTY_FIELD()) {
             sliderHelper();
-            menuPanel.setFClass(EmptyField.class);
+            menuPanel.setLooks(Look.EMPTY_FIELD);
         } else if (e.getSource() == menuPanel.getWATER()) {
             sliderHelper();
-            menuPanel.setFClass(Water.class);
+            menuPanel.setLooks(Look.WATER);
         } else if (e.getSource() == menuPanel.getWALL()) {
             sliderHelper();
-            menuPanel.setFClass(Wall.class);
+            menuPanel.setLooks(Look.WALL);
         } else if (e.getSource() == menuPanel.getNO_FLY_ZONE()) {
             sliderHelper();
-            menuPanel.setFClass(NoFlyZone.class);
+            menuPanel.setLooks(Look.NO_FLY_ZONE);
         } else if (e.getSource() == menuPanel.getBRIDGE()) {
             sliderHelper();
-            menuPanel.setFClass(Bridge.class);
+            menuPanel.setLooks(Look.BRIDGE);
         } else if (e.getSource() == menuPanel.getSTART()) {
-            menuPanel.setFClass(Start.class);
+            menuPanel.setLooks(Look.START);
             uniqueFields(menuPanel.getSTART());
         } else if (e.getSource() == menuPanel.getGOAL()) {
-            menuPanel.setFClass(Goal.class);
+            menuPanel.setLooks(Look.GOAL);
             uniqueFields(menuPanel.getGOAL());
         }
     }

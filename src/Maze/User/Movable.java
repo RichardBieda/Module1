@@ -1,7 +1,7 @@
 package Maze.User;
-import Maze.Fields.Field;
+import Maze.Look;
 
 public interface Movable {
 
-    boolean canMove(Field field);
+    boolean canMove(Look look);
 }

@@ -1,9 +1,9 @@
 package Maze.User;
-import Maze.Fields.*;
+import Maze.Look;
 
 public class Airplane implements Movable {
     @Override
-    public boolean canMove(Field field) {
-        return !(field instanceof NoFlyZone);
+    public boolean canMove(Look look) {
+        return !(look == Look.NO_FLY_ZONE);
     }
 }

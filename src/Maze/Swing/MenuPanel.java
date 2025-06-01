@@ -1,11 +1,10 @@
 package Maze.Swing;
 
-import Maze.Fields.EmptyField;
+import Maze.Look;
 import Maze.User.Movable;
 import Maze.User.User;
 import javax.swing.*;
 import java.awt.*;
-import Maze.Fields.Field;
 
 class MenuPanel extends JPanel {
 
@@ -30,7 +29,7 @@ class MenuPanel extends JPanel {
     private final HeadButton NEW_MAZE_BUTTON;
     private final HeadButton SOLVE_BUTTON;
     private boolean orientation = true;
-    private Class<? extends Field> fClass = EmptyField.class;
+    private Look looks = Look.EMPTY_FIELD;
     private Movable movable;
 
     MenuPanel() {
@@ -185,8 +184,8 @@ class MenuPanel extends JPanel {
         return orientation;
     }
 
-    public Class<? extends Field> getfClass() {
-        return fClass;
+    Look getLooks() {
+        return looks;
     }
 
     MazeToggleButton getEMPTY_FIELD() {
@@ -217,8 +216,8 @@ class MenuPanel extends JPanel {
         return WATER;
     }
 
-    void setFClass(Class<? extends Field> fClass) {
-        this.fClass = fClass;
+    void setLooks(Look newLook) {
+        this.looks = newLook;
     }
 
     JSlider getSlider() {

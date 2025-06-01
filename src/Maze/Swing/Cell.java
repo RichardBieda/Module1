@@ -1,7 +1,6 @@
 package Maze.Swing;
 
-import Maze.Fields.Look;
-import Maze.Fields.Field;
+import Maze.Look;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -12,16 +11,16 @@ public class Cell extends JButton {
     private final static int BORDER_THICKNESS = 1;
     final static Border BORDER_FACTORY = BorderFactory.createLineBorder(BORDER_COLOR, BORDER_THICKNESS);
     private boolean isChecked;
-    private Field field;
+    private Look look;
     private Cell caller;
     private final int CX;
     private final int CY;
 
-    Cell(Field field, int y, int x) {
-        this.field = field;
+    Cell(Look look, int y, int x) {
+        this.look = look;
         this.CY = y;
         this.CX = x;
-        setBackground(Look.getLabelColor(field));
+        setBackground(look.getCOLOR());
         setBorder(BORDER_FACTORY);
         setOpaque(true);
     }
@@ -42,8 +41,8 @@ public class Cell extends JButton {
         return CY;
     }
 
-    public Field getField() {
-        return field;
+    public Look Getlook() {
+        return look;
     }
 
     public Cell getCaller() {
@@ -54,15 +53,15 @@ public class Cell extends JButton {
         this.caller = cell;
     }
 
-    public void setField(Field newField) {
-        field = newField;
+    public void setLook(Look newLook) {
+        look = newLook;
         repaint();
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        setBackground(Look.getLabelColor(field));
+        setBackground(look.getCOLOR());
     }
 
     @Override
