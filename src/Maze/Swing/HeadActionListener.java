@@ -87,28 +87,31 @@ class HeadActionListener implements ActionListener {
             return;
         }
 
-        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+        SwingWorker<Void, Void> worker = new SwingWorker<>() {
             BfsSolver solver;
+
             @Override
-            protected Void doInBackground() throws Exception {
+            protected Void doInBackground() {
                 solver = new BfsSolver();
                 Cell start = mainPanel.getMazePanel().getStart();
                 Cell goal = mainPanel.getMazePanel().getGoal();
                 try {
                     solver.solve(mainPanel.getMazePanel().getFields(), start, goal, mainPanel.getMazePanel().getMovable());
-                    mainPanel.getMazePanel().setCallerToNull();
                 } catch (PathNotFoundException e) {
                     e.printStackTrace();
                     JLabel label = new JLabel("goal field is unreachable");
                     label.setFont(new Font(Font.DIALOG, Font.BOLD, 15));
                     JOptionPane.showMessageDialog(null, label, "Something went wrong", JOptionPane.WARNING_MESSAGE);
+                } finally {
+                    mainPanel.getMazePanel().refreshCells();
                 }
                 return null;
             }
 
             @Override
             protected void done() {
-                    mainPanel.getMazePanel().insertPathToMaze(solver.getPaths());
+                mainPanel.getMazePanel().insertPathToMaze(solver.getPaths());
+                solver = null;
             }
         };
         worker.execute();

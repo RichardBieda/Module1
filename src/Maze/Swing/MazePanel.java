@@ -5,7 +5,7 @@ import Maze.InvalidSizeException;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
-import Maze.PathNotFoundException;
+
 import Maze.User.Movable;
 import Maze.User.User;
 
@@ -56,11 +56,11 @@ class MazePanel extends JPanel {
         }
     }
 
-    void setCallerToNull() {
-        for (int i = 0; i < fields.length; i++) {
-            for (int j = 0; j < fields[i].length; j++) {
-                fields[i][j].setCaller(null);
-                fields[i][j].setChecked(false);
+    void refreshCells() {
+        for (Cell[] field : fields) {
+            for (int j = 0; j < field.length; j++) {
+                field[j].setCaller(null);
+                field[j].setChecked(false);
             }
         }
     }
