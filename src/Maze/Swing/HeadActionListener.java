@@ -64,7 +64,7 @@ class HeadActionListener implements ActionListener {
                 };
                 worker.execute();
             } catch (NumberFormatException | InvalidSizeException e) {
-                JLabel label = new JLabel("your input is invalid");
+                JLabel label = new JLabel("your input is invalid, maze can't be greater then 50 x 50");
                 label.setFont(new Font(Font.DIALOG, Font.BOLD, 15));
                 JOptionPane.showMessageDialog(nmw, label, "Something went wrong", JOptionPane.WARNING_MESSAGE);
             } finally {

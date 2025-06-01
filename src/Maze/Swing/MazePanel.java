@@ -60,6 +60,7 @@ class MazePanel extends JPanel {
         for (int i = 0; i < fields.length; i++) {
             for (int j = 0; j < fields[i].length; j++) {
                 fields[i][j].setCaller(null);
+                fields[i][j].setChecked(false);
             }
         }
     }
