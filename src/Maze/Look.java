@@ -1,37 +1,30 @@
 package Maze;
 
+import Maze.Swing.MainFrame;
+
 import java.awt.*;
 public enum Look {
 
-    WALL(Color.RED),
-    GOAL(Color.ORANGE),
-    PATH(Color.GRAY),
-    START(Color.YELLOW),
-    WATER(Color.BLUE),
-    NO_FLY_ZONE(Color.PINK),
-    EMPTY_FIELD(new Color(248, 255, 255)),
-    BRIDGE(new Color(150, 75,0));
+    START(MainFrame.START_ICON),
+    GOAL(MainFrame.GOAL_ICON),
+    BRIDGE(MainFrame.BRIDGE_ICON),
+    NO_FLY_ZONE(MainFrame.NO_FLY_ZONE_ICON),
+    WALL(MainFrame.WALL_ICON),
+    WATER(MainFrame.WATER_ICON),
+    BRIDGE_PATH(MainFrame.BRIDGE_PATH_ICON),
+    NO_FLY_ZONE_PATH(MainFrame.NO_FLY_ZONE_PATH_ICON),
+    WALL_PATH(MainFrame.WALL_PATH_ICON),
+    WATER_PATH(MainFrame.WATER_PATH_ICON),
+    EMPTY_FIELD(null),
+    EMPTY_FIELD_PATH(MainFrame.EMPTY_FIELD_PATH_ICON);
 
-    private final Color COLOR;
+    private final Image IMAGE;
 
-    Look(Color color) {
-        this.COLOR = color;
+    Look(Image image) {
+        this.IMAGE = image;
     }
 
-    public Color getCOLOR() {
-        return COLOR;
+    public Image getIMAGE() {
+        return IMAGE;
     }
-
-//    public static Color getLabelColor(Field field) {
-//        return switch (field) {
-//            case Start start -> START.COLOR;
-//            case Wall wall -> WALL.COLOR;
-//            case Water water -> WATER.COLOR;
-//            case NoFlyZone noFlyZone -> NO_FLY_ZONE.COLOR;
-//            case Bridge bridge -> BRIDGE.COLOR;
-//            case Path path -> PATH.COLOR;
-//            case Goal goal -> GOAL.COLOR;
-//            default -> EMPTY_FIELD.COLOR;
-//        };
-//    }
 }

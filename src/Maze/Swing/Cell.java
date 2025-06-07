@@ -8,6 +8,7 @@ import java.awt.*;
 public class Cell extends JButton {
 
     private final static Color BORDER_COLOR = new Color(200,200,200);
+    private final static Color CELL_BACKGROUND_COLOR = new Color(248, 255, 255);
     private final static int BORDER_THICKNESS = 1;
     final static Border BORDER_FACTORY = BorderFactory.createLineBorder(BORDER_COLOR, BORDER_THICKNESS);
     private boolean isChecked;
@@ -20,7 +21,7 @@ public class Cell extends JButton {
         this.look = look;
         this.CY = y;
         this.CX = x;
-        setBackground(look.getCOLOR());
+        setBackground(CELL_BACKGROUND_COLOR);
         setBorder(BORDER_FACTORY);
         setOpaque(true);
     }
@@ -61,7 +62,7 @@ public class Cell extends JButton {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        setBackground(look.getCOLOR());
+        g.drawImage(look.getIMAGE(), 0, 0, getWidth(), getHeight(), this);
     }
 
     @Override

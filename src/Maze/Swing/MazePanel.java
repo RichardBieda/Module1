@@ -46,7 +46,14 @@ class MazePanel extends JPanel {
 
     void insertPathToMaze(List<Cell> path) {
         for (Cell c : path) {
-            c.setLook(Look.PATH);
+            Look l = c.Getlook();
+            switch (l) {
+                case EMPTY_FIELD -> c.setLook(Look.EMPTY_FIELD_PATH);
+                case WALL -> c.setLook(Look.WALL_PATH);
+                case WATER -> c.setLook(Look.WATER_PATH);
+                case NO_FLY_ZONE -> c.setLook(Look.NO_FLY_ZONE_PATH);
+                case BRIDGE -> c.setLook(Look.BRIDGE_PATH);
+            }
         }
     }
 
