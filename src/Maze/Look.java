@@ -8,7 +8,7 @@ public enum Look {
     PATH(Color.GRAY),
     START(Color.YELLOW),
     WATER(Color.BLUE),
-    NO_FLY_ZONE(Color.GRAY),
+    NO_FLY_ZONE(Color.PINK),
     EMPTY_FIELD(new Color(248, 255, 255)),
     BRIDGE(new Color(150, 75,0));
 

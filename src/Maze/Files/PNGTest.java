@@ -5,7 +5,7 @@ import java.awt.*;
 
 class PNGTest extends JFrame {
 
-    static Image icon = new ImageIcon("src\\Maze\\Files\\NO_FLY_ZONE.png").getImage();
+    static Image icon = new ImageIcon("src\\Maze\\Files\\HOME.png").getImage();
 
     PNGTest() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
