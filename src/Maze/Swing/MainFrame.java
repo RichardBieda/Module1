@@ -14,7 +14,7 @@ public class MainFrame extends JFrame {
     public final static Image WALL_ICON = new ImageIcon("src\\Maze\\Files\\WALL.png").getImage();
     public final static Image WATER_ICON = new ImageIcon("src\\Maze\\Files\\WATER.png").getImage();
     public final static Image BRIDGE_PATH_ICON = new ImageIcon("src\\Maze\\Files\\BRIDGE_PATH.png").getImage();
-    public final static Image NO_FLY_ZONE_PATH_ICON = new ImageIcon("src\\Maze\\Files\\NO:FLY_ZONE_PATH.png").getImage();
+    public final static Image NO_FLY_ZONE_PATH_ICON = new ImageIcon("src\\Maze\\Files\\NO_FLY_ZONE_PATH.png").getImage();
     public final static Image WALL_PATH_ICON = new ImageIcon("src\\Maze\\Files\\WALL_PATH.png").getImage();
     public final static Image WATER_PATH_ICON = new ImageIcon("src\\Maze\\Files\\WATER_PATH.png").getImage();
     public final static Image EMPTY_FIELD_PATH_ICON = new ImageIcon("src\\Maze\\Files\\EMPTY_FIELD_PATH.png").getImage();

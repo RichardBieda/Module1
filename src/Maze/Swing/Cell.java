@@ -62,6 +62,7 @@ public class Cell extends JButton {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        setBackground(CELL_BACKGROUND_COLOR);
         g.drawImage(look.getIMAGE(), 0, 0, getWidth(), getHeight(), this);
     }
 
