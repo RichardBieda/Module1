@@ -8,7 +8,7 @@ import java.awt.*;
 public class Cell extends JButton {
 
     private final static Color BORDER_COLOR = new Color(200,200,200);
-    private final static Color CELL_BACKGROUND_COLOR = new Color(248, 255, 255);
+    private final static Color CELL_BACKGROUND_COLOR = new Color(255, 255, 255);
     private final static int BORDER_THICKNESS = 1;
     final static Border BORDER_FACTORY = BorderFactory.createLineBorder(BORDER_COLOR, BORDER_THICKNESS);
     private boolean isChecked;
